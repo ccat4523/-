@@ -2,14 +2,35 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>蛻生——靜宜大學中國文學系第八屆畢業展覽</title>
     <meta name="description" content="靜宜大學中國文學系第八屆畢業展覽「蛻生」，文學系學生的創意與成長">
+    <meta property="og:title" content="蛻生——靜宜大學中國文學系第八屆畢業展覽">
+    <meta property="og:description" content="17組同學、17種創作語彙，各自以不同的姿態，訴說屬於我們的故事。">
+    <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             font-family: 'Noto Sans TC', 'Noto Serif TC', sans-serif;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        .nav-glass {
+            background: rgba(245, 241, 232, 0.95);
+            backdrop-filter: blur(10px);
         }
         .work-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -19,148 +40,261 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
         }
         .image-placeholder {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d4c5b0 0%, #c4b5a0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #8b7355;
             font-size: 14px;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- 導覽列 -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-xl font-bold text-gray-800">蛻生——靜宜中文第八屆畢業展</h1>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-gray-900 transition">首頁</a>
-                    <a href="#works" class="text-gray-600 hover:text-gray-900 transition">作品</a>
-                    <a href="#about" class="text-gray-600 hover:text-gray-900 transition">關於</a>
+<body class="bg-gray-50" style="background: #e8dfd2; background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/taiwan_newspaper_simple_bg-iPydLff9wBGrCjJy6EC5j3.webp'); background-size: cover; background-attachment: fixed;">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <a href="#home" class="flex items-center gap-2">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/rebirth_logo-c8LpyDDQYCvN6mnMZq8oV7.webp" alt="蛻生" class="w-9 h-9 object-contain">
+                    <span class="text-base font-bold hidden sm:inline" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a;">蛻生</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="transition-colors hover:text-accent font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">主頁</a>
+                    <a href="#info" class="transition-colors hover:text-accent font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽資訊</a>
+                    <a href="#works" class="transition-colors hover:text-accent font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">作品展示</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 主內容 -->
-    <div id="root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- 英雄區域 -->
-        <div id="home" class="text-center py-16">
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-4">蛻生</h1>
-            <p class="text-xl text-gray-600 mb-8">靜宜大學中國文學系第八屆畢業展覽</p>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto">17組同學、17種創作語彙，各自以不同的姿態，訴說屬於我們的故事。</p>
-        </div>
+    <style>
+        .nav-glass {
+            background: rgba(245, 241, 232, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+    </style>
 
-        <!-- 作品區域 -->
-        <div id="works" class="py-12">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">展出作品</h2>
-            <div id="works-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 作品會由 JavaScript 動態產生 -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-glass');
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('nav-glass');
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="home" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16 px-4" style="background: linear-gradient(180deg, rgba(212, 197, 176, 0.7) 0%, rgba(212, 197, 176, 0.5) 50%, rgba(212, 197, 176, 0.7) 100%);">
+        <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-full max-w-2xl">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/hands_butterfly-82t2QECvULcYdbgUGVUnLa.webp" alt="手中的蝴蝶" class="w-full object-contain animate-float">
+        </div>
+        <div class="relative z-10 flex flex-col items-center text-center mt-32 sm:mt-40">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-2" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); letter-spacing: 0.15em;">蛻　生</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; font-weight: 300; letter-spacing: 0.05em;">靜宜大學中國文學系第八屆畢業展覽</p>
+            <div class="mt-8 p-8 sm:p-10 rounded-sm max-w-2xl relative" style="background: rgba(255, 255, 255, 0.95); border: 3px solid #8b7355; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
+                <div class="absolute -top-3 -left-3 w-6 h-6" style="background: rgba(255, 255, 255, 0.9); border: 2px solid #8b7355; transform: rotate(45deg);"></div>
+                <div class="absolute -bottom-3 -right-3 w-6 h-6" style="background: rgba(255, 255, 255, 0.9); border: 2px solid #8b7355; transform: rotate(45deg);"></div>
+                <div class="space-y-6 text-center">
+                    <div class="pb-4 border-b-2 border-gray-200">
+                        <p style="color: #8b7355; font-weight: 600;">展覽日期</p>
+                        <p style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">2026年5月12日（二）– 5月14日（四）</p>
+                    </div>
+                    <div class="pb-4 border-b-2 border-gray-200">
+                        <p style="color: #8b7355; font-weight: 600;">🕙 開放時間</p>
+                        <p style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">09:00 – 16:00</p>
+                    </div>
+                    <div>
+                        <p style="color: #8b7355; font-weight: 600;">📍 展覽地點</p>
+                        <p style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">靜宜大學宜園餐廳樓上iDO培力基地</p>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-12 max-w-2xl italic text-sm sm:text-base" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">「一千五百個日升中，指尖已結出新繭；而當遍撤的種子萌芽，我將振翅高飛。」</p>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6" style="color: #5a4a3a;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- ===== INFO SECTION ===== -->
+    <section id="info" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">關於「蛻生」</h2>
+            <div class="p-6 sm:p-8 rounded-sm" style="background: rgba(255, 255, 255, 0.85); border: 2px solid #8b7355;">
+                <p class="text-sm sm:text-base leading-relaxed" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;"><span style="font-size: 1.2rem; font-weight: 600; color: #5a4a3a;">蛻，從經驗深處，綻放新生。</span></p>
+                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">我們以中國文學的深厚土壤為根基，澆灌當代思維的活水，蛻變成兼具文化涵養與創新能量的創作靈魂。</p>
+                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">這次畢業展，17組同學、17種創作語彙，各自以不同的姿態，訴說屬於我們的故事。</p>
+                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">每一件作品，都是一場發現之旅；每一位創作者，都值得在聚光下被看見。</p>
             </div>
         </div>
+    </section>
 
-        <!-- 關於區域 -->
-        <div id="about" class="py-12 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">關於展覽</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">「蛻生」象徵著文學系學生四年來的成長與轉變。透過多元的創作形式，展現文字的力量與生命的韌性。</p>
+    <!-- ===== WORKS SECTION ===== -->
+    <section id="works" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">作品展示</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="works-grid"></div>
         </div>
-    </div>
+    </section>
 
-    <!-- 頁尾 -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>&copy; 2026 靜宜大學中國文學系第八屆畢業展覽。保留所有權利。</p>
+    <!-- Footer -->
+    <footer class="border-t py-12" style="background: #f5f1e8; border-top: 2px solid #d4af37;">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex flex-col items-start gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/rebirth_logo-c8LpyDDQYCvN6mnMZq8oV7.webp" alt="蛻生" class="w-12 h-12 object-contain">
+                    <span class="text-lg font-bold" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a;">蛻生</span>
+                </div>
+                <a href="#home" class="text-sm transition-colors hover:text-accent" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">靜宜大學中國文學系第八屆畢業成果展</a>
+                <div class="space-y-1.5 text-sm" style="font-family: 'Noto Sans TC', sans-serif; color: #555;">
+                    <p><span style="color: #d4af37; font-weight: bold;">▹展覽日期</span> 2026年5月12日（二）– 5月14日（四）</p>
+                    <p><span style="color: #d4af37; font-weight: bold;">🕙 開放時間</span> 09:00 – 16:00</p>
+                    <p><span style="color: #d4af37; font-weight: bold;">📍 展覽地點</span> 靜宜大學宜園餐廳樓上iDO培力基地</p>
+                </div>
+                <div class="flex items-center gap-4 mt-2">
+                    <a href="https://www.facebook.com/profile.php?id=61587027196885" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80" style="background: #1a3a3a;"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="https://www.instagram.com/pucl08rebirth/" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t" style="border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                <p class="text-xs text-right" style="font-family: 'Noto Sans TC', sans-serif; color: #999;">蛻生 - 靜宜大學中國文學系第八屆畢業成果展</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // 作品資料（您之後可以隨時修改）
+        // 17 組作品資料
         const worksData = [
-            {
-                id: 1,
-                title: "蛻變",
-                author: "李明",
-                description: "關於成長與重生的故事。透過文字與影像的交織，呈現生命中的蛻變時刻。",
-                imageUrl: null,
-                videoUrl: null
-            },
-            {
-                id: 2,
-                title: "文學之光",
-                author: "王華",
-                description: "探索文字的力量，重新定義文學在當代社會的價值與意義。",
-                imageUrl: null,
-                videoUrl: null
-            },
-            {
-                id: 3,
-                title: "時光迴廊",
-                author: "陳怡君",
-                description: "以詩意的方式訴說記憶與時間的流動，帶領觀眾進入文學的時光隧道。",
-                imageUrl: null,
-                videoUrl: null
-            },
-            {
-                id: 4,
-                title: "墨韻",
-                author: "林志明",
-                description: "結合傳統書法與現代設計，展現漢字之美。",
-                imageUrl: null,
-                videoUrl: null
-            },
-            {
-                id: 5,
-                title: "彼岸花",
-                author: "張雅婷",
-                description: "以小說形式探討生命與死亡的邊界，觸動人心的作品。",
-                imageUrl: null,
-                videoUrl: null
-            },
-            {
-                id: 6,
-                title: "青春紀事",
-                author: "吳冠廷",
-                description: "記錄大學四年的點點滴滴，喚起屬於青春的共同記憶。",
-                imageUrl: null,
-                videoUrl: null
-            }
+            { id: 1, workNumber: 1, title: "文以載道但載不動我模擬器", author: "張凱晴、賴安蓁、蔡妘姗", description: "", image1Url: "https://github.com/ccat4523/-/raw/main/images/a1.jpg", image2Url: "https://github.com/ccat4523/-/raw/main/images/a2.jpg" },
+            { id: 2, workNumber: 2, title: "靜物微縮劇場!讓「思無邪」的婚戀穿越藩籬", author: "徐艾、蔡佳欣", description: "", image1Url: "https://github.com/ccat4523/-/raw/main/images/b1.png", image2Url: "https://github.com/ccat4523/-/raw/main/images/b2.jpg" },
+            { id: 3, workNumber: 3, title: "麵跡台中——舊行政區的拉麵日常", author: "康懷方、廖恩嫺", description: "", image1Url: "https://github.com/ccat4523/-/raw/main/images/c1.jpg", image2Url: "https://github.com/ccat4523/-/raw/main/images/c2.jpg" },
+            { id: 4, workNumber: 4, title: "第 4 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 5, workNumber: 5, title: "第 5 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 6, workNumber: 6, title: "第 6 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 7, workNumber: 7, title: "第 7 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 8, workNumber: 8, title: "第 8 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 9, workNumber: 9, title: "第 9 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 10, workNumber: 10, title: "第 10 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 11, workNumber: 11, title: "第 11 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 12, workNumber: 12, title: "第 12 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 13, workNumber: 13, title: "第 13 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 14, workNumber: 14, title: "第 14 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 15, workNumber: 15, title: "第 15 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 16, workNumber: 16, title: "第 16 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null },
+            { id: 17, workNumber: 17, title: "第 17 組作品", author: "待補", description: "敬請期待", image1Url: null, image2Url: null }
         ];
 
-        // 顯示作品的函數
+        // 顯示作品網格
         function renderWorks() {
             const grid = document.getElementById('works-grid');
             if (!grid) return;
-
             grid.innerHTML = worksData.map(work => `
                 <div class="work-card bg-white rounded-lg overflow-hidden shadow-lg cursor-pointer" onclick="showWorkDetail(${work.id})">
-                    <div class="image-placeholder w-full h-56 flex items-center justify-center">
-                        <span class="text-white text-sm px-4 text-center">📷 圖片待補<br>作品：${work.title}</span>
+                    <div class="w-full h-48 overflow-hidden bg-amber-100">
+                        ${work.image1Url ? 
+                            `<img src="${work.image1Url}" alt="${work.title}" class="w-full h-full object-cover">` : 
+                            `<div class="image-placeholder w-full h-full flex items-center justify-center"><span class="text-white text-sm px-4 text-center">📷 圖片待補<br>${work.title}</span></div>`
+                        }
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">${work.title}</h3>
-                        <p class="text-gray-600 mb-2">作者：${work.author}</p>
-                        <p class="text-gray-500 text-sm">${work.description.substring(0, 60)}${work.description.length > 60 ? '...' : ''}</p>
-                        <button class="mt-4 text-indigo-600 hover:text-indigo-800 transition">閱讀更多 →</button>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-800 mb-1" style="font-family: 'Noto Serif TC', serif;">${work.title}</h3>
+                        <p class="text-sm text-gray-600 mb-2">第 ${work.workNumber} 組</p>
+                        <p class="text-sm text-gray-500">${work.author}</p>
+                        <button class="mt-3 text-indigo-600 hover:text-indigo-800 text-sm transition">閱讀更多 →</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // 顯示作品詳細資訊
+        // 顯示作品詳細頁面
         function showWorkDetail(id) {
             const work = worksData.find(w => w.id === id);
             if (!work) return;
-
-            alert(`【${work.title}】\n作者：${work.author}\n\n${work.description}\n\n(圖片與影片將在稍後補上)`);
+            
+            // 隱藏主內容，顯示詳細頁面
+            document.getElementById('main-content').style.display = 'none';
+            const detailContainer = document.getElementById('work-detail-container');
+            detailContainer.style.display = 'block';
+            
+            // 渲染詳細內容
+            detailContainer.innerHTML = `
+                <section class="py-16 px-4" style="min-height: calc(100vh - 200px);">
+                    <div class="max-w-3xl mx-auto p-8 rounded-sm" style="background: rgba(255, 255, 255, 0.9); border: 2px solid #8b7355;">
+                        <button onclick="closeWorkDetail()" class="inline-block mb-6 text-sm" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; text-decoration: none; cursor: pointer;">← 返回</button>
+                        <div class="mb-8">
+                            <h1 class="text-3xl font-bold mb-2" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">${work.title}</h1>
+                            <p class="text-lg" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">創作者：${work.author}</p>
+                        </div>
+                        <div class="mb-8 flex flex-col items-center gap-4">
+                            ${work.image1Url ? `
+                                <div class="w-full max-w-2xl rounded-sm overflow-hidden" style="background: rgba(200, 180, 160, 0.3); border: 2px solid #8b7355;">
+                                    <img src="${work.image1Url}" alt="作品圖片 1" class="w-full h-auto object-cover">
+                                </div>
+                            ` : '<div class="image-placeholder w-full h-64 flex items-center justify-center">暫無圖片 1</div>'}
+                            ${work.image2Url ? `
+                                <div class="w-full max-w-2xl rounded-sm overflow-hidden" style="background: rgba(200, 180, 160, 0.3); border: 2px solid #8b7355;">
+                                    <img src="${work.image2Url}" alt="作品圖片 2" class="w-full h-auto object-cover">
+                                </div>
+                            ` : '<div class="image-placeholder w-full h-64 flex items-center justify-center">暫無圖片 2</div>'}
+                        </div>
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">作品介紹</h3>
+                            <p class="leading-relaxed" style="font-family: 'Noto Sans TC', sans-serif; color: #5a4a3a; line-height: 1.8;">${work.description || "敬請期待更多作品介紹。"}</p>
+                        </div>
+                        <div class="pt-8 border-t-2" style="border-color: #8b7355;">
+                            <h3 class="text-lg font-bold mb-4" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">分享此作品</h3>
+                            <div class="flex gap-4 items-center justify-start flex-wrap">
+                                <button onclick="window.open('https://line.me/R/msg/text/?${encodeURIComponent(work.title + ' ' + window.location.href.split('?')[0])}', '_blank')" class="flex items-center gap-2 px-4 py-2 rounded-sm" style="background: #00b900; color: white; cursor: pointer;">LINE</button>
+                                <button onclick="navigator.clipboard.writeText(window.location.href.split('?')[0]); alert('連結已複製！')" class="flex items-center gap-2 px-4 py-2 rounded-sm" style="background: #8b7355; color: white; cursor: pointer;">複製連結</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            
+            // 滾動到頂部
+            window.scrollTo(0, 0);
         }
-
-        // 頁面載入時執行
+        
+        function closeWorkDetail() {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('work-detail-container').style.display = 'none';
+        }
+        
+        // 頁面載入
         document.addEventListener('DOMContentLoaded', () => {
             renderWorks();
         });
+    </script>
+
+    <!-- 主內容容器 -->
+    <div id="main-content">
+        <!-- 內容會由上方 section 提供 -->
+    </div>
+    <div id="work-detail-container" style="display: none;"></div>
+
+    <!-- 移動主內容到正確位置 -->
+    <script>
+        // 重新組織 DOM 結構
+        const mainDiv = document.getElementById('main-content');
+        const hero = document.getElementById('home');
+        const info = document.getElementById('info');
+        const works = document.getElementById('works');
+        if (mainDiv && hero && info && works) {
+            mainDiv.appendChild(hero.parentNode.removeChild(hero));
+            mainDiv.appendChild(info.parentNode.removeChild(info));
+            mainDiv.appendChild(works.parentNode.removeChild(works));
+        }
+        // 重新觸發渲染
+        setTimeout(() => {
+            if (typeof renderWorks === 'function') renderWorks();
+        }, 100);
     </script>
 </body>
 </html>
