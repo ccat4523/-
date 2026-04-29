@@ -35,6 +35,23 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .video-card {
+                flex: 0 0 260px;
+            }
+        }
+        @media (max-width: 480px) {
+            .video-card {
+                flex: 0 0 240px;
+            }
+        }
+        .share-btn {
+            transition: all 0.2s ease;
+        }
+        .share-btn:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body style="background: #e8dfd2; background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/taiwan_newspaper_simple_bg-iPydLff9wBGrCjJy6EC5j3.webp'); background-size: cover; background-attachment: fixed;">
@@ -51,11 +68,64 @@
                     <a href="#home" class="transition-colors hover:text-accent font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">主頁</a>
                     <a href="#info" class="transition-colors hover:text-accent font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽資訊</a>
                     <a href="#works" class="transition-colors hover:text-accent font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">作品展示</a>
+                    <!-- 分享按鈕組 (桌機版) -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="shareToLINE()" class="share-btn px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1" style="background: #00b900; color: white;">LINE</button>
+                        <button onclick="copyPageLink()" class="share-btn px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1" style="background: #8b7355; color: white;">複製連結</button>
+                    </div>
                 </div>
+                <!-- 手機版漢堡選單 -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="shareToLINE()" class="share-btn px-2 py-1 rounded-md text-xs font-medium" style="background: #00b900; color: white;">LINE</button>
+                    <button onclick="copyPageLink()" class="share-btn px-2 py-1 rounded-md text-xs font-medium" style="background: #8b7355; color: white;">複製</button>
+                    <button id="menuBtn" class="p-2" style="color: #1a3a3a;">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 手機版下拉選單 -->
+        <div id="mobileMenu" class="md:hidden hidden border-t" style="background: rgba(245, 241, 232, 0.98); border-top: 1px solid rgba(212, 175, 55, 0.2);">
+            <div class="px-4 py-3 space-y-3">
+                <a href="#home" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeMobileMenu()">主頁</a>
+                <a href="#info" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeMobileMenu()">展覽資訊</a>
+                <a href="#works" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeMobileMenu()">作品展示</a>
             </div>
         </div>
     </nav>
     <script>
+        // 手機版選單控制
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+        
+        // 分享功能
+        function getCurrentPageUrl() {
+            return window.location.href.split('?')[0];
+        }
+        
+        function shareToLINE() {
+            const url = getCurrentPageUrl();
+            const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業展覽 ' + url)}`;
+            window.open(lineUrl, '_blank');
+        }
+        
+        function copyPageLink() {
+            const url = getCurrentPageUrl();
+            navigator.clipboard.writeText(url).then(() => {
+                alert('連結已複製！');
+            }).catch(() => {
+                prompt('請手動複製連結', url);
+            });
+        }
+        
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -104,11 +174,11 @@
         </div>
     </section>
 
-    <!-- ===== VIDEO CAROUSEL SECTION (橫向滾動影片區) ===== -->
+    <!-- ===== VIDEO CAROUSEL SECTION (橫向滾動影片區 + 滑鼠滾輪控制) ===== -->
     <section id="videos" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">宣傳影片</h2>
-            <div class="overflow-x-auto scrollbar-hide pb-4">
+            <div id="videoCarousel" class="overflow-x-auto scrollbar-hide pb-4" style="cursor: grab;">
                 <div class="flex gap-6" style="min-width: min-content;">
                     <!-- 影片 1 -->
                     <div class="video-card flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #8b7355;">
@@ -179,6 +249,50 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // 橫向滾動 + 滑鼠滾輪控制
+        const carousel = document.getElementById('videoCarousel');
+        if (carousel) {
+            // 滑鼠滾輪控制水平滾動
+            carousel.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                carousel.scrollLeft += e.deltaY;
+            });
+            
+            // 拖曳滾動（可選）
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+            
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+            
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+            
+            carousel.style.cursor = 'grab';
+        }
+    </script>
 
     <!-- ===== FOOTER ===== -->
     <footer class="border-t py-12" style="background: #f5f1e8; border-top: 2px solid #d4af37;">
