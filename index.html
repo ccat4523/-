@@ -20,6 +20,21 @@
         .work-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .work-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02); }
         .image-placeholder { background: linear-gradient(135deg, #d4c5b0 0%, #c4b5a0 100%); display: flex; align-items: center; justify-content: center; color: #8b7355; font-size: 14px; }
+        .video-card {
+            flex: 0 0 280px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body style="background: #e8dfd2; background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/taiwan_newspaper_simple_bg-iPydLff9wBGrCjJy6EC5j3.webp'); background-size: cover; background-attachment: fixed;">
@@ -88,27 +103,82 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="works-grid"></div>
         </div>
     </section>
-        <!-- ===== WORKS SECTION ===== -->
-    <section id="works" class="py-20 px-4" ...>
-        ...
-    </section>
 
-    <!-- ===== VIDEO CAROUSEL SECTION (這裡是影片區塊) ===== -->
-    <section id="videos" class="py-20 px-4" ...>
+    <!-- ===== VIDEO CAROUSEL SECTION (橫向滾動影片區) ===== -->
+    <section id="videos" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
         <div class="max-w-6xl mx-auto">
-            <h2 class="...">宣傳影片</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">宣傳影片</h2>
             <div class="overflow-x-auto scrollbar-hide pb-4">
                 <div class="flex gap-6" style="min-width: min-content;">
-                    <!-- 5 個影片卡片 -->
+                    <!-- 影片 1 -->
+                    <div class="video-card flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #8b7355;">
+                        <div class="aspect-video bg-amber-100 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <svg class="w-12 h-12 mx-auto mb-2" style="color: #8b7355;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <p class="text-sm" style="color: #8b7355;">敬請期待</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800" style="font-family: 'Noto Serif TC', serif;">宣傳影片 1</h3>
+                            <p class="text-sm text-gray-500 mt-1">即將登場</p>
+                        </div>
+                    </div>
+                    <!-- 影片 2 -->
+                    <div class="video-card flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #8b7355;">
+                        <div class="aspect-video bg-amber-100 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <svg class="w-12 h-12 mx-auto mb-2" style="color: #8b7355;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <p class="text-sm" style="color: #8b7355;">敬請期待</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800" style="font-family: 'Noto Serif TC', serif;">宣傳影片 2</h3>
+                            <p class="text-sm text-gray-500 mt-1">即將登場</p>
+                        </div>
+                    </div>
+                    <!-- 影片 3 -->
+                    <div class="video-card flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #8b7355;">
+                        <div class="aspect-video bg-amber-100 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <svg class="w-12 h-12 mx-auto mb-2" style="color: #8b7355;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <p class="text-sm" style="color: #8b7355;">敬請期待</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800" style="font-family: 'Noto Serif TC', serif;">宣傳影片 3</h3>
+                            <p class="text-sm text-gray-500 mt-1">即將登場</p>
+                        </div>
+                    </div>
+                    <!-- 影片 4 -->
+                    <div class="video-card flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #8b7355;">
+                        <div class="aspect-video bg-amber-100 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <svg class="w-12 h-12 mx-auto mb-2" style="color: #8b7355;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <p class="text-sm" style="color: #8b7355;">敬請期待</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800" style="font-family: 'Noto Serif TC', serif;">宣傳影片 4</h3>
+                            <p class="text-sm text-gray-500 mt-1">即將登場</p>
+                        </div>
+                    </div>
+                    <!-- 影片 5 -->
+                    <div class="video-card flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #8b7355;">
+                        <div class="aspect-video bg-amber-100 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <svg class="w-12 h-12 mx-auto mb-2" style="color: #8b7355;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <p class="text-sm" style="color: #8b7355;">敬請期待</p>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800" style="font-family: 'Noto Serif TC', serif;">宣傳影片 5</h3>
+                            <p class="text-sm text-gray-500 mt-1">即將登場</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer ...>
-        ...
-    </footer>
 
     <!-- ===== FOOTER ===== -->
     <footer class="border-t py-12" style="background: #f5f1e8; border-top: 2px solid #d4af37;">
@@ -224,10 +294,12 @@
             const hero = document.getElementById('home');
             const info = document.getElementById('info');
             const works = document.getElementById('works');
-            if (mainDiv && hero && info && works) {
+            const videos = document.getElementById('videos');
+            if (mainDiv && hero && info && works && videos) {
                 mainDiv.appendChild(hero);
                 mainDiv.appendChild(info);
                 mainDiv.appendChild(works);
+                mainDiv.appendChild(videos);
             }
         });
     </script>
