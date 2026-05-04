@@ -293,7 +293,7 @@
             transform: translateY(1px);
         }
         
-        /* 跑馬燈樣式 */
+        /* 跑馬燈樣式 - 通用 */
         .marquee-container {
             width: 100%;
             overflow-x: auto;
@@ -314,9 +314,11 @@
             width: fit-content;
             padding: 10px 0;
         }
+        
+        /* 作品搶先看跑馬燈 - 直式放大卡片 */
         .marquee-item {
             flex-shrink: 0;
-            width: 260px;
+            width: 300px;
             border-radius: 16px;
             overflow: hidden;
             background: white;
@@ -330,18 +332,19 @@
         }
         .marquee-img {
             width: 100%;
-            height: 180px;
+            height: 240px;
             object-fit: cover;
         }
         .marquee-title {
-            padding: 12px;
+            padding: 14px;
             text-align: center;
             font-family: 'Noto Serif TC', serif;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: #5a4a3a;
             background: white;
             border-top: 1px solid rgba(139, 115, 85, 0.1);
+            line-height: 1.4;
         }
         
         /* 111屆大合照跑馬燈 - 純照片 */
@@ -353,6 +356,7 @@
             background: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
         .team-marquee-item:hover {
             transform: translateY(-5px);
@@ -362,6 +366,45 @@
             width: 100%;
             height: 220px;
             object-fit: cover;
+        }
+        
+        /* 照片放大 Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            z-index: 10001;
         }
         
         .marquee-nav {
@@ -450,6 +493,8 @@
         @media (max-width: 1024px) {
             .team-marquee-item { width: 280px; }
             .team-marquee-img { height: 190px; }
+            .marquee-item { width: 260px; }
+            .marquee-img { height: 210px; }
         }
         
         @media (max-width: 768px) {
@@ -464,9 +509,10 @@
             .share-icon-btn { padding: 6px 12px; font-size: 0.7rem; }
             .work-card:active { transform: scale(0.98); }
             
-            .marquee-item { width: 180px; }
-            .marquee-img { height: 130px; }
-            .marquee-title { font-size: 0.7rem; padding: 8px; }
+            /* 手機版跑馬燈尺寸 */
+            .marquee-item { width: 240px; }
+            .marquee-img { height: 190px; }
+            .marquee-title { font-size: 0.85rem; padding: 10px; }
             
             .team-marquee-item { width: 240px; }
             .team-marquee-img { height: 160px; }
@@ -485,8 +531,9 @@
             .team-marquee-item { width: 200px; }
             .team-marquee-img { height: 135px; }
             
-            .marquee-item { width: 150px; }
-            .marquee-img { height: 110px; }
+            .marquee-item { width: 200px; }
+            .marquee-img { height: 160px; }
+            .marquee-title { font-size: 0.75rem; padding: 8px; }
         }
     </style>
 </head>
@@ -610,7 +657,34 @@
         function copyPageLink() { navigator.clipboard.writeText(getPageUrl()).then(() => alert('連結已複製！')).catch(() => prompt('請手動複製連結', getPageUrl())); }
         function shareWorkToFB(workTitle) { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}&quote=${encodeURIComponent(workTitle)}`, '_blank', 'width=600,height=400'); }
         function shareWorkToLINE(workTitle) { window.open(`https://line.me/R/msg/text/?${encodeURIComponent(workTitle + ' ' + getPageUrl())}`, '_blank'); }
+        
+        // 照片放大功能
+        function showLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
     </script>
+
+    <!-- ===== Lightbox 照片放大容器 ===== -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img id="lightboxImg" class="lightbox-img" src="" alt="放大圖片">
+    </div>
 
     <!-- ===== HERO SECTION ===== -->
     <section id="home" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16 px-4" style="background: linear-gradient(180deg, rgba(212, 197, 176, 0.7) 0%, rgba(212, 197, 176, 0.5) 50%, rgba(212, 197, 176, 0.7) 100%);">
@@ -779,7 +853,7 @@
             const track = document.getElementById('teamMarqueeTrack');
             if(!track) return;
             track.innerHTML = teamPhotos.map(photo => `
-                <div class="team-marquee-item">
+                <div class="team-marquee-item" onclick="showLightbox('${imgBase}${photo}')">
                     <img class="team-marquee-img" src="${imgBase}${photo}" alt="111屆大合照" loading="lazy" onerror="this.style.display='none'">
                 </div>
             `).join('');
@@ -822,7 +896,7 @@
             const prevBtn = document.getElementById('marqueePrevBtn');
             const nextBtn = document.getElementById('marqueeNextBtn');
             if(!container || !prevBtn || !nextBtn) return;
-            const scrollAmount = 280;
+            const scrollAmount = 320;
             prevBtn.addEventListener('click', () => container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
             nextBtn.addEventListener('click', () => container.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
         }
@@ -875,12 +949,8 @@
             mainContent.style.display = 'none';
             detailContainer.style.display = 'block';
             detailContainer.classList.add('fade-in');
-            
-            // 動態更新 og:image 為作品的第一張圖片
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage && w.img1) {
-                ogImage.setAttribute('content', w.img1);
-            }
+            if(ogImage && w.img1) ogImage.setAttribute('content', w.img1);
             
             detailContainer.innerHTML = `
                 <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
@@ -926,12 +996,8 @@
             detailContainer.classList.remove('fade-in');
             mainContent.style.display = 'block';
             detailContainer.style.display = 'none';
-            
-            // 恢復主頁的 og:image
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage) {
-                ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
-            }
+            if(ogImage) ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
         }
         
         document.addEventListener('DOMContentLoaded', () => {
