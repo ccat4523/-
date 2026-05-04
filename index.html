@@ -17,7 +17,7 @@
     <meta name="twitter:card" content="summary_large_image">
     
     <!-- 瀏覽器分頁小圖標 Favicon -->
-    <link rel="icon" type="image/png" href="images/sss3.jpg" />
+    <link rel="icon" type="image/jpg" href="images/sss3.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -293,7 +293,7 @@
             transform: translateY(1px);
         }
         
-        /* 跑馬燈樣式 - 通用 */
+        /* 跑馬燈樣式 */
         .marquee-container {
             width: 100%;
             overflow-x: auto;
@@ -344,7 +344,7 @@
             border-top: 1px solid rgba(139, 115, 85, 0.1);
         }
         
-        /* 111屆大合照跑馬燈 - 無標題，純照片 */
+        /* 111屆大合照跑馬燈 - 純照片 */
         .team-marquee-item {
             flex-shrink: 0;
             width: 320px;
@@ -473,15 +473,7 @@
             
             .marquee-nav-btn { width: 32px; height: 32px; }
             
-            /* 作品詳情頁分享區塊手機版調整 */
-            .invitation-text {
-                text-align: center !important;
-                margin-top: 20px !important;
-            }
-            .share-section {
-                flex-direction: column !important;
-                align-items: center !important;
-            }
+            .glow-cursor { display: none; }
         }
         
         @media (max-width: 480px) {
@@ -519,7 +511,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-16">
                 <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="flex items-center gap-2">
-                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/rebirth_logo-c8LpyDDQYCvN6mnMZq8oV7.webp" alt="蛻生" class="w-9 h-9 object-contain">
+                    <img src="images/sss3.jpg" alt="蛻生" class="w-9 h-9 object-contain">
                     <span class="text-base font-bold hidden sm:inline" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span>
                 </a>
                 <div class="hidden md:flex items-center gap-8">
@@ -716,7 +708,7 @@
         <div class="max-w-4xl mx-auto px-6">
             <div class="flex flex-col items-start gap-6">
                 <div class="flex items-center gap-3">
-                    <img src="images/sss.png" alt="蛻生" class="w-12 h-12 object-contain">
+                    <img src="images/sss3.jpg" alt="蛻生" class="w-12 h-12 object-contain">
                     <span class="text-lg font-bold" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span>
                 </div>
                 <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="footer-text text-base md:text-lg transition-colors hover:text-accent" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; letter-spacing: 0.03em; font-weight: 600;">靜宜大學中國文學系第八屆畢業成果展</a>
@@ -883,8 +875,12 @@
             mainContent.style.display = 'none';
             detailContainer.style.display = 'block';
             detailContainer.classList.add('fade-in');
+            
+            // 動態更新 og:image 為作品的第一張圖片
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage && w.img1) ogImage.setAttribute('content', w.img1);
+            if(ogImage && w.img1) {
+                ogImage.setAttribute('content', w.img1);
+            }
             
             detailContainer.innerHTML = `
                 <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
@@ -904,7 +900,6 @@
                             <p class="leading-relaxed whitespace-pre-line" style="color:#5a4a3a; line-height:1.8;">${w.desc || "敬請期待更多作品介紹。"}</p>
                         </div>
                         
-                        <!-- 分享區塊 + 邀請文字（並排，右側靠右） -->
                         <div class="pt-8 border-t-2 flex flex-wrap justify-between items-start gap-4" style="border-color:#8b7355;">
                             <div>
                                 <h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3>
@@ -916,7 +911,7 @@
                             </div>
                             <div class="text-right invitation-text" style="max-width: 320px;">
                                 <p class="text-sm italic leading-relaxed" style="color: #8b7355;">蛻變的痕跡，紙上說不盡。<br>作品背後的故事，等你來發掘。</p>
-                                <p class="text-sm font-medium mt-2" style="color: #d4af37;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p>
+                                <p class="text-base font-bold mt-3" style="color: #5a4a3a;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p>
                             </div>
                         </div>
                     </div>
@@ -931,8 +926,12 @@
             detailContainer.classList.remove('fade-in');
             mainContent.style.display = 'block';
             detailContainer.style.display = 'none';
+            
+            // 恢復主頁的 og:image
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage) ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
+            if(ogImage) {
+                ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
+            }
         }
         
         document.addEventListener('DOMContentLoaded', () => {
