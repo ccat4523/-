@@ -769,11 +769,11 @@
         // 作品跑馬燈資料
         const marqueeData = [
             { group: 2, title: "靜物微縮劇場！讓「思無邪」的婚戀穿越藩籬", images: ["2a.jpg", "2b.jpg", "2c.jpg"] },
-            { group: 17, title: "殺夫", images: ["17a.HEIC", "17b.jpg", "17c.HEIC"] },
+            { group: 17, title: "殺夫", images: ["17a.jpg", "17b.jpg", "17c.jpg"] },
             { group: 11, title: "古文字之「旅」", images: ["11a.JPG", "11b.JPG", "11c.JPG"] },
             { group: 5, title: "走進張愛玲——我們心中的紅與白", images: ["5a.png", "5b.jpg", "5c.jpg"] },
             { group: 6, title: "四季的觸感——在看不見光的泥土裡，我聽見種子裂開的聲音", images: ["6a.jpg", "6b.jpg", "6c.jpg"] },
-            { group: 1, title: "文以載道但載不動我模擬器", images: ["1a.jpg", "2b.jpg", "2c.jpg"] },
+            { group: 1, title: "文以載道但載不動我模擬器", images: ["1a.jpg", "1b.jpg", "1c.jpg"] },
         ];
 
         // 初始化111屆大合照跑馬燈
@@ -839,25 +839,26 @@
         }
         
         function scrollToWork(groupId) {
-            const worksGrid = document.getElementById('works-grid');
-            if(worksGrid) {
-                let targetIndex = -1;
-                if(groupId === 2) targetIndex = 1;
-                else if(groupId === 17) targetIndex = 16;
-                else if(groupId === 11) targetIndex = 10;
-                else if(groupId === 5) targetIndex = 4;
-                else if(groupId === 6) targetIndex = 5;
-                
-                if(targetIndex >= 0 && worksGrid.children[targetIndex]) {
-                    worksGrid.children[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    worksGrid.children[targetIndex].style.transition = 'box-shadow 0.3s';
-                    worksGrid.children[targetIndex].style.boxShadow = '0 0 0 3px #d4af37';
-                    setTimeout(() => {
-                        worksGrid.children[targetIndex].style.boxShadow = '';
-                    }, 1500);
-                }
-            }
+    const worksGrid = document.getElementById('works-grid');
+    if(worksGrid) {
+        let targetIndex = -1;
+        if(groupId === 1) targetIndex = 0;
+        else if(groupId === 2) targetIndex = 1;
+        else if(groupId === 5) targetIndex = 4;
+        else if(groupId === 6) targetIndex = 5;
+        else if(groupId === 11) targetIndex = 10;
+        else if(groupId === 17) targetIndex = 16;
+        
+        if(targetIndex >= 0 && worksGrid.children[targetIndex]) {
+            worksGrid.children[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            worksGrid.children[targetIndex].style.transition = 'box-shadow 0.3s';
+            worksGrid.children[targetIndex].style.boxShadow = '0 0 0 3px #d4af37';
+            setTimeout(() => {
+                worksGrid.children[targetIndex].style.boxShadow = '';
+            }, 1500);
         }
+    }
+}
 
         function renderWorks() {
             const grid = document.getElementById('works-grid');
