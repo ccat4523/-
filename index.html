@@ -27,7 +27,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* 作品標題統一使用 Noto Serif TC */
         .work-title, .detail-title {
             font-family: 'Noto Serif TC', serif;
             font-weight: 700;
@@ -43,7 +42,6 @@
         .animate-bounce { animation: bounce 2s infinite; }
         .animate-glow { animation: glow 3s ease-in-out infinite; }
         
-        /* Loading 動畫 */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -73,12 +71,10 @@
             letter-spacing: 0.15em;
         }
         
-        /* 導航列自動隱藏 */
         .navbar-hidden {
             transform: translateY(-100%);
         }
         
-        /* 回到頂部按鈕 */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -109,7 +105,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
-        /* 光暈跟隨效果 */
         .glow-cursor {
             position: fixed;
             width: 300px;
@@ -122,7 +117,6 @@
             transform: translate(-50%, -50%);
         }
         
-        /* 倒數計時區塊 */
         .countdown-box {
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50px;
@@ -156,7 +150,6 @@
             transition: transform 0.3s ease;
         }
         
-        /* 作品卡片 - 純白色背景 */
         .work-card { 
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease; 
             border: 1px solid rgba(139, 115, 85, 0.2);
@@ -175,7 +168,6 @@
             transform: translateY(-4px);
         }
         
-        /* 圖片 hover 金色 overlay */
         .work-card-img-container {
             position: relative;
             overflow: hidden;
@@ -221,7 +213,6 @@
             font-weight: 700;
         }
         
-        /* 蝴蝶角落裝飾 */
         .butterfly-corner {
             position: absolute;
             width: 28px;
@@ -282,7 +273,6 @@
             font-size: 14px; 
         }
         
-        /* 分享按鈕 */
         .share-icon-btn {
             transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
@@ -301,6 +291,80 @@
         }
         .share-icon-btn:active {
             transform: translateY(1px);
+        }
+        
+        /* 跑馬燈樣式 */
+        .marquee-container {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            cursor: grab;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .marquee-container::-webkit-scrollbar {
+            display: none;
+        }
+        .marquee-container:active {
+            cursor: grabbing;
+        }
+        .marquee-track {
+            display: flex;
+            gap: 20px;
+            width: fit-content;
+            padding: 10px 0;
+        }
+        .marquee-item {
+            flex-shrink: 0;
+            width: 260px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .marquee-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        .marquee-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .marquee-title {
+            padding: 12px;
+            text-align: center;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #5a4a3a;
+            background: white;
+            border-top: 1px solid rgba(139, 115, 85, 0.1);
+        }
+        .marquee-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .marquee-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #8b7355;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .marquee-nav-btn:hover {
+            background: #d4af37;
+            transform: scale(1.05);
         }
         
         .work-card button {
@@ -361,85 +425,30 @@
             width: 100%;
         }
         
-        /* ===== 手機端字體與觸控優化 ===== */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem !important;
-                letter-spacing: 0.1em !important;
-            }
-            .hero-subtitle {
-                font-size: 1rem !important;
-            }
-            /* 手機端作品標題同樣使用 Noto Serif TC */
-            .work-card h3,
-            .detail-title {
-                font-family: 'Noto Serif TC', serif !important;
-                font-size: 1rem !important;
-                font-weight: 700 !important;
-            }
-            .work-card .author-text {
-                font-size: 0.75rem !important;
-            }
-            .work-card .group-number {
-                font-size: 0.7rem !important;
-            }
-            .work-card button {
-                font-size: 0.7rem !important;
-                padding: 6px 0 !important;
-            }
-            .info-box-big {
-                font-size: 0.9rem !important;
-            }
-            .info-box-label {
-                font-size: 0.75rem !important;
-            }
-            footer .footer-text {
-                font-size: 0.7rem !important;
-            }
-            .address-text {
-                font-size: 0.7rem !important;
-            }
-            .countdown-number {
-                font-size: 1rem !important;
-            }
-            .nav-link {
-                font-size: 0.85rem !important;
-            }
-            .share-icon-btn {
-                padding: 6px 12px;
-                font-size: 0.7rem;
-            }
-            .share-icon-btn svg {
-                width: 14px;
-                height: 14px;
-            }
-            .work-card {
-                cursor: pointer;
-                -webkit-tap-highlight-color: transparent;
-            }
-            .share-icon-btn, .back-btn, .work-card button, .nav-link {
-                cursor: pointer;
-                -webkit-tap-highlight-color: transparent;
-            }
-            .work-card:active {
-                transform: scale(0.98);
-            }
+            h1 { font-size: 2.5rem !important; letter-spacing: 0.1em !important; }
+            .hero-subtitle { font-size: 1rem !important; }
+            .work-card h3, .detail-title { font-family: 'Noto Serif TC', serif !important; font-size: 1rem !important; font-weight: 700 !important; }
+            .work-card button { font-size: 0.7rem !important; padding: 6px 0 !important; }
+            .info-box-big { font-size: 0.9rem !important; }
+            .info-box-label { font-size: 0.75rem !important; }
+            footer .footer-text { font-size: 0.7rem !important; }
+            .countdown-number { font-size: 1rem !important; }
+            .share-icon-btn { padding: 6px 12px; font-size: 0.7rem; }
+            .work-card:active { transform: scale(0.98); }
+            .marquee-item { width: 200px; }
+            .marquee-img { height: 140px; }
+            .marquee-title { font-size: 0.7rem; padding: 8px; }
+            .marquee-nav-btn { width: 32px; height: 32px; }
         }
         
         @media (max-width: 480px) {
-            .work-card h3 {
-                font-size: 0.9rem !important;
-            }
-            .countdown-box {
-                padding: 4px 12px;
-                gap: 8px;
-            }
-            .countdown-number {
-                font-size: 0.9rem !important;
-            }
-            .butterfly-corner {
-                transform: scale(0.7);
-            }
+            .work-card h3 { font-size: 0.9rem !important; }
+            .countdown-box { padding: 4px 12px; gap: 8px; }
+            .countdown-number { font-size: 0.9rem !important; }
+            .butterfly-corner { transform: scale(0.7); }
+            .marquee-item { width: 160px; }
+            .marquee-img { height: 120px; }
         }
     </style>
 </head>
@@ -457,7 +466,6 @@
         <div class="loading-text">蛻生</div>
     </div>
 
-    <!-- 光暈跟隨效果 -->
     <div id="glowCursor" class="glow-cursor"></div>
 
     <!-- Navbar -->
@@ -497,7 +505,6 @@
         </div>
     </nav>
 
-    <!-- 回到頂部按鈕 -->
     <button id="backToTop" class="back-to-top" aria-label="回到頂部">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
@@ -505,85 +512,52 @@
     </button>
 
     <script>
-        // 輔助函數：關閉作品詳情並滾動到指定區塊
         function closeWorkDetailAndScrollTo(sectionId) {
             closeWorkDetail();
             const section = document.getElementById(sectionId);
-            if(section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
+            if(section) section.scrollIntoView({ behavior: 'smooth' });
         }
         
-        // Loading 動畫
         window.addEventListener('load', () => {
             const loading = document.getElementById('loadingOverlay');
             setTimeout(() => {
                 loading.style.opacity = '0';
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                }, 500);
+                setTimeout(() => { loading.style.display = 'none'; }, 500);
             }, 800);
         });
 
-        // 導航列自動隱藏 + 回到頂部按鈕顯示
         let lastScrollY = window.scrollY;
         const navbar = document.getElementById('navbar');
         const backBtn = document.getElementById('backToTop');
         
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                navbar.classList.add('navbar-hidden');
-            } else {
-                navbar.classList.remove('navbar-hidden');
-            }
+            if (currentScrollY > lastScrollY && currentScrollY > 100) navbar.classList.add('navbar-hidden');
+            else navbar.classList.remove('navbar-hidden');
             lastScrollY = currentScrollY;
-            
-            if (window.scrollY > 300) {
-                backBtn.classList.add('show');
-            } else {
-                backBtn.classList.remove('show');
-            }
+            if (window.scrollY > 300) backBtn.classList.add('show');
+            else backBtn.classList.remove('show');
         });
 
-        // 回到頂部功能
-        backBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // 光暈跟隨效果（僅桌機）
         const glowCursor = document.getElementById('glowCursor');
         document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth > 768) {
-                glowCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-            }
+            if (window.innerWidth > 768) glowCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
         });
 
-        // 倒數計時
         function updateCountdown() {
             const targetDate = new Date(2026, 4, 12);
-            const now = new Date();
-            const diff = targetDate - now;
-            
+            const diff = targetDate - new Date();
             if (diff <= 0) {
                 document.getElementById('countdownDisplay').innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽進行中！</span>';
                 return;
             }
-            
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (86400000)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (3600000)) / (1000 * 60));
-            
-            document.getElementById('countdownDisplay').innerHTML = `
-                <div class="countdown-box">
-                    <div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div>
-                    <div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div>
-                    <div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div>
-                    <span style="color:#d4af37;">後開展</span>
-                </div>
-            `;
+            const hours = Math.floor((diff % 86400000) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % 3600000) / (1000 * 60));
+            document.getElementById('countdownDisplay').innerHTML = `<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`;
         }
-        
         updateCountdown();
         setInterval(updateCountdown, 60000);
 
@@ -593,28 +567,11 @@
         function closeMobileMenu() { mobileMenu.classList.add('hidden'); }
         function getPageUrl() { return location.href.split('?')[0]; }
         
-        function shareToFB() {
-            const url = getPageUrl();
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-            window.open(fbUrl, '_blank', 'width=600,height=400');
-        }
-        
-        function shareToLINE() { 
-            window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業展覽 ' + getPageUrl())}`, '_blank'); 
-        }
-        function copyPageLink() { 
-            navigator.clipboard.writeText(getPageUrl()).then(() => alert('連結已複製！')).catch(() => prompt('請手動複製連結', getPageUrl())); 
-        }
-        
-        function shareWorkToFB(workTitle) {
-            const url = getPageUrl();
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(workTitle)}`;
-            window.open(fbUrl, '_blank', 'width=600,height=400');
-        }
-        
-        function shareWorkToLINE(workTitle) {
-            window.open(`https://line.me/R/msg/text/?${encodeURIComponent(workTitle + ' ' + getPageUrl())}`, '_blank');
-        }
+        function shareToFB() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}`, '_blank', 'width=600,height=400'); }
+        function shareToLINE() { window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業展覽 ' + getPageUrl())}`, '_blank'); }
+        function copyPageLink() { navigator.clipboard.writeText(getPageUrl()).then(() => alert('連結已複製！')).catch(() => prompt('請手動複製連結', getPageUrl())); }
+        function shareWorkToFB(workTitle) { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}&quote=${encodeURIComponent(workTitle)}`, '_blank', 'width=600,height=400'); }
+        function shareWorkToLINE(workTitle) { window.open(`https://line.me/R/msg/text/?${encodeURIComponent(workTitle + ' ' + getPageUrl())}`, '_blank'); }
     </script>
 
     <!-- ===== HERO SECTION ===== -->
@@ -624,18 +581,13 @@
         </div>
         <div class="relative z-10 flex flex-col items-center text-center mt-32 sm:mt-40">
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-2" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); letter-spacing: 0.15em; font-weight: 900;">蛻　生</h1>
-            
             <p class="hero-subtitle text-lg sm:text-xl md:text-2xl mb-8" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; font-weight: 600; letter-spacing: 0.05em;">靜宜大學中國文學系第八屆畢業展覽</p>
-            
-            <!-- 倒數計時顯示區 -->
             <div id="countdownDisplay"></div>
-            
             <div class="mt-8 p-8 sm:p-10 rounded-sm max-w-2xl relative paper-texture info-box-decoration" style="background: rgba(255, 255, 255, 0.95); border: 2px solid #8b7355; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
                 <div class="butterfly-corner corner-tl"></div>
                 <div class="butterfly-corner corner-tr"></div>
                 <div class="butterfly-corner corner-bl"></div>
                 <div class="butterfly-corner corner-br"></div>
-                
                 <div class="space-y-6 text-center relative z-10">
                     <div class="pb-4 border-b-2 border-gray-200">
                         <p class="info-box-label" style="color: #8b7355; font-weight: 600;">📅 展覽日期</p>
@@ -655,7 +607,6 @@
                     </div>
                 </div>
             </div>
-            
             <p class="mt-12 max-w-2xl italic text-sm sm:text-base" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">「一千五百個日升中，指尖已結出新繭；而當遍撤的種子萌芽，我將振翅高飛。」</p>
         </div>
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
@@ -678,6 +629,20 @@
         </div>
     </section>
 
+    <!-- ===== 跑馬燈 SECTION ===== -->
+    <section id="marquee" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">作品搶先看</h2>
+            <div class="marquee-container" id="marqueeContainer">
+                <div class="marquee-track" id="marqueeTrack"></div>
+            </div>
+            <div class="marquee-nav">
+                <button class="marquee-nav-btn" id="marqueePrevBtn">←</button>
+                <button class="marquee-nav-btn" id="marqueeNextBtn">→</button>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== WORKS SECTION ===== -->
     <section id="works" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
         <div class="max-w-5xl mx-auto">
@@ -689,21 +654,17 @@
     <!-- ===== FOOTER ===== -->
     <footer class="border-t py-12" style="background: #f5f1e8; border-top: 2px solid #d4af37;">
         <div class="footer-decoration"></div>
-        
         <div class="max-w-4xl mx-auto px-6">
             <div class="flex flex-col items-start gap-6">
                 <div class="flex items-center gap-3">
                     <img src="images/sss.png" alt="蛻生" class="w-12 h-12 object-contain">
                     <span class="text-lg font-bold" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span>
                 </div>
-                
                 <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="footer-text text-base md:text-lg transition-colors hover:text-accent" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; letter-spacing: 0.03em; font-weight: 600;">靜宜大學中國文學系第八屆畢業成果展</a>
-                
                 <div class="flex items-center gap-4">
                     <a href="https://www.facebook.com/profile.php?id=61587027196885" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style="background: #1a3a3a;"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
                     <a href="https://www.instagram.com/pucl08rebirth/" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
                 </div>
-
                 <div class="space-y-1.5 text-sm pt-2" style="font-family: 'Noto Serif TC', serif; color: #555;">
                     <p class="footer-text"><span style="color: #d4af37; font-weight: bold;">📅 展覽日期</span> 2026年5月12日（二）– 5月14日（四）</p>
                     <p class="footer-text"><span style="color: #d4af37; font-weight: bold;">⏰ 開放時間</span> 09:00 – 16:00</p>
@@ -742,11 +703,80 @@
             { id:11, no:11, title:"古文字之「旅」", author:"劉庭妤、楊穎祁", desc:"　　本創作以臺灣景點為主題，設計一套結合教育與趣味的古文字學習卡牌。內容以甲骨文為核心，輔以金文與小篆之字形演變，並搭配注音、楷書與拼音。選材融入臺灣具代表性的自然與人文景觀，使使用者在辨識古文字的同時，也能連結在地文化意象，提升學習情境與記憶深度。對象涵蓋國小學生以上及國際學習者，兼具語文教育與文化推廣價值。\n\n　　透過卡牌互動降低甲骨文的理解門檻，使抽象知識轉為具體可操作的學習經驗。同時運用Adobe AI與Photoshop進行字體加工與包裝設計，在維持學術基礎下融入現代視覺美感，展現古文字於當代的創新詮釋。", img1:`${imgBase}k1.jpg`, img2:`${imgBase}k2.jpg` },
             { id:12, no:12, title:"嚥下危機", author:"曾宜蓁、顏孝庭、蔡旻蓁", desc:"　　這是一款以《史記》〈鴻門宴〉為核心改編的RPG情境選擇遊戲。\n\n　　創作初衷源於對古典文本教學方式的反思——多數人對古文的印象停留在背誦與註解，然而文本本身其實蘊含高度戲劇張力與人性衝突。\n\n　　〈鴻門宴〉作為楚漢相爭的關鍵轉折，不僅涉及權力角力與謀略布局，更充滿選擇與猶豫。\n\n　　遊戲主體以「抉擇」為核心機制，讓玩家置身宴席現場，在緊張的歴史情境中作出判斷。透過三種結局分支設計，使玩家感受到不同選擇如何改變歴史走向，甚至顛覆既定結局。\n\n　　本作品希望打破「古文枯燥乏味」的刻板印象，讓經典文本不再只是閲讀材料，而是可被體驗、參與重構的敘事空間。當玩家在情境中做出選擇，古文便不再遙遠，而成為與當代對話的媒介。", img1:`${imgBase}l1.JPG`, img2:`${imgBase}l2.JPG` },
             { id:13, no:13, title:"奇廟人間——與神同行", author:"鄭安強、曾紘懌", desc:"　　本書是一本結合地方踏查與人文觀察的廟宇導覽的遊記類書籍，聚焦於台灣各地形態獨特、富含故事性的信仰空間。\n\n　　不同於制式的旅遊書寫，本書以「奇」為引，串聯十二間風格各異的廟宇，從建築造型、神祇配置到民間傳說與祭祀行為，描繪出一幅貼近庶民生活的信仰圖景。讀者不僅是在閱讀景點介紹，更像是在跟隨腳步，走入一段段有溫度的地方記憶。\n\n　　本書試圖翻轉人們對廟宇「習以為常」的視角。那些看似日常的空間，其實承載著人與神之間細膩而真實的情感交流，也映照出社會文化的流動與變遷。內容以較為敘事且人性化的筆觸，結合實地觀察與文化理解，讓踏查紀錄帶有溫度，使讀者能在閱讀中產生共感。", img1:`${imgBase}m1.jpg`, img2:`${imgBase}m2.jpg` },
-            { id:14, no:14, title:"金門僑鄉的散與聚—洋樓的故事", author:"莊庭安、林佳瑩、蔡莉琳", desc:"　　「洋樓」記錄下了金門僑鄉的時代印記以及時代的動盪，它正是認識金門僑鄉文化的一個最直觀的方式，因此我們的專題以金門僑鄉文化與洋樓作為主軸，透過洋樓介紹金門的時代記憶。\n\n　　作者三人來自不同的地方，分別是台灣本島、金門、泰國，習慣的語調、生活的節奏也都不盡相同。書籍中寫下了我們三個人對僑鄉的心得，進而思考在跨文化脈絡中自我認同的位置與意義。\n\n　　我們希望創作出一本屬於金門洋樓與僑鄉文化的書籍以及文創小物：花磚橡皮章、洋樓明信片，把這些值得被留下的事物帶到更多人眼前，讓遠方的故事，不只停留在過去，而能被記住，並延續下去。", img1:`${imgBase}n1.jpg`, img2:`${imgBase}n2.jpg` },
+            { id:14, no:14, title:"金門僑鄉的散與聚——洋樓的故事", author:"莊庭安、林佳瑩、蔡莉琳", desc:"　　「洋樓」記錄下了金門僑鄉的時代印記以及時代的動盪，它正是認識金門僑鄉文化的一個最直觀的方式，因此我們的專題以金門僑鄉文化與洋樓作為主軸，透過洋樓介紹金門的時代記憶。\n\n　　作者三人來自不同的地方，分別是台灣本島、金門、泰國，習慣的語調、生活的節奏也都不盡相同。書籍中寫下了我們三個人對僑鄉的心得，進而思考在跨文化脈絡中自我認同的位置與意義。\n\n　　我們希望創作出一本屬於金門洋樓與僑鄉文化的書籍以及文創小物：花磚橡皮章、洋樓明信片，把這些值得被留下的事物帶到更多人眼前，讓遠方的故事，不只停留在過去，而能被記住，並延續下去。", img1:`${imgBase}n1.jpg`, img2:`${imgBase}n2.jpg` },
             { id:15, no:15, title:"美麗花園中的倩影與馨香——《紅樓夢》金釵香包", author:"林柔榛、楊容嫻、李敏玲", desc:"　　本創作以「以香為引，如入紅樓之境」為核心概念，從《紅樓夢》人物性格出發，嘗試將文學轉化為可感知的嗅覺與視覺經驗。作品依據人物個性調配專屬香氣，將其情感氣質轉譯為氣味層次，使無形的性格得以被「聞見」；同時，在花卉繪製上亦以人物特質為依據，選擇能呼應其氣質的花卉進行表現，強化整體視覺語言。\n\n　　此外，結合判詞書法書寫，讓文字、香氣與花卉三者彼此呼應，形成多重感官的敘事方式。觀者不僅能閱讀文本，更能透過嗅覺與視覺的引導，逐步走入人物內在世界。期望藉由此種跨媒材的轉譯，使經典文學不再侷限於紙上，而是轉化為一種可被體驗與感受的當代文化形式。", img1:`${imgBase}o1.jpg`, img2:`${imgBase}o2.jpg` },
             { id:16, no:16, title:"軌跡 Traces", author:"詹益富", desc:"　　「大概連電影都不敢這麼演。」這是本作的開場，也是我對迄今生命最誠實的註解。\n\n　　《軌跡 Traces》是一部結合文學感性敘事與數學理性邏輯的跨領域自傳體散文集。身為一名中學數學教師，我嘗試將冰冷的幾何術語轉化為富有溫度的生命隱喻。全書以「生命座標」為核心，規劃了五個心境轉折的篇章：從童年沈默的〈圍牆〉、國中覺醒的〈數學公式〉，到剖析人際疏離感的〈大紅圓桌〉——我以「漸近線」解構那些無限貼近卻註定無法相交的遺憾。\n\n　　這不僅是一場創作，更是一場自我超渡的旅程。我試圖透過書寫證明：那些曾經狠狠脫軌的碎裂、那些除不盡的遺憾，其實都是軌跡的一部分。我希望以此作告訴每位在座標系中迷失的靈魂：深淵過後必是破曉，所有的繞道與卡關，最終都將匯聚成駛向遼闊風景的動人軌跡。", img1:`${imgBase}u1.jpg`, img2:`${imgBase}u2.jpg` },
             { id:17, no:17, title:"殺夫", author:"顏家彤", desc:"　　跨域轉譯李昂的同名小說〈殺夫〉，以漫畫形式重新改編經典之作。駭人聽聞的陳林市殺夫案轟動鹿城，婦人為何狠心謀害親夫？透過細膩的圖像語言，一探這樁案件的背後……\n\n　　以女性創作者的視角，透過分鏡設計、圖像創作對女性作家的文字進行演繹與詮釋，勾勒出在名為鹿城的封閉小鎮中，主角林市如何在父權壓迫與社會話語下被逼至絕境，最終以極端的方式掙脫。而在創作上，為了更貼近李昂筆下建構的故事舞台「鹿城」—以傳統農村社會為背景的小鎮。本作品悉心考究時代背景，用寫實的畫風細緻描繪場景與鄉土風貌，帶領讀者沈浸在李昂文學的氛圍與情境中。\n\n　　本作品希望以漫畫作為媒介，讓原著小說的讀者能夠重新感受經典文學作品的多元面貌，開創截然不同的閱讀體驗；或是讓從未接觸過原著的人們，能藉由此作認識李昂的寫作世界與台灣文學。", img1:`${imgBase}t1.jpg`, img2:`${imgBase}t2.jpg` }
         ];
+
+        // 跑馬燈資料（只有有圖片的才顯示）
+        const marqueeData = [
+            { group: 2, title: "靜物微縮劇場！讓「思無邪」的婚戀穿越藩籬", images: ["2a.jpg", "2b.jpg", "2c.jpg"] },
+            { group: 17, title: "殺夫", images: ["17a.jpg", "17b.jpg", "17c.jpg"] },
+            { group: 11, title: "古文字之「旅」", images: ["11a.jpg", "11b.jpg", "11c.jpg"] },
+            { group: 5, title: "走進張愛玲——我們心中的紅與白", images: ["5a.jpg", "5b.jpg", "5c.jpg"] },
+            { group: 6, title: "四季的觸感——在看不見光的泥土裡，我聽見種子裂開的聲音", images: ["6a.jpg", "6b.jpg", "6c.jpg"] }
+        ];
+
+        function initMarquee() {
+            const track = document.getElementById('marqueeTrack');
+            if(!track) return;
+            
+            let allItems = [];
+            marqueeData.forEach(group => {
+                group.images.forEach(img => {
+                    const imgUrl = `${imgBase}${img}`;
+                    allItems.push({
+                        title: group.title,
+                        imgUrl: imgUrl,
+                        groupId: group.group
+                    });
+                });
+            });
+            
+            if(allItems.length === 0) {
+                track.innerHTML = '<div class="text-center text-gray-500 w-full py-10">即將上線，敬請期待！</div>';
+                return;
+            }
+            
+            track.innerHTML = allItems.map(item => `
+                <div class="marquee-item" onclick="scrollToWork(${item.groupId})">
+                    <img class="marquee-img" src="${item.imgUrl}" alt="${item.title}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                    <div class="marquee-title">${item.title}</div>
+                </div>
+            `).join('');
+        }
+        
+        function scrollToWork(groupId) {
+            const worksGrid = document.getElementById('works-grid');
+            if(worksGrid) {
+                let targetIndex = -1;
+                if(groupId === 2) targetIndex = 1;
+                else if(groupId === 17) targetIndex = 16;
+                else if(groupId === 11) targetIndex = 10;
+                else if(groupId === 5) targetIndex = 4;
+                else if(groupId === 6) targetIndex = 5;
+                
+                if(targetIndex >= 0 && worksGrid.children[targetIndex]) {
+                    worksGrid.children[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    worksGrid.children[targetIndex].style.transition = 'box-shadow 0.3s';
+                    worksGrid.children[targetIndex].style.boxShadow = '0 0 0 3px #d4af37';
+                    setTimeout(() => {
+                        worksGrid.children[targetIndex].style.boxShadow = '';
+                    }, 1500);
+                }
+            }
+        }
+        
+        function setupMarqueeScroll() {
+            const container = document.getElementById('marqueeContainer');
+            const prevBtn = document.getElementById('marqueePrevBtn');
+            const nextBtn = document.getElementById('marqueeNextBtn');
+            if(!container || !prevBtn || !nextBtn) return;
+            const scrollAmount = 280;
+            prevBtn.addEventListener('click', () => container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+            nextBtn.addEventListener('click', () => container.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
+        }
 
         function renderWorks() {
             const grid = document.getElementById('works-grid');
@@ -771,17 +801,11 @@
             if(!w) return;
             const mainContent = document.getElementById('main-content');
             const detailContainer = document.getElementById('work-detail-container');
-            
             mainContent.style.display = 'none';
             detailContainer.style.display = 'block';
             detailContainer.classList.add('fade-in');
-            
-            // 動態更新 og:image 為作品的第一張圖片
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage && w.img1) {
-                ogImage.setAttribute('content', w.img1);
-            }
-            
+            if(ogImage && w.img1) ogImage.setAttribute('content', w.img1);
             detailContainer.innerHTML = `
                 <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
                     <div class="max-w-3xl mx-auto p-8 rounded-sm" style="background:rgba(255,255,255,0.9); border:2px solid #8b7355;">
@@ -816,27 +840,26 @@
         function closeWorkDetail() {
             const mainContent = document.getElementById('main-content');
             const detailContainer = document.getElementById('work-detail-container');
-            
             detailContainer.classList.remove('fade-in');
             mainContent.style.display = 'block';
             detailContainer.style.display = 'none';
-            
-            // 恢復主頁的 og:image
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage) {
-                ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
-            }
+            if(ogImage) ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
         }
         
         document.addEventListener('DOMContentLoaded', () => {
             renderWorks();
+            initMarquee();
+            setupMarqueeScroll();
             const main = document.getElementById('main-content');
             const hero = document.getElementById('home');
             const info = document.getElementById('info');
+            const marquee = document.getElementById('marquee');
             const works = document.getElementById('works');
-            if(main && hero && info && works) {
+            if(main && hero && info && marquee && works) {
                 main.appendChild(hero);
                 main.appendChild(info);
+                main.appendChild(marquee);
                 main.appendChild(works);
             }
         });
