@@ -17,7 +17,7 @@
     <meta name="twitter:card" content="summary_large_image">
     
     <!-- 瀏覽器分頁小圖標 Favicon -->
-    <link rel="icon" type="image/png" href="images/sss.png" />
+    <link rel="icon" type="image/png" href="images/sss3.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -464,16 +464,24 @@
             .share-icon-btn { padding: 6px 12px; font-size: 0.7rem; }
             .work-card:active { transform: scale(0.98); }
             
-            /* 作品跑馬燈手機版 */
             .marquee-item { width: 180px; }
             .marquee-img { height: 130px; }
             .marquee-title { font-size: 0.7rem; padding: 8px; }
             
-            /* 111屆大合照手機版 */
             .team-marquee-item { width: 240px; }
             .team-marquee-img { height: 160px; }
             
             .marquee-nav-btn { width: 32px; height: 32px; }
+            
+            /* 作品詳情頁分享區塊手機版調整 */
+            .invitation-text {
+                text-align: center !important;
+                margin-top: 20px !important;
+            }
+            .share-section {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
         }
         
         @media (max-width: 480px) {
@@ -482,7 +490,6 @@
             .countdown-number { font-size: 0.9rem !important; }
             .butterfly-corner { transform: scale(0.7); }
             
-            /* 111屆大合照手機版 */
             .team-marquee-item { width: 200px; }
             .team-marquee-img { height: 135px; }
             
@@ -653,7 +660,7 @@
         </div>
     </section>
 
-    <!-- ===== 111屆大合照跑馬燈（純照片，無標題）===== -->
+    <!-- ===== 111屆大合照跑馬燈 ===== -->
     <section id="team" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
         <div class="max-w-7xl mx-auto">
             <div class="marquee-container" id="teamMarqueeContainer">
@@ -761,7 +768,7 @@
             { id:17, no:17, title:"殺夫", author:"顏家彤", desc:"　　跨域轉譯李昂的同名小說〈殺夫〉，以漫畫形式重新改編經典之作。駭人聽聞的陳林市殺夫案轟動鹿城，婦人為何狠心謀害親夫？透過細膩的圖像語言，一探這樁案件的背後……\n\n　　以女性創作者的視角，透過分鏡設計、圖像創作對女性作家的文字進行演繹與詮釋，勾勒出在名為鹿城的封閉小鎮中，主角林市如何在父權壓迫與社會話語下被逼至絕境，最終以極端的方式掙脫。而在創作上，為了更貼近李昂筆下建構的故事舞台「鹿城」—以傳統農村社會為背景的小鎮。本作品悉心考究時代背景，用寫實的畫風細緻描繪場景與鄉土風貌，帶領讀者沈浸在李昂文學的氛圍與情境中。\n\n　　本作品希望以漫畫作為媒介，讓原著小說的讀者能夠重新感受經典文學作品的多元面貌，開創截然不同的閱讀體驗；或是讓從未接觸過原著的人們，能藉由此作認識李昂的寫作世界與台灣文學。", img1:`${imgBase}t1.jpg`, img2:`${imgBase}t2.jpg` }
         ];
 
-        // 111屆大合照資料（順序：111, 333, 444, 222）
+        // 111屆大合照資料
         const teamPhotos = [
             "111.jpg", "333.jpg", "444.jpg", "222.jpg"
         ];
@@ -776,11 +783,9 @@
             { group: 1, title: "文以載道但載不動我模擬器", images: ["1a.jpg", "1b.jpg", "1c.jpg"] },
         ];
 
-        // 初始化111屆大合照跑馬燈
         function initTeamMarquee() {
             const track = document.getElementById('teamMarqueeTrack');
             if(!track) return;
-            
             track.innerHTML = teamPhotos.map(photo => `
                 <div class="team-marquee-item">
                     <img class="team-marquee-img" src="${imgBase}${photo}" alt="111屆大合照" loading="lazy" onerror="this.style.display='none'">
@@ -798,28 +803,20 @@
             nextBtn.addEventListener('click', () => container.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
         }
 
-        // 初始化作品跑馬燈
         function initMarquee() {
             const track = document.getElementById('marqueeTrack');
             if(!track) return;
-            
             let allItems = [];
             marqueeData.forEach(group => {
                 group.images.forEach(img => {
                     const imgUrl = `${imgBase}${img}`;
-                    allItems.push({
-                        title: group.title,
-                        imgUrl: imgUrl,
-                        groupId: group.group
-                    });
+                    allItems.push({ title: group.title, imgUrl: imgUrl, groupId: group.group });
                 });
             });
-            
             if(allItems.length === 0) {
                 track.innerHTML = '<div class="text-center text-gray-500 w-full py-10">即將上線，敬請期待！</div>';
                 return;
             }
-            
             track.innerHTML = allItems.map(item => `
                 <div class="marquee-item" onclick="scrollToWork(${item.groupId})">
                     <img class="marquee-img" src="${item.imgUrl}" alt="${item.title}" loading="lazy" onerror="this.parentElement.style.display='none'">
@@ -839,26 +836,26 @@
         }
         
         function scrollToWork(groupId) {
-    const worksGrid = document.getElementById('works-grid');
-    if(worksGrid) {
-        let targetIndex = -1;
-        if(groupId === 1) targetIndex = 0;
-        else if(groupId === 2) targetIndex = 1;
-        else if(groupId === 5) targetIndex = 4;
-        else if(groupId === 6) targetIndex = 5;
-        else if(groupId === 11) targetIndex = 10;
-        else if(groupId === 17) targetIndex = 16;
-        
-        if(targetIndex >= 0 && worksGrid.children[targetIndex]) {
-            worksGrid.children[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            worksGrid.children[targetIndex].style.transition = 'box-shadow 0.3s';
-            worksGrid.children[targetIndex].style.boxShadow = '0 0 0 3px #d4af37';
-            setTimeout(() => {
-                worksGrid.children[targetIndex].style.boxShadow = '';
-            }, 1500);
+            const worksGrid = document.getElementById('works-grid');
+            if(worksGrid) {
+                let targetIndex = -1;
+                if(groupId === 1) targetIndex = 0;
+                else if(groupId === 2) targetIndex = 1;
+                else if(groupId === 5) targetIndex = 4;
+                else if(groupId === 6) targetIndex = 5;
+                else if(groupId === 11) targetIndex = 10;
+                else if(groupId === 17) targetIndex = 16;
+                
+                if(targetIndex >= 0 && worksGrid.children[targetIndex]) {
+                    worksGrid.children[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    worksGrid.children[targetIndex].style.transition = 'box-shadow 0.3s';
+                    worksGrid.children[targetIndex].style.boxShadow = '0 0 0 3px #d4af37';
+                    setTimeout(() => {
+                        worksGrid.children[targetIndex].style.boxShadow = '';
+                    }, 1500);
+                }
+            }
         }
-    }
-}
 
         function renderWorks() {
             const grid = document.getElementById('works-grid');
@@ -888,6 +885,7 @@
             detailContainer.classList.add('fade-in');
             const ogImage = document.querySelector('meta[property="og:image"]');
             if(ogImage && w.img1) ogImage.setAttribute('content', w.img1);
+            
             detailContainer.innerHTML = `
                 <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
                     <div class="max-w-3xl mx-auto p-8 rounded-sm" style="background:rgba(255,255,255,0.9); border:2px solid #8b7355;">
@@ -905,12 +903,20 @@
                             <h3 class="text-xl font-bold mb-4" style="color:#5a4a3a;">作品介紹</h3>
                             <p class="leading-relaxed whitespace-pre-line" style="color:#5a4a3a; line-height:1.8;">${w.desc || "敬請期待更多作品介紹。"}</p>
                         </div>
-                        <div class="pt-8 border-t-2" style="border-color:#8b7355;">
-                            <h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3>
-                            <div class="flex gap-4">
-                                <button onclick="shareWorkToFB('${w.title}')" class="share-icon-btn" style="background:#1877f2; color:white;">📘 FB</button>
-                                <button onclick="shareWorkToLINE('${w.title}')" class="share-icon-btn" style="background:#00b900; color:white;">💬 LINE</button>
-                                <button onclick="navigator.clipboard.writeText(location.href.split('?')[0]); alert('連結已複製！')" class="share-icon-btn" style="background:#8b7355; color:white;">🔗 複製</button>
+                        
+                        <!-- 分享區塊 + 邀請文字（並排，右側靠右） -->
+                        <div class="pt-8 border-t-2 flex flex-wrap justify-between items-start gap-4" style="border-color:#8b7355;">
+                            <div>
+                                <h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3>
+                                <div class="flex gap-4">
+                                    <button onclick="shareWorkToFB('${w.title}')" class="share-icon-btn" style="background:#1877f2; color:white;">📘 FB</button>
+                                    <button onclick="shareWorkToLINE('${w.title}')" class="share-icon-btn" style="background:#00b900; color:white;">💬 LINE</button>
+                                    <button onclick="navigator.clipboard.writeText(location.href.split('?')[0]); alert('連結已複製！')" class="share-icon-btn" style="background:#8b7355; color:white;">🔗 複製</button>
+                                </div>
+                            </div>
+                            <div class="text-right invitation-text" style="max-width: 320px;">
+                                <p class="text-sm italic leading-relaxed" style="color: #8b7355;">蛻變的痕跡，紙上說不盡。<br>作品背後的故事，等你來發掘。</p>
+                                <p class="text-sm font-medium mt-2" style="color: #d4af37;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p>
                             </div>
                         </div>
                     </div>
