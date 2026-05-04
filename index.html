@@ -653,7 +653,7 @@
         function getPageUrl() { return location.href.split('?')[0]; }
         
         function shareToFB() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}`, '_blank', 'width=600,height=400'); }
-        function shareToLINE() { window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業展覽 ' + getPageUrl())}`, '_blank'); }
+        function shareToLINE() { window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業成果展 ' + getPageUrl())}`, '_blank'); }
         function copyPageLink() { navigator.clipboard.writeText(getPageUrl()).then(() => alert('連結已複製！')).catch(() => prompt('請手動複製連結', getPageUrl())); }
         function shareWorkToFB(workTitle) { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}&quote=${encodeURIComponent(workTitle)}`, '_blank', 'width=600,height=400'); }
         function shareWorkToLINE(workTitle) { window.open(`https://line.me/R/msg/text/?${encodeURIComponent(workTitle + ' ' + getPageUrl())}`, '_blank'); }
@@ -693,7 +693,7 @@
         </div>
         <div class="relative z-10 flex flex-col items-center text-center mt-32 sm:mt-40">
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-2" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); letter-spacing: 0.15em; font-weight: 900;">蛻　生</h1>
-            <p class="hero-subtitle text-lg sm:text-xl md:text-2xl mb-8" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; font-weight: 600; letter-spacing: 0.05em;">靜宜大學中國文學系第八屆畢業展覽</p>
+            <p class="hero-subtitle text-lg sm:text-xl md:text-2xl mb-8" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; font-weight: 600; letter-spacing: 0.05em;">靜宜大學中國文學系第八屆畢業成果展</p>
             <div id="countdownDisplay"></div>
             <div class="mt-8 p-8 sm:p-10 rounded-sm max-w-2xl relative paper-texture info-box-decoration" style="background: rgba(255, 255, 255, 0.95); border: 2px solid #8b7355; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
                 <div class="butterfly-corner corner-tl"></div>
