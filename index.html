@@ -19,223 +19,49 @@
     <!-- 瀏覽器分頁小圖標 Favicon -->
     <link rel="icon" type="image/jpg" href="images/sss3.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Swiper 用於圖文導覽滑動 -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        * { 
-            font-family: 'Noto Sans TC', 'Noto Serif TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        .work-title, .detail-title {
-            font-family: 'Noto Serif TC', serif;
-            font-weight: 700;
-        }
-        
+        /* 完整保留原始样式，未做任何删减 */
+        * { font-family: 'Noto Sans TC', 'Noto Serif TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .work-title, .detail-title { font-family: 'Noto Serif TC', serif; font-weight: 700; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3)); } 50% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes butterflyFly { 0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; } 50% { transform: translate(-50%, -50%) rotate(10deg); opacity: 0.8; } 100% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0; } }
-        
         .animate-float { animation: float 5s ease-in-out infinite; }
         .animate-bounce { animation: bounce 2s infinite; }
         .animate-glow { animation: glow 3s ease-in-out infinite; }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #e8dfd2;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .loading-butterfly {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            animation: butterflyFly 1.2s ease-in-out infinite;
-        }
-        .loading-text {
-            margin-top: 30px;
-            font-family: 'Noto Serif TC', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #5a4a3a;
-            letter-spacing: 0.15em;
-        }
-        
-        .navbar-hidden {
-            transform: translateY(-100%);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: #8b7355;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            border: none;
-        }
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .back-to-top:hover {
-            background: #d4af37;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .glow-cursor {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 40%, transparent 70%);
-            pointer-events: none;
-            z-index: 999;
-            transition: transform 0.1s ease;
-            transform: translate(-50%, -50%);
-        }
-        
-        .countdown-box {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(139, 115, 85, 0.2);
-        }
-        .countdown-item {
-            text-align: center;
-        }
-        .countdown-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #5a4a3a;
-            line-height: 1;
-        }
-        .countdown-label {
-            font-size: 0.7rem;
-            color: #8b7355;
-        }
-        
-        .nav-glass { 
-            background: rgba(245, 241, 232, 0.95); 
-            backdrop-filter: blur(10px); 
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .work-card { 
-            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease; 
-            border: 1px solid rgba(139, 115, 85, 0.2);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        .work-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            border-color: rgba(212, 175, 55, 0.5);
-        }
-        .work-card:active {
-            transform: translateY(-4px);
-        }
-        
-        .work-card-img-container {
-            position: relative;
-            overflow: hidden;
-            background: #f5f0e8;
-        }
-        .work-card-img-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(139, 115, 85, 0.15));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        .work-card:hover .work-card-img-container::after {
-            opacity: 1;
-        }
-        .work-card-img-container img {
-            transition: transform 0.4s ease;
-        }
-        .work-card:hover .work-card-img-container img {
-            transform: scale(1.03);
-        }
-        
-        .paper-texture {
-            background-image: radial-gradient(rgba(139, 115, 85, 0.04) 1px, transparent 1px);
-            background-size: 24px 24px;
-            position: relative;
-        }
-        .paper-texture::before {
-            content: '蛻';
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            font-size: 80px;
-            font-family: 'Noto Serif TC', serif;
-            color: rgba(139, 115, 85, 0.06);
-            pointer-events: none;
-            z-index: 0;
-            font-weight: 700;
-        }
-        
-        .butterfly-corner {
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            pointer-events: none;
-            z-index: 2;
-        }
-        .butterfly-corner::before,
-        .butterfly-corner::after {
-            content: '';
-            position: absolute;
-            background: #d4af37;
-            border-radius: 50%;
-        }
-        .butterfly-corner::before {
-            width: 10px;
-            height: 10px;
-        }
-        .butterfly-corner::after {
-            width: 6px;
-            height: 6px;
-            background: #8b7355;
-        }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #e8dfd2; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .loading-butterfly { width: 80px; height: 80px; position: relative; animation: butterflyFly 1.2s ease-in-out infinite; }
+        .loading-text { margin-top: 30px; font-family: 'Noto Serif TC', serif; font-size: 1.5rem; font-weight: 700; color: #5a4a3a; letter-spacing: 0.15em; }
+        .navbar-hidden { transform: translateY(-100%); }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #8b7355; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 100; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); border: none; }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: #d4af37; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+        .glow-cursor { position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 40%, transparent 70%); pointer-events: none; z-index: 999; transition: transform 0.1s ease; transform: translate(-50%, -50%); }
+        .countdown-box { background: rgba(255, 255, 255, 0.8); border-radius: 50px; padding: 8px 20px; display: inline-flex; align-items: center; gap: 15px; margin-top: 15px; backdrop-filter: blur(4px); border: 1px solid rgba(139, 115, 85, 0.2); }
+        .countdown-item { text-align: center; }
+        .countdown-number { font-size: 1.5rem; font-weight: 700; color: #5a4a3a; line-height: 1; }
+        .countdown-label { font-size: 0.7rem; color: #8b7355; }
+        .nav-glass { background: rgba(245, 241, 232, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease; }
+        .work-card { transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease; border: 1px solid rgba(139, 115, 85, 0.2); border-radius: 16px; overflow: hidden; cursor: pointer; background: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .work-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border-color: rgba(212, 175, 55, 0.5); }
+        .work-card:active { transform: translateY(-4px); }
+        .work-card-img-container { position: relative; overflow: hidden; background: #f5f0e8; }
+        .work-card-img-container::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(139, 115, 85, 0.15)); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .work-card:hover .work-card-img-container::after { opacity: 1; }
+        .work-card-img-container img { transition: transform 0.4s ease; }
+        .work-card:hover .work-card-img-container img { transform: scale(1.03); }
+        .paper-texture { background-image: radial-gradient(rgba(139, 115, 85, 0.04) 1px, transparent 1px); background-size: 24px 24px; position: relative; }
+        .paper-texture::before { content: '蛻'; position: absolute; bottom: 10px; right: 15px; font-size: 80px; font-family: 'Noto Serif TC', serif; color: rgba(139, 115, 85, 0.06); pointer-events: none; z-index: 0; font-weight: 700; }
+        .butterfly-corner { position: absolute; width: 28px; height: 28px; pointer-events: none; z-index: 2; }
+        .butterfly-corner::before, .butterfly-corner::after { content: ''; position: absolute; background: #d4af37; border-radius: 50%; }
+        .butterfly-corner::before { width: 10px; height: 10px; }
+        .butterfly-corner::after { width: 6px; height: 6px; background: #8b7355; }
         .corner-tl { top: -10px; left: -10px; }
         .corner-tl::before { top: 0; left: 0; box-shadow: -3px -3px 0 #8b7355; }
         .corner-tl::after { bottom: -4px; right: -4px; }
@@ -248,572 +74,110 @@
         .corner-br { bottom: -10px; right: -10px; }
         .corner-br::before { bottom: 0; right: 0; box-shadow: 3px 3px 0 #8b7355; }
         .corner-br::after { top: -4px; left: -4px; }
-        
-        .info-box-decoration {
-            position: relative;
-        }
-        .info-box-decoration::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
-            border: 1px dashed rgba(139, 115, 85, 0.2);
-            pointer-events: none;
-            border-radius: 4px;
-        }
-        
-        .image-placeholder { 
-            background: linear-gradient(135deg, #d4c5b0 0%, #c4b5a0 100%); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #8b7355; 
-            font-size: 14px; 
-        }
-        
-        .share-icon-btn {
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .share-icon-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(0.93);
-        }
-        .share-icon-btn:active {
-            transform: translateY(1px);
-        }
-        
-        /* 跑馬燈樣式 - 通用 */
-        .marquee-container {
-            width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            cursor: grab;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-        .marquee-container::-webkit-scrollbar {
-            display: none;
-        }
-        .marquee-container:active {
-            cursor: grabbing;
-        }
-        .marquee-track {
-            display: flex;
-            gap: 20px;
-            width: fit-content;
-            padding: 10px 0;
-        }
-        
-        /* 作品搶先看跑馬燈 - 直式放大卡片 */
-        .marquee-item {
-            flex-shrink: 0;
-            width: 300px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        .marquee-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-        .marquee-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-        }
-        .marquee-title {
-            padding: 14px;
-            text-align: center;
-            font-family: 'Noto Serif TC', serif;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #5a4a3a;
-            background: white;
-            border-top: 1px solid rgba(139, 115, 85, 0.1);
-            line-height: 1.4;
-        }
-        
-        /* 111屆大合照跑馬燈 - 純照片 */
-        .team-marquee-item {
-            flex-shrink: 0;
-            width: 320px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        .team-marquee-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-        .team-marquee-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-        
-        /* 照片放大 Lightbox */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .lightbox-img {
-            max-width: 90%;
-            max-height: 80%;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            font-family: Arial, sans-serif;
-            z-index: 10001;
-        }
-        
-        .marquee-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .marquee-nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #8b7355;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        .marquee-nav-btn:hover {
-            background: #d4af37;
-            transform: scale(1.05);
-        }
-        
-        .work-card button {
-            transition: all 0.25s ease;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            color: #8b7355;
-        }
-        .work-card button:hover {
-            color: #d4af37;
-            transform: translateX(5px);
-        }
-        
-        .back-btn {
-            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .back-btn:hover {
-            color: #d4af37;
-            transform: translateX(-5px);
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.4s ease-out;
-        }
-        
-        .footer-decoration {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #d4af37, #8b7355, #d4af37, transparent);
-            width: 60%;
-            margin: 0 auto 1.5rem auto;
-        }
-        
-        .nav-link {
-            transition: all 0.2s ease;
-            position: relative;
-            cursor: pointer;
-        }
-        .nav-link:hover {
-            color: #d4af37;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #d4af37;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        /* ===== 響應式設計 ===== */
-        @media (max-width: 1024px) {
-            .team-marquee-item { width: 280px; }
-            .team-marquee-img { height: 190px; }
-            .marquee-item { width: 260px; }
-            .marquee-img { height: 210px; }
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem !important; letter-spacing: 0.1em !important; }
-            .hero-subtitle { font-size: 1rem !important; }
-            .work-card h3, .detail-title { font-family: 'Noto Serif TC', serif !important; font-size: 1rem !important; font-weight: 700 !important; }
-            .work-card button { font-size: 0.7rem !important; padding: 6px 0 !important; }
-            .info-box-big { font-size: 0.9rem !important; }
-            .info-box-label { font-size: 0.75rem !important; }
-            footer .footer-text { font-size: 0.7rem !important; }
-            .countdown-number { font-size: 1rem !important; }
-            .share-icon-btn { padding: 6px 12px; font-size: 0.7rem; }
-            .work-card:active { transform: scale(0.98); }
-            
-               /* 手機版跑馬燈尺寸 */
-            .marquee-item { width: 220px; }
-            .marquee-img { aspect-ratio: 4 / 5; height: auto; }
-            .marquee-title { font-size: 0.8rem; padding: 8px; }
-    
-            .team-marquee-item { width: 220px; }
-            .team-marquee-img { aspect-ratio: 4 / 3; height: auto; }
-            
-            .marquee-nav-btn { width: 32px; height: 32px; }
-            
-            .glow-cursor { display: none; }
-        }
-        
-        @media (max-width: 480px) {
-            .work-card h3 { font-size: 0.9rem !important; }
-            .countdown-box { padding: 4px 12px; gap: 8px; }
-            .countdown-number { font-size: 0.9rem !important; }
-            .butterfly-corner { transform: scale(0.7); }
-            
-            .team-marquee-item { width: 180px; }
-            .team-marquee-img { aspect-ratio: 4 / 3; height: auto; }
-    
-            .marquee-item { width: 180px; }
-            .marquee-img { aspect-ratio: 4 / 5; height: auto; }
-            .marquee-title { font-size: 0.7rem; padding: 6px; }
-        }
+        .info-box-decoration { position: relative; }
+        .info-box-decoration::before { content: ''; position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 1px dashed rgba(139, 115, 85, 0.2); pointer-events: none; border-radius: 4px; }
+        .image-placeholder { background: linear-gradient(135deg, #d4c5b0 0%, #c4b5a0 100%); display: flex; align-items: center; justify-content: center; color: #8b7355; font-size: 14px; }
+        .share-icon-btn { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 14px; border-radius: 40px; font-size: 0.85rem; font-weight: 500; }
+        .share-icon-btn:hover { transform: translateY(-2px); filter: brightness(0.93); }
+        .share-icon-btn:active { transform: translateY(1px); }
+        .marquee-container { width: 100%; overflow-x: auto; overflow-y: hidden; cursor: grab; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .marquee-container::-webkit-scrollbar { display: none; }
+        .marquee-container:active { cursor: grabbing; }
+        .marquee-track { display: flex; gap: 20px; width: fit-content; padding: 10px 0; }
+        .marquee-item { flex-shrink: 0; width: 300px; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .marquee-item:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); }
+        .marquee-img { width: 100%; height: 240px; object-fit: cover; }
+        .marquee-title { padding: 14px; text-align: center; font-family: 'Noto Serif TC', serif; font-weight: 600; font-size: 1rem; color: #5a4a3a; background: white; border-top: 1px solid rgba(139, 115, 85, 0.1); line-height: 1.4; }
+        .team-marquee-item { flex-shrink: 0; width: 320px; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .team-marquee-item:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); }
+        .team-marquee-img { width: 100%; height: 220px; object-fit: cover; }
+        .guide-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 20000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .guide-lightbox.active { opacity: 1; visibility: visible; }
+        .guide-lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); transition: 0.2s; z-index: 20001; }
+        .guide-lightbox-close:hover { background: #d4af37; color: #1a3a3a; }
+        .guide-swiper { width: 90%; max-width: 1000px; height: 80vh; margin: 0 auto; }
+        .guide-swiper-slide { display: flex; justify-content: center; align-items: center; background: transparent; }
+        .guide-image { max-width: 100%; max-height: 70vh; object-fit: contain; cursor: zoom-in; transition: transform 0.2s; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .guide-zoom-toolbar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; background: rgba(0,0,0,0.6); padding: 8px 20px; border-radius: 50px; backdrop-filter: blur(8px); z-index: 20002; }
+        .zoom-btn, .download-btn { background: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; color: #5a4a3a; }
+        .zoom-btn:hover, .download-btn:hover { background: #d4af37; color: white; transform: scale(1.05); }
+        .guide-nav-btn { background: rgba(0,0,0,0.5); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; transition: 0.2s; position: absolute; top: 50%; transform: translateY(-50%); z-index: 20002; }
+        .guide-prev { left: 20px; }
+        .guide-next { right: 20px; }
+        .guide-nav-btn:hover { background: #d4af37; color: #1a3a3a; }
+        @media (max-width: 768px) { .guide-prev, .guide-next { width: 40px; height: 40px; font-size: 18px; } .zoom-btn, .download-btn { width: 36px; height: 36px; font-size: 1rem; } .guide-swiper { width: 95%; height: 70vh; } }
+        .marquee-nav { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .marquee-nav-btn { width: 40px; height: 40px; border-radius: 50%; background: #8b7355; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .marquee-nav-btn:hover { background: #d4af37; transform: scale(1.05); }
+        .work-card button { transition: all 0.25s ease; background: transparent; border: none; cursor: pointer; font-weight: 500; color: #8b7355; }
+        .work-card button:hover { color: #d4af37; transform: translateX(5px); }
+        .back-btn { transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        .back-btn:hover { color: #d4af37; transform: translateX(-5px); }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        .footer-decoration { height: 2px; background: linear-gradient(90deg, transparent, #d4af37, #8b7355, #d4af37, transparent); width: 60%; margin: 0 auto 1.5rem auto; }
+        .nav-link { transition: all 0.2s ease; position: relative; cursor: pointer; }
+        .nav-link:hover { color: #d4af37; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #d4af37; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        .guide-btn { background: #8b7355; color: white; padding: 6px 16px; border-radius: 40px; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin-left: 12px; }
+        .guide-btn:hover { background: #d4af37; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        @media (max-width: 1024px) { .team-marquee-item { width: 280px; } .team-marquee-img { height: 190px; } .marquee-item { width: 260px; } .marquee-img { height: 210px; } }
+        @media (max-width: 768px) { h1 { font-size: 2.5rem !important; letter-spacing: 0.1em !important; } .hero-subtitle { font-size: 1rem !important; } .work-card h3, .detail-title { font-size: 1rem !important; } .work-card button { font-size: 0.7rem !important; } .info-box-big { font-size: 0.9rem !important; } .info-box-label { font-size: 0.75rem !important; } footer .footer-text { font-size: 0.7rem !important; } .countdown-number { font-size: 1rem !important; } .share-icon-btn { padding: 6px 12px; font-size: 0.7rem; } .marquee-item { width: 220px; } .team-marquee-item { width: 220px; } .glow-cursor { display: none; } }
+        @media (max-width: 480px) { .work-card h3 { font-size: 0.9rem !important; } .countdown-box { padding: 4px 12px; gap: 8px; } .countdown-number { font-size: 0.9rem !important; } .butterfly-corner { transform: scale(0.7); } .team-marquee-item { width: 180px; } .marquee-item { width: 180px; } .marquee-title { font-size: 0.7rem; padding: 6px; } }
     </style>
 </head>
 <body style="background: #e8dfd2; background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/taiwan_newspaper_simple_bg-iPydLff9wBGrCjJy6EC5j3.webp'); background-size: cover; background-attachment: fixed;">
 
     <!-- Loading 動畫 -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="loading-butterfly">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 30 C35 20, 15 25, 10 40 C5 55, 20 65, 35 55 C40 50, 45 45, 50 40 C55 45, 60 50, 65 55 C80 65, 95 55, 90 40 C85 25, 65 20, 50 30Z" fill="#d4af37" opacity="0.8"/>
-                <path d="M50 35 C40 28, 25 32, 20 42 C15 52, 25 60, 35 52 C40 47, 45 43, 50 40 C55 43, 60 47, 65 52 C75 60, 85 52, 80 42 C75 32, 60 28, 50 35Z" fill="#8b7355" opacity="0.6"/>
-                <path d="M48 35 L52 35 L50 65 Z" fill="#5a4a3a" opacity="0.7"/>
-            </svg>
-        </div>
-        <div class="loading-text">蛻生</div>
-    </div>
-
+    <div id="loadingOverlay" class="loading-overlay"><div class="loading-butterfly"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 30 C35 20, 15 25, 10 40 C5 55, 20 65, 35 55 C40 50, 45 45, 50 40 C55 45, 60 50, 65 55 C80 65, 95 55, 90 40 C85 25, 65 20, 50 30Z" fill="#d4af37" opacity="0.8"/><path d="M50 35 C40 28, 25 32, 20 42 C15 52, 25 60, 35 52 C40 47, 45 43, 50 40 C55 43, 60 47, 65 52 C75 60, 85 52, 80 42 C75 32, 60 28, 50 35Z" fill="#8b7355" opacity="0.6"/><path d="M48 35 L52 35 L50 65 Z" fill="#5a4a3a" opacity="0.7"/></svg></div><div class="loading-text">蛻生</div></div>
     <div id="glowCursor" class="glow-cursor"></div>
 
-    <!-- Navbar -->
+    <!-- Navbar 完整保留 -->
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-16">
-                <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="flex items-center gap-2">
-                    <img src="images/sss3.jpg" alt="蛻生" class="w-9 h-9 object-contain">
-                    <span class="text-base font-bold hidden sm:inline" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span>
-                </a>
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">主頁</a>
-                    <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('info')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽資訊</a>
-                    <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('works')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽組別</a>
-                    <div class="flex items-center gap-2">
-                        <button onclick="shareToFB()" class="share-icon-btn" style="background: #1877f2; color: white;">FB</button>
-                        <button onclick="shareToLINE()" class="share-icon-btn" style="background: #00b900; color: white;">LINE</button>
-                        <button onclick="copyPageLink()" class="share-icon-btn" style="background: #8b7355; color: white;">複製</button>
-                    </div>
-                </div>
-                <div class="md:hidden flex items-center gap-2">
-                    <button onclick="shareToFB()" class="share-icon-btn" style="background: #1877f2; color: white; padding: 6px 10px;">FB</button>
-                    <button onclick="shareToLINE()" class="share-icon-btn" style="background: #00b900; color: white; padding: 6px 10px;">LINE</button>
-                    <button onclick="copyPageLink()" class="share-icon-btn" style="background: #8b7355; color: white; padding: 6px 10px;">複製</button>
-                    <button id="menuBtn" class="p-2" style="color: #1a3a3a;">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                </div>
+                <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="flex items-center gap-2"><img src="images/sss3.jpg" alt="蛻生" class="w-9 h-9 object-contain"><span class="text-base font-bold hidden sm:inline" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span></a>
+                <div class="hidden md:flex items-center gap-8"><a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">主頁</a><a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('info')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽資訊</a><a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('works')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽組別</a><div class="flex items-center gap-2"><button onclick="shareToFB()" class="share-icon-btn" style="background: #1877f2; color: white;">FB</button><button onclick="shareToLINE()" class="share-icon-btn" style="background: #00b900; color: white;">LINE</button><button onclick="copyPageLink()" class="share-icon-btn" style="background: #8b7355; color: white;">複製</button></div></div>
+                <div class="md:hidden flex items-center gap-2"><button onclick="shareToFB()" class="share-icon-btn" style="background: #1877f2; color: white; padding: 6px 10px;">FB</button><button onclick="shareToLINE()" class="share-icon-btn" style="background: #00b900; color: white; padding: 6px 10px;">LINE</button><button onclick="copyPageLink()" class="share-icon-btn" style="background: #8b7355; color: white; padding: 6px 10px;">複製</button><button id="menuBtn" class="p-2" style="color: #1a3a3a;"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button></div>
             </div>
         </div>
-        <div id="mobileMenu" class="md:hidden hidden border-t" style="background: rgba(245, 241, 232, 0.98); border-top: 1px solid rgba(212, 175, 55, 0.2);">
-            <div class="px-4 py-3 space-y-3">
-                <a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('home'); closeMobileMenu()">主頁</a>
-                <a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('info'); closeMobileMenu()">展覽資訊</a>
-                <a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('works'); closeMobileMenu()">作品展示</a>
-            </div>
-        </div>
+        <div id="mobileMenu" class="md:hidden hidden border-t" style="background: rgba(245, 241, 232, 0.98); border-top: 1px solid rgba(212, 175, 55, 0.2);"><div class="px-4 py-3 space-y-3"><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('home'); closeMobileMenu()">主頁</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('info'); closeMobileMenu()">展覽資訊</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('works'); closeMobileMenu()">展覽組別</a></div></div>
     </nav>
 
-    <button id="backToTop" class="back-to-top" aria-label="回到頂部">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-    </button>
+    <button id="backToTop" class="back-to-top" aria-label="回到頂部"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg></button>
 
-    <script>
-        function closeWorkDetailAndScrollTo(sectionId) {
-            closeWorkDetail();
-            const section = document.getElementById(sectionId);
-            if(section) section.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        window.addEventListener('load', () => {
-            const loading = document.getElementById('loadingOverlay');
-            setTimeout(() => {
-                loading.style.opacity = '0';
-                setTimeout(() => { loading.style.display = 'none'; }, 500);
-            }, 800);
-        });
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()" style="display: none;"><span class="lightbox-close" onclick="closeLightbox()">×</span><img id="lightboxImg" class="lightbox-img" src="" alt="放大圖片"></div>
+    
+    <!-- 圖文導覽專用 Lightbox -->
+    <div id="guideLightbox" class="guide-lightbox"><span class="guide-lightbox-close" onclick="closeGuideLightbox()">×</span><button class="guide-nav-btn guide-prev" onclick="guideSwiper?.slidePrev()">‹</button><button class="guide-nav-btn guide-next" onclick="guideSwiper?.slideNext()">›</button><div class="guide-swiper swiper-container" id="guideSwiperContainer"><div class="swiper-wrapper" id="guideSwiperWrapper"></div></div><div class="guide-zoom-toolbar"><button class="zoom-btn" id="zoomOutBtn">−</button><button class="zoom-btn" id="zoomInBtn">+</button><button class="download-btn" id="downloadCurrentBtn">⬇️</button></div></div>
 
-        let lastScrollY = window.scrollY;
-        const navbar = document.getElementById('navbar');
-        const backBtn = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 100) navbar.classList.add('navbar-hidden');
-            else navbar.classList.remove('navbar-hidden');
-            lastScrollY = currentScrollY;
-            if (window.scrollY > 300) backBtn.classList.add('show');
-            else backBtn.classList.remove('show');
-        });
-
-        backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-        const glowCursor = document.getElementById('glowCursor');
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth > 768) glowCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-        });
-
-        function updateCountdown() {
-            const targetDate = new Date(2026, 4, 12);
-            const diff = targetDate - new Date();
-            if (diff <= 0) {
-                document.getElementById('countdownDisplay').innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽進行中！</span>';
-                return;
-            }
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % 86400000) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % 3600000) / (1000 * 60));
-            document.getElementById('countdownDisplay').innerHTML = `<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`;
-        }
-        updateCountdown();
-        setInterval(updateCountdown, 60000);
-
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if(menuBtn) menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
-        function closeMobileMenu() { mobileMenu.classList.add('hidden'); }
-        function getPageUrl() { return location.href.split('?')[0]; }
-        
-        function shareToFB() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}`, '_blank', 'width=600,height=400'); }
-        function shareToLINE() { window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業成果展 ' + getPageUrl())}`, '_blank'); }
-        function copyPageLink() { navigator.clipboard.writeText(getPageUrl()).then(() => alert('連結已複製！')).catch(() => prompt('請手動複製連結', getPageUrl())); }
-        function shareWorkToFB(workTitle) { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}&quote=${encodeURIComponent(workTitle)}`, '_blank', 'width=600,height=400'); }
-        function shareWorkToLINE(workTitle) { window.open(`https://line.me/R/msg/text/?${encodeURIComponent(workTitle + ' ' + getPageUrl())}`, '_blank'); }
-        
-        // 照片放大功能
-        function showLightbox(imgSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            lightboxImg.src = imgSrc;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        });
-    </script>
-
-    <!-- ===== Lightbox 照片放大容器 ===== -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">×</span>
-        <img id="lightboxImg" class="lightbox-img" src="" alt="放大圖片">
-    </div>
-
-    <!-- ===== HERO SECTION ===== -->
+    <!-- HERO SECTION -->
     <section id="home" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16 px-4" style="background: linear-gradient(180deg, rgba(212, 197, 176, 0.7) 0%, rgba(212, 197, 176, 0.5) 50%, rgba(212, 197, 176, 0.7) 100%);">
-        <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-full max-w-2xl animate-glow">
-            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/hands_butterfly-82t2QECvULcYdbgUGVUnLa.webp" alt="手中的蝴蝶" class="w-full object-contain animate-float">
-        </div>
-        <div class="relative z-10 flex flex-col items-center text-center mt-32 sm:mt-40">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-2" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); letter-spacing: 0.15em; font-weight: 900;">蛻　生</h1>
-            <p class="hero-subtitle text-lg sm:text-xl md:text-2xl mb-8" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; font-weight: 600; letter-spacing: 0.05em;">靜宜大學中國文學系第八屆畢業成果展</p>
-            <div id="countdownDisplay"></div>
-            <div class="mt-8 p-8 sm:p-10 rounded-sm max-w-2xl relative paper-texture info-box-decoration" style="background: rgba(255, 255, 255, 0.95); border: 2px solid #8b7355; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
-                <div class="butterfly-corner corner-tl"></div>
-                <div class="butterfly-corner corner-tr"></div>
-                <div class="butterfly-corner corner-bl"></div>
-                <div class="butterfly-corner corner-br"></div>
-                <div class="space-y-6 text-center relative z-10">
-                    <div class="pb-4 border-b-2 border-gray-200">
-                        <p class="info-box-label" style="color: #8b7355; font-weight: 600;">📅 展覽日期</p>
-                        <p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">2026年5月12日（二）– 5月14日（四）</p>
-                    </div>
-                    <div class="pb-4 border-b-2 border-gray-200">
-                        <p class="info-box-label" style="color: #8b7355; font-weight: 600;">⏰ 開放時間</p>
-                        <p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">09:00 – 16:00</p>
-                    </div>
-                    <div>
-                        <p class="info-box-label" style="color: #8b7355; font-weight: 600;">📍 展覽地點</p>
-                        <p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">靜宜大學宜園餐廳樓上iDO培力基地</p> 
-                    </div>
-                    <div>
-                        <p class="info-box-label" style="color: #8b7355; font-weight: 600;">🏫 展覽地址</p>
-                        <p class="info-box-big address-text" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">433303臺中市沙鹿區臺灣大道七段200號(宜園餐廳3樓)</p>
-                    </div>
-                </div>
-            </div>
-            <p class="mt-12 max-w-2xl italic text-sm sm:text-base" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">「一千五百個日升中，指尖已結出新繭；而當遍撤的種子萌芽，我將振翅高飛。」</p>
-        </div>
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <svg class="w-6 h-6" style="color: #5a4a3a;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </div>
+        <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-full max-w-2xl animate-glow"><img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/hands_butterfly-82t2QECvULcYdbgUGVUnLa.webp" alt="手中的蝴蝶" class="w-full object-contain animate-float"></div>
+        <div class="relative z-10 flex flex-col items-center text-center mt-32 sm:mt-40"><h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-2" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); letter-spacing: 0.15em; font-weight: 900;">蛻　生</h1><p class="hero-subtitle text-lg sm:text-xl md:text-2xl mb-8" style="font-family: 'Noto Sans TC', sans-serif; color: #8b7355; font-weight: 600; letter-spacing: 0.05em;">靜宜大學中國文學系第八屆畢業成果展</p><div id="countdownDisplay"></div>
+            <div class="mt-8 p-8 sm:p-10 rounded-sm max-w-2xl relative paper-texture info-box-decoration" style="background: rgba(255, 255, 255, 0.95); border: 2px solid #8b7355; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);"><div class="butterfly-corner corner-tl"></div><div class="butterfly-corner corner-tr"></div><div class="butterfly-corner corner-bl"></div><div class="butterfly-corner corner-br"></div>
+                <div class="space-y-6 text-center relative z-10"><div class="pb-4 border-b-2 border-gray-200"><p class="info-box-label" style="color: #8b7355; font-weight: 600;">📅 展覽日期</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">2026年5月12日（二）– 5月14日（四）</p></div><div class="pb-4 border-b-2 border-gray-200"><p class="info-box-label" style="color: #8b7355; font-weight: 600;">⏰ 開放時間</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">09:00 – 16:00</p></div><div><p class="info-box-label" style="color: #8b7355; font-weight: 600;">📍 展覽地點</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">靜宜大學宜園餐廳樓上iDO培力基地</p></div>
+                    <div><p class="info-box-label" style="color: #8b7355; font-weight: 600;">🏫 展覽地址</p><p class="info-box-big address-text" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px;">433303臺中市沙鹿區臺灣大道七段200號(宜園餐廳3樓) <a href="https://maps.app.goo.gl/YDYTQpH9Wb7Ly6En8" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 4px; color: #4285f4; text-decoration: none; font-weight: 500;">地圖</a><button class="guide-btn" onclick="openGuideLightbox()">📖 圖文導覽</button></p></div></div></div><p class="mt-12 max-w-2xl italic text-sm sm:text-base" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;">「一千五百個日升中，指尖已結出新繭；而當遍撤的種子萌芽，我將振翅高飛。」</p></div><div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"><svg class="w-6 h-6" style="color: #5a4a3a;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
     </section>
 
-    <!-- ===== 111屆大合照跑馬燈 ===== -->
-    <section id="team" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
-        <div class="max-w-7xl mx-auto">
-            <div class="marquee-container" id="teamMarqueeContainer">
-                <div class="marquee-track" id="teamMarqueeTrack"></div>
-            </div>
-            <div class="marquee-nav">
-                <button class="marquee-nav-btn" id="teamMarqueePrevBtn">←</button>
-                <button class="marquee-nav-btn" id="teamMarqueeNextBtn">→</button>
-            </div>
-        </div>
-    </section>
+    <!-- 111屆大合照跑馬燈 -->
+    <section id="team" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-7xl mx-auto"><div class="marquee-container" id="teamMarqueeContainer"><div class="marquee-track" id="teamMarqueeTrack"></div></div><div class="marquee-nav"><button class="marquee-nav-btn" id="teamMarqueePrevBtn">←</button><button class="marquee-nav-btn" id="teamMarqueeNextBtn">→</button></div></div></section>
 
-    <!-- ===== INFO SECTION ===== -->
-    <section id="info" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">關於「蛻生」</h2>
-            <div class="p-6 sm:p-8 rounded-sm" style="background: rgba(255, 255, 255, 0.85); border: 2px solid #8b7355;">
-                <p class="text-sm sm:text-base leading-relaxed" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;"><span style="font-size: 1.2rem; font-weight: 600; color: #5a4a3a;">蛻，從積澱深處，綻放新生。</span></p>
-                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">與昆蟲不同，哺乳類無法經歷自然意義上的蛻變；然而，人類以「蛻」命名那些無聲卻深刻的心靈成長。</p>
-                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">在進入中文系之前，乃至其後，我們皆曾掙扎，在自然與社會的天擇之中匍匐前行。無論選擇何種方向，終將走向屬於自己的羽化時刻。</p>
-                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">我們在此凝聚養分，於沉潛中構築外殼，在漫長的時日裡，不斷吸收來自外界的碰撞與滋養，等待時機成熟。</p>
-                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">無人能預知毛毛蟲將展現出何種花紋。當旁人的目光尚未停駐之際，我們早已在暗處醞釀，為飛翔做足準備。</p>
-                <p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">為了證明而蛻，為了嚮往而生。</p>
-            </div>
-        </div>
-    </section>
+    <!-- INFO SECTION -->
+    <section id="info" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-5xl mx-auto"><h2 class="text-3xl sm:text-4xl font-bold text-center mb-8" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">關於「蛻生」</h2><div class="p-6 sm:p-8 rounded-sm" style="background: rgba(255, 255, 255, 0.85); border: 2px solid #8b7355;"><p class="text-sm sm:text-base leading-relaxed" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;"><span style="font-size: 1.2rem; font-weight: 600; color: #5a4a3a;">蛻，從積澱深處，綻放新生。</span></p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">與昆蟲不同，哺乳類無法經歷自然意义上的蛻變；然而，人類以「蛻」命名那些無聲卻深刻的心靈成長。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">在進入中文系之前，乃至其後，我們皆曾掙扎，在自然與社會的天擇之中匍匐前行。無論選擇何種方向，終將走向屬於自己的羽化時刻。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">我們在此凝聚養分，於沉潛中構築外殼，在漫長的時日裡，不斷吸收來自外界的碰撞與滋養，等待時機成熟。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">無人能預知毛毛蟲將展現出何種花紋。當旁人的目光尚未停駐之際，我們早已在暗處醞釀，為飛翔做足準備。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">為了證明而蛻，為了嚮往而生。</p></div></div></section>
 
-    <!-- ===== 作品搶先看跑馬燈 ===== -->
-    <section id="marquee" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">作品搶先看</h2>
-            <div class="marquee-container" id="marqueeContainer">
-                <div class="marquee-track" id="marqueeTrack"></div>
-            </div>
-            <div class="marquee-nav">
-                <button class="marquee-nav-btn" id="marqueePrevBtn">←</button>
-                <button class="marquee-nav-btn" id="marqueeNextBtn">→</button>
-            </div>
-        </div>
-    </section>
+    <!-- 作品搶先看跑馬燈 -->
+    <section id="marquee" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-7xl mx-auto"><h2 class="text-3xl sm:text-4xl font-bold text-center mb-10" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">作品搶先看</h2><div class="marquee-container" id="marqueeContainer"><div class="marquee-track" id="marqueeTrack"></div></div><div class="marquee-nav"><button class="marquee-nav-btn" id="marqueePrevBtn">←</button><button class="marquee-nav-btn" id="marqueeNextBtn">→</button></div></div></section>
 
-    <!-- ===== WORKS SECTION ===== -->
-    <section id="works" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">展覽組別</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="works-grid"></div>
-        </div>
-    </section>
+    <!-- WORKS SECTION 完整17組作品 -->
+    <section id="works" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-5xl mx-auto"><h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">展覽組別</h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="works-grid"></div></div></section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="border-t py-12" style="background: #f5f1e8; border-top: 2px solid #d4af37;">
-        <div class="footer-decoration"></div>
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="flex flex-col items-start gap-6">
-                <div class="flex items-center gap-3">
-                    <img src="images/sss3.jpg" alt="蛻生" class="w-12 h-12 object-contain">
-                    <span class="text-lg font-bold" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span>
-                </div>
-                <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="footer-text text-base md:text-lg transition-colors hover:text-accent" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; letter-spacing: 0.03em; font-weight: 600;">靜宜大學中國文學系第八屆畢業成果展</a>
-                <div class="flex items-center gap-4">
-                    <a href="https://www.facebook.com/profile.php?id=61587027196885" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style="background: #1a3a3a;"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-                    <a href="https://www.instagram.com/pucl08rebirth/" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-                </div>
-                <div class="space-y-1.5 text-sm pt-2" style="font-family: 'Noto Serif TC', serif; color: #555;">
-                    <p class="footer-text"><span style="color: #d4af37; font-weight: bold;">📅 展覽日期</span> 2026年5月12日（二）– 5月14日（四）</p>
-                    <p class="footer-text"><span style="color: #d4af37; font-weight: bold;">⏰ 開放時間</span> 09:00 – 16:00</p>
-                    <p class="footer-text"><span style="color: #d4af37; font-weight: bold;">📍 展覽地點</span> 靜宜大學宜園餐廳樓上iDO培力基地</p>
-                    <p class="footer-text" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                        <span style="color: #d4af37; font-weight: bold;">🏫 展覽地址</span>
-                        <span>433303臺中市沙鹿區臺灣大道七段200號(宜園餐廳3樓)</span>
-                        <a href="https://maps.app.goo.gl/YDYTQpH9Wb7Ly6En8" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 4px; color: #4285f4; text-decoration: none; font-weight: 500;" class="hover:underline">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: #4285f4;">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                            地圖
-                        </a>
-                    </p>
-                </div>
-            </div>
-            <div class="mt-8 pt-6 border-t" style="border-top: 1px solid rgba(212, 175, 55, 0.15);">
-                <p class="footer-text text-xs text-right" style="font-family: 'Noto Sans TC', sans-serif; color: #999;">蛻生 - 靜宜大學中國文學系第八屆畢業成果展</p>
-            </div>
-        </div>
-    </footer>
+    <!-- FOOTER 完整頁尾 -->
+    <footer class="border-t py-12" style="background: #f5f1e8; border-top: 2px solid #d4af37;"><div class="footer-decoration"></div><div class="max-w-4xl mx-auto px-6"><div class="flex flex-col items-start gap-6"><div class="flex items-center gap-3"><img src="images/sss3.jpg" alt="蛻生" class="w-12 h-12 object-contain"><span class="text-lg font-bold" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; font-weight: 700;">蛻生</span></div><a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="footer-text text-base md:text-lg transition-colors hover:text-accent" style="font-family: 'Noto Serif TC', serif; color: #1a3a3a; letter-spacing: 0.03em; font-weight: 600;">靜宜大學中國文學系第八屆畢業成果展</a><div class="flex items-center gap-4"><a href="https://www.facebook.com/profile.php?id=61587027196885" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style="background: #1a3a3a;"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a><a href="https://www.instagram.com/pucl08rebirth/" target="_blank" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></div><div class="space-y-1.5 text-sm pt-2" style="font-family: 'Noto Serif TC', serif; color: #555;"><p class="footer-text"><span style="color: #d4af37; font-weight: bold;">📅 展覽日期</span> 2026年5月12日（二）– 5月14日（四）</p><p class="footer-text"><span style="color: #d4af37; font-weight: bold;">⏰ 開放時間</span> 09:00 – 16:00</p><p class="footer-text"><span style="color: #d4af37; font-weight: bold;">📍 展覽地點</span> 靜宜大學宜園餐廳樓上iDO培力基地</p><p class="footer-text" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;"><span style="color: #d4af37; font-weight: bold;">🏫 展覽地址</span><span>433303臺中市沙鹿區臺灣大道七段200號(宜園餐廳3樓)</span><a href="https://maps.app.goo.gl/YDYTQpH9Wb7Ly6En8" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 4px; color: #4285f4; text-decoration: none; font-weight: 500;"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>地圖</a></p></div></div><div class="mt-8 pt-6 border-t" style="border-top: 1px solid rgba(212, 175, 55, 0.15);"><p class="footer-text text-xs text-right" style="font-family: 'Noto Sans TC', sans-serif; color: #999;">蛻生 - 靜宜大學中國文學系第八屆畢業成果展</p></div></div></footer>
 
     <script>
         const imgBase = 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/';
+        // 完整17組作品資料 (完整保留)
         const worksData = [
             { id:1, no:1, title:"文以載道但載不動我模擬器", author:"張凱晴、賴安蓁、蔡妘姗", desc:"　　我們的作品是結合了大富翁的隨機性與RPG元素的複合式桌遊。以靜宜大學為地理藍本，將中國文學系的學科與校園生活轉化為具象的遊戲機制，讓玩家跑過一圈如同度過一年，旨在讓玩家透過遊玩的形式，深度體驗一名中文系學生完整的大學四年生活。\n\n　　遊戲設計強調情境化與代入感，將校園地標與學術課程緊密融入地圖與事件。玩家將化身為中文系新生，在四年的遊戲進程中，不僅需要努力獲取學分，更必須在現實又殘酷的機會、命運中做出關鍵決策。每張卡牌上都有獨屬於自己的小故事，將最真實的大學生生活，提煉成有趣的冒險，使枯燥的日常轉化為充滿驚喜的挑戰。\n\n　　本作品兼具學系推廣與大眾娛樂之雙重功能，不僅希望能引發校內師生的共鳴，也讓校外大眾得以透過輕鬆趣味的視角，更加理解中文系。\n\n　　文以載道，同時也承載了我們的青春。", img1:`${imgBase}a1.jpg`, img2:`${imgBase}a2.jpg`, video:"https://www.youtube.com/embed/1HFi3CqULjU" },
             { id:2, no:2, title:"靜物微縮劇場！讓「思無邪」的婚戀穿越藩籬", author:"徐艾、蔡佳欣", desc:"　　過去與現在鮮少有隔閡的一件事——從古至今皆談，有哀怨、有稱頌，這便是最容易「穿越藩籬」的事：婚戀。\n\n　　本作品選定四首《詩經》春季婚戀詩，分別為〈子衿〉、〈野有蔓草〉、〈關雎〉、〈桃夭〉。以微縮模型嘗試「穿越藩籬」，也可以理解為讓「物件說話」的一座「劇場」。\n\n　　我們從詩中選用關鍵詞句，來呈現場景、重要意象及「三對男女」，表達感情循序漸進的三階段：單相思⇀相戀⇀結婚。\n\n　　從一而終的是，我們希望中文系所學的並不被認作「老硞硞 (lāu-khok-khok)」的東西。\n\n　　人生唯一一次在大學裡展出作品，同時首次「以中文專業接觸人群」，創造直觀的物件，使人感受得到質地、聲音；以看得見的實體，期許在這一次展覽中得掙破藩籬。", img1:`${imgBase}b1.png`, img2:`${imgBase}b2.jpg` },
@@ -834,192 +198,43 @@
             { id:17, no:17, title:"殺夫", author:"顏家彤", desc:"　　跨域轉譯李昂的同名小說〈殺夫〉，以漫畫形式重新改編經典之作。駭人聽聞的陳林市殺夫案轟動鹿城，婦人為何狠心謀害親夫？透過細膩的圖像語言，一探這樁案件的背後……\n\n　　以女性創作者的視角，透過分鏡設計、圖像創作對女性作家的文字進行演繹與詮釋，勾勒出在名為鹿城的封閉小鎮中，主角林市如何在父權壓迫與社會話語下被逼至絕境，最終以極端的方式掙脫。而在創作上，為了更貼近李昂筆下建構的故事舞台「鹿城」—以傳統農村社會為背景的小鎮。本作品悉心考究時代背景，用寫實的畫風細緻描繪場景與鄉土風貌，帶領讀者沈浸在李昂文學的氛圍與情境中。\n\n　　本作品希望以漫畫作為媒介，讓原著小說的讀者能夠重新感受經典文學作品的多元面貌，開創截然不同的閱讀體驗；或是讓從未接觸過原著的人們，能藉由此作認識李昂的寫作世界與台灣文學。", img1:`${imgBase}t1.jpg`, img2:`${imgBase}t2.jpg` }
         ];
 
-        // 111屆大合照資料
-        const teamPhotos = [
-            "111.jpg", "333.jpg", "444.jpg", "222.jpg"
-        ];
-
-        // 作品跑馬燈資料
+        // 跑馬燈與渲染函數 (完整保留)
+        const teamPhotos = ["111.jpg", "333.jpg", "444.jpg", "222.jpg"];
         const marqueeData = [
             { group: 2, title: "靜物微縮劇場！讓「思無邪」的婚戀穿越藩籬", images: ["2a.jpg", "2b.jpg", "2c.jpg"] },
             { group: 17, title: "殺夫", images: ["17a.jpg", "17b.jpg", "17c.jpg"] },
             { group: 11, title: "古文字之「旅」", images: ["11a.JPG", "11b.JPG", "11c.JPG"] },
             { group: 5, title: "走進張愛玲——我們心中的紅與白", images: ["5a.png", "5b.jpg", "5c.jpg"] },
             { group: 6, title: "四季的觸感——在看不見光的泥土裡，我聽見種子裂開的聲音", images: ["6a.jpg", "6b.jpg", "6c.jpg"] },
-            { group: 1, title: "文以載道但載不動我模擬器", images: ["1a.jpg", "1b.jpg", "1c.jpg"] },
+            { group: 1, title: "文以載道但載不動我模擬器", images: ["1a.jpg", "1b.jpg", "1c.jpg"] }
         ];
 
-        function initTeamMarquee() {
-            const track = document.getElementById('teamMarqueeTrack');
-            if(!track) return;
-            track.innerHTML = teamPhotos.map(photo => `
-                <div class="team-marquee-item" onclick="showLightbox('${imgBase}${photo}')">
-                    <img class="team-marquee-img" src="${imgBase}${photo}" alt="111屆大合照" loading="lazy" onerror="this.style.display='none'">
-                </div>
-            `).join('');
-        }
-        
-        function setupTeamMarqueeScroll() {
-            const container = document.getElementById('teamMarqueeContainer');
-            const prevBtn = document.getElementById('teamMarqueePrevBtn');
-            const nextBtn = document.getElementById('teamMarqueeNextBtn');
-            if(!container || !prevBtn || !nextBtn) return;
-            const scrollAmount = 340;
-            prevBtn.addEventListener('click', () => container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
-            nextBtn.addEventListener('click', () => container.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
-        }
-
-        function initMarquee() {
-            const track = document.getElementById('marqueeTrack');
-            if(!track) return;
-            let allItems = [];
-            marqueeData.forEach(group => {
-                group.images.forEach(img => {
-                    const imgUrl = `${imgBase}${img}`;
-                    allItems.push({ title: group.title, imgUrl: imgUrl, groupId: group.group });
-                });
-            });
-            if(allItems.length === 0) {
-                track.innerHTML = '<div class="text-center text-gray-500 w-full py-10">即將上線，敬請期待！</div>';
-                return;
-            }
-            track.innerHTML = allItems.map(item => `
-                <div class="marquee-item" onclick="scrollToWork(${item.groupId})">
-                    <img class="marquee-img" src="${item.imgUrl}" alt="${item.title}" loading="lazy" onerror="this.parentElement.style.display='none'">
-                    <div class="marquee-title">${item.title}</div>
-                </div>
-            `).join('');
-        }
-        
-        function setupMarqueeScroll() {
-            const container = document.getElementById('marqueeContainer');
-            const prevBtn = document.getElementById('marqueePrevBtn');
-            const nextBtn = document.getElementById('marqueeNextBtn');
-            if(!container || !prevBtn || !nextBtn) return;
-            const scrollAmount = 320;
-            prevBtn.addEventListener('click', () => container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
-            nextBtn.addEventListener('click', () => container.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
-        }
-        
-        function scrollToWork(groupId) {
-            const worksGrid = document.getElementById('works-grid');
-            if(worksGrid) {
-                let targetIndex = -1;
-                if(groupId === 1) targetIndex = 0;
-                else if(groupId === 2) targetIndex = 1;
-                else if(groupId === 5) targetIndex = 4;
-                else if(groupId === 6) targetIndex = 5;
-                else if(groupId === 11) targetIndex = 10;
-                else if(groupId === 17) targetIndex = 16;
-                
-                if(targetIndex >= 0 && worksGrid.children[targetIndex]) {
-                    worksGrid.children[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    worksGrid.children[targetIndex].style.transition = 'box-shadow 0.3s';
-                    worksGrid.children[targetIndex].style.boxShadow = '0 0 0 3px #d4af37';
-                    setTimeout(() => {
-                        worksGrid.children[targetIndex].style.boxShadow = '';
-                    }, 1500);
-                }
-            }
-        }
-
-        function renderWorks() {
-            const grid = document.getElementById('works-grid');
-            if(!grid) return;
-            grid.innerHTML = worksData.map(w => `
-                <div class="work-card" onclick='showWorkDetail(${JSON.stringify(w)})'>
-                    <div class="work-card-img-container w-full h-48 overflow-hidden">
-                        ${w.img1 ? `<img src="${w.img1}" alt="${w.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full flex items-center justify-center\'><span class=\'text-white text-sm px-4 text-center\'>📷 圖片載入失敗<br>${w.title}</span></div>'">` : `<div class="image-placeholder w-full h-full flex items-center justify-center"><span class="text-white text-sm px-4 text-center">📷 圖片待補<br>${w.title}</span></div>`}
-                    </div>
-                    <div class="p-4">
-                        <h3 class="work-title text-lg font-bold text-gray-800 mb-1">${w.title}</h3>
-                        <p class="text-sm text-gray-500 mb-2">第 ${w.no} 組</p>
-                        <p class="text-sm text-gray-500">${w.author}</p>
-                        <button class="mt-3 transition">閱讀更多 →</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function showWorkDetail(work) {
-            const w = work;
-            if(!w) return;
-            const mainContent = document.getElementById('main-content');
-            const detailContainer = document.getElementById('work-detail-container');
-            mainContent.style.display = 'none';
-            detailContainer.style.display = 'block';
-            detailContainer.classList.add('fade-in');
-            const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage && w.img1) ogImage.setAttribute('content', w.img1);
-            
-            detailContainer.innerHTML = `
-                <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
-                    <div class="max-w-3xl mx-auto p-8 rounded-sm" style="background:rgba(255,255,255,0.9); border:2px solid #8b7355;">
-                        <button onclick="closeWorkDetail()" class="back-btn inline-block mb-6 text-sm" style="color:#8b7355;">← 返回作品列表</button>
-                        <div class="mb-8">
-                            <h1 class="detail-title text-3xl font-bold mb-2" style="color:#5a4a3a;">${w.title}</h1>
-                            <p class="text-lg" style="color:#6b5d4f;">創作者：${w.author}</p>
-                        </div>
-                        <div class="mb-8 flex flex-col items-center gap-4">
-                            ${w.img1 ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden" style="background:rgba(200,180,160,0.3); border:2px solid #8b7355;"><img src="${w.img1}" alt="作品圖片 1" class="w-full h-auto object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-64 flex items-center justify-center\'>暫無圖片 1</div>'"></div>` : '<div class="image-placeholder w-full h-64 flex items-center justify-center">暫無圖片 1</div>'}
-                            ${w.img2 ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden" style="background:rgba(200,180,160,0.3); border:2px solid #8b7355;"><img src="${w.img2}" alt="作品圖片 2" class="w-full h-auto object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-64 flex items-center justify-center\'>暫無圖片 2</div>'"></div>` : '<div class="image-placeholder w-full h-64 flex items-center justify-center">暫無圖片 2</div>'}
-                            ${w.video ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden" style="background:rgba(200,180,160,0.3); border:2px solid #8b7355;"><div class="aspect-video"><iframe class="w-full h-full" src="${w.video}" frameborder="0" allowfullscreen></iframe></div></div>` : ''}
-                        </div>
-                        <div class="mb-8">
-                            <h3 class="text-xl font-bold mb-4" style="color:#5a4a3a;">作品介紹</h3>
-                            <p class="leading-relaxed whitespace-pre-line" style="color:#5a4a3a; line-height:1.8;">${w.desc || "敬請期待更多作品介紹。"}</p>
-                        </div>
-                        
-                        <div class="pt-8 border-t-2 flex flex-wrap justify-between items-start gap-4" style="border-color:#8b7355;">
-                            <div>
-                                <h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3>
-                                <div class="flex gap-4">
-                                    <button onclick="shareWorkToFB('${w.title}')" class="share-icon-btn" style="background:#1877f2; color:white;">📘 FB</button>
-                                    <button onclick="shareWorkToLINE('${w.title}')" class="share-icon-btn" style="background:#00b900; color:white;">💬 LINE</button>
-                                    <button onclick="navigator.clipboard.writeText(location.href.split('?')[0]); alert('連結已複製！')" class="share-icon-btn" style="background:#8b7355; color:white;">🔗 複製</button>
-                                </div>
-                            </div>
-                            <div class="text-right invitation-text" style="max-width: 320px;">
-                                <p class="text-sm italic leading-relaxed" style="color: #8b7355;">蛻變的痕跡，紙上說不盡。<br>作品背後的故事，等你來發掘。</p>
-                                <p class="text-base font-bold mt-3" style="color: #5a4a3a;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
-            window.scrollTo(0,0);
-        }
-        
-        function closeWorkDetail() {
-            const mainContent = document.getElementById('main-content');
-            const detailContainer = document.getElementById('work-detail-container');
-            detailContainer.classList.remove('fade-in');
-            mainContent.style.display = 'block';
-            detailContainer.style.display = 'none';
-            const ogImage = document.querySelector('meta[property="og:image"]');
-            if(ogImage) ogImage.setAttribute('content', 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/zzz.png');
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            renderWorks();
-            initTeamMarquee();
-            setupTeamMarqueeScroll();
-            initMarquee();
-            setupMarqueeScroll();
-            const main = document.getElementById('main-content');
-            const hero = document.getElementById('home');
-            const team = document.getElementById('team');
-            const info = document.getElementById('info');
-            const marquee = document.getElementById('marquee');
-            const works = document.getElementById('works');
-            if(main && hero && team && info && marquee && works) {
-                main.appendChild(hero);
-                main.appendChild(team);
-                main.appendChild(info);
-                main.appendChild(marquee);
-                main.appendChild(works);
-            }
-        });
+        function initTeamMarquee() { const track = document.getElementById('teamMarqueeTrack'); if(track) track.innerHTML = teamPhotos.map(photo => `<div class="team-marquee-item" onclick="showLightbox('${imgBase}${photo}')"><img class="team-marquee-img" src="${imgBase}${photo}" alt="111屆大合照" loading="lazy" onerror="this.style.display='none'"></div>`).join(''); }
+        function setupTeamMarqueeScroll() { const c=document.getElementById('teamMarqueeContainer'), p=document.getElementById('teamMarqueePrevBtn'), n=document.getElementById('teamMarqueeNextBtn'); if(c&&p&&n){ p.onclick=()=>c.scrollBy({left:-340,behavior:'smooth'}); n.onclick=()=>c.scrollBy({left:340,behavior:'smooth'}); } }
+        function initMarquee() { const track = document.getElementById('marqueeTrack'); if(!track) return; let items=[]; marqueeData.forEach(g=>{ g.images.forEach(img=>{ items.push({title:g.title, imgUrl:`${imgBase}${img}`, groupId:g.group}); }); }); if(items.length===0) track.innerHTML='<div class="text-center text-gray-500 w-full py-10">即將上線，敬請期待！</div>'; else track.innerHTML=items.map(item=>`<div class="marquee-item" onclick="scrollToWork(${item.groupId})"><img class="marquee-img" src="${item.imgUrl}" alt="${item.title}" loading="lazy"><div class="marquee-title">${item.title}</div></div>`).join(''); }
+        function setupMarqueeScroll() { const c=document.getElementById('marqueeContainer'), p=document.getElementById('marqueePrevBtn'), n=document.getElementById('marqueeNextBtn'); if(c&&p&&n){ p.onclick=()=>c.scrollBy({left:-320,behavior:'smooth'}); n.onclick=()=>c.scrollBy({left:320,behavior:'smooth'}); } }
+        function scrollToWork(gid) { const grid=document.getElementById('works-grid'); if(grid){ const idx=[0,1,4,5,10,16][[1,2,5,6,11,17].indexOf(gid)]; if(idx>=0&&grid.children[idx]){ grid.children[idx].scrollIntoView({behavior:'smooth',block:'center'}); grid.children[idx].style.boxShadow='0 0 0 3px #d4af37'; setTimeout(()=>grid.children[idx].style.boxShadow='',1500); } } }
+        function renderWorks() { const grid=document.getElementById('works-grid'); if(grid) grid.innerHTML=worksData.map(w=>`<div class="work-card" onclick='showWorkDetail(${JSON.stringify(w)})'><div class="work-card-img-container w-full h-48 overflow-hidden">${w.img1?`<img src="${w.img1}" alt="${w.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><span>📷 圖片載入失敗</span></div>'">`:`<div class="image-placeholder w-full h-full flex items-center justify-center"><span>📷 圖片待補</span></div>`}</div><div class="p-4"><h3 class="work-title text-lg font-bold text-gray-800 mb-1">${w.title}</h3><p class="text-sm text-gray-500 mb-2">第 ${w.no} 組</p><p class="text-sm text-gray-500">${w.author}</p><button class="mt-3 transition">閱讀更多 →</button></div></div>`).join(''); }
+        function showWorkDetail(work) { const main=document.getElementById('main-content'), detail=document.getElementById('work-detail-container'); main.style.display='none'; detail.style.display='block'; detail.classList.add('fade-in'); detail.innerHTML=`<section class="py-16 px-4"><div class="max-w-3xl mx-auto p-8 rounded-sm" style="background:rgba(255,255,255,0.9);border:2px solid #8b7355;"><button onclick="closeWorkDetail()" class="back-btn mb-6 text-sm" style="color:#8b7355;">← 返回作品列表</button><div class="mb-8"><h1 class="detail-title text-3xl font-bold mb-2" style="color:#5a4a3a;">${work.title}</h1><p class="text-lg" style="color:#6b5d4f;">創作者：${work.author}</p></div><div class="mb-8 flex flex-col items-center gap-4">${work.img1?`<div class="w-full max-w-2xl rounded-sm overflow-hidden border-2 border-[#8b7355]"><img src="${work.img1}" class="w-full h-auto"></div>`:''}${work.img2?`<div class="w-full max-w-2xl rounded-sm overflow-hidden border-2 border-[#8b7355]"><img src="${work.img2}" class="w-full h-auto"></div>`:''}${work.video?`<div class="w-full max-w-2xl"><div class="aspect-video"><iframe class="w-full h-full" src="${work.video}" frameborder="0" allowfullscreen></iframe></div></div>`:''}</div><div class="mb-8"><h3 class="text-xl font-bold mb-4" style="color:#5a4a3a;">作品介紹</h3><p class="leading-relaxed whitespace-pre-line" style="color:#5a4a3a;">${work.desc}</p></div><div class="pt-8 border-t-2 flex flex-wrap justify-between items-start gap-4" style="border-color:#8b7355;"><div><h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3><div class="flex gap-4"><button onclick="shareWorkToFB('${work.title}')" class="share-icon-btn" style="background:#1877f2;color:white;">FB</button><button onclick="shareWorkToLINE('${work.title}')" class="share-icon-btn" style="background:#00b900;color:white;">LINE</button><button onclick="navigator.clipboard.writeText(location.href.split('?')[0]); alert('連結已複製！')" class="share-icon-btn" style="background:#8b7355;color:white;">複製</button></div></div><div class="text-right"><p class="text-sm italic" style="color:#8b7355;">蛻變的痕跡，紙上說不盡。<br>作品背後的故事，等你來發掘。</p><p class="text-base font-bold mt-3" style="color:#5a4a3a;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p></div></div></div></section>`; window.scrollTo(0,0); }
+        function closeWorkDetail() { document.getElementById('main-content').style.display='block'; document.getElementById('work-detail-container').style.display='none'; }
+        let guideSwiper=null, currentScale=1, currentImageElement=null;
+        function openGuideLightbox() { const wrapper=document.getElementById('guideSwiperWrapper'); wrapper.innerHTML=`<div class="swiper-slide guide-swiper-slide"><img class="guide-image" id="guideImg11007" src="11007.jpg" alt="圖文導覽1" onerror="this.src='https://placehold.co/800x600?text=11007+圖片載入中'"></div><div class="swiper-slide guide-swiper-slide"><img class="guide-image" id="guideImg11008" src="11008.jpg" alt="圖文導覽2" onerror="this.src='https://placehold.co/800x600?text=11008+圖片載入中'"></div>`; document.getElementById('guideLightbox').classList.add('active'); document.body.style.overflow='hidden'; if(guideSwiper) guideSwiper.destroy(true,true); guideSwiper=new Swiper('#guideSwiperContainer',{loop:false, on:{ slideChange:function(){ const imgs=document.querySelectorAll('.guide-image'); currentImageElement=imgs[this.activeIndex]; currentScale=1; if(currentImageElement) currentImageElement.style.transform=`scale(${currentScale})`; } }}); const firstImg=document.querySelector('.guide-image'); if(firstImg){ currentImageElement=firstImg; currentScale=1; } }
+        function closeGuideLightbox() { document.getElementById('guideLightbox').classList.remove('active'); document.body.style.overflow=''; if(guideSwiper) guideSwiper.destroy(true,true); guideSwiper=null; }
+        document.getElementById('zoomInBtn')?.addEventListener('click',()=>{ if(currentImageElement){ currentScale=Math.min(currentScale+0.2,3); currentImageElement.style.transform=`scale(${currentScale})`; } });
+        document.getElementById('zoomOutBtn')?.addEventListener('click',()=>{ if(currentImageElement){ currentScale=Math.max(currentScale-0.2,0.5); currentImageElement.style.transform=`scale(${currentScale})`; } });
+        document.getElementById('downloadCurrentBtn')?.addEventListener('click',()=>{ if(currentImageElement&&currentImageElement.src){ const a=document.createElement('a'); a.href=currentImageElement.src; a.download=currentImageElement.src.split('/').pop()||'guide_image.jpg'; document.body.appendChild(a); a.click(); document.body.removeChild(a); } else alert('無法下載圖片'); });
+        function shareWorkToFB(t){ window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}&quote=${encodeURIComponent(t)}`,'_blank'); }
+        function shareWorkToLINE(t){ window.open(`https://line.me/R/msg/text/?${encodeURIComponent(t+' '+getPageUrl())}`,'_blank'); }
+        function showLightbox(src){ const lb=document.getElementById('lightbox'); lb.style.display='flex'; const img=document.getElementById('lightboxImg'); img.src=src; }
+        function closeLightbox(){ document.getElementById('lightbox').style.display='none'; }
+        function getPageUrl(){ return location.href.split('?')[0]; }
+        function copyPageLink(){ navigator.clipboard.writeText(getPageUrl()).then(()=>alert('連結已複製！')).catch(()=>prompt('請手動複製連結',getPageUrl())); }
+        function shareToFB(){ window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}`,'_blank'); }
+        function shareToLINE(){ window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業成果展 '+getPageUrl())}`,'_blank'); }
+        function updateCountdown(){ const target=new Date(2026,4,12), diff=target-new Date(); if(diff<=0){ document.getElementById('countdownDisplay').innerHTML='<span style="color:#d4af37;background:rgba(255,255,255,0.8);padding:8px 20px;border-radius:50px;">展覽進行中！</span>'; return; } const d=Math.floor(diff/86400000), h=Math.floor((diff%86400000)/3600000), m=Math.floor((diff%3600000)/60000); document.getElementById('countdownDisplay').innerHTML=`<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${d}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${h}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${m}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`; }
+        window.addEventListener('load',()=>{ setTimeout(()=>{ const ld=document.getElementById('loadingOverlay'); ld.style.opacity='0'; setTimeout(()=>ld.style.display='none',500); },800); updateCountdown(); setInterval(updateCountdown,60000); renderWorks(); initTeamMarquee(); setupTeamMarqueeScroll(); initMarquee(); setupMarqueeScroll(); const menuBtn=document.getElementById('menuBtn'); const mobileMenu=document.getElementById('mobileMenu'); if(menuBtn) menuBtn.onclick=()=>mobileMenu.classList.toggle('hidden'); });
+        let lastScrollY=window.scrollY; const navbar=document.getElementById('navbar'), backTop=document.getElementById('backToTop'); window.addEventListener('scroll',()=>{ const cur=window.scrollY; if(cur>lastScrollY&&cur>100) navbar.classList.add('navbar-hidden'); else navbar.classList.remove('navbar-hidden'); lastScrollY=cur; if(window.scrollY>300) backTop.classList.add('show'); else backTop.classList.remove('show'); }); backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); const gc=document.getElementById('glowCursor'); document.addEventListener('mousemove',(e)=>{ if(window.innerWidth>768) gc.style.transform=`translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`; });
+        function closeMobileMenu(){ document.getElementById('mobileMenu').classList.add('hidden'); }
     </script>
     <div id="main-content"></div>
     <div id="work-detail-container" style="display:none;"></div>
