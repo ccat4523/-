@@ -221,7 +221,7 @@
                 <div class="mt-8 p-8 sm:p-10 rounded-sm max-w-2xl relative paper-texture info-box-decoration" style="background: rgba(255, 255, 255, 0.95); border: 2px solid #8b7355; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);"><div class="butterfly-corner corner-tl"></div><div class="butterfly-corner corner-tr"></div><div class="butterfly-corner corner-bl"></div><div class="butterfly-corner corner-br"></div>
                     <div class="space-y-6 text-center relative z-10">
                         <div class="pb-4 border-b-2 border-gray-200"><p class="info-box-label" style="color: #8b7355; font-weight: 600;">📅 展覽日期</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">2026年5月12日（二）– 5月14日（四）</p></div>
-                        <div class="pb-4 border-b-2 border-gray-200"><p class="info-box-label" style="color: #8b7355; font-weight: 600;">⏰ 開放時間</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">09:00 – 16:00</p></div>
+                        <div class="pb-4 border-b-2 border-gray-200"><p class="info-box-label" style="color: #8b7355; font-weight: 600;">⏰ 開放時間</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">10:00 – 16:00</p></div>
                         <div><p class="info-box-label" style="color: #8b7355; font-weight: 600;">📍 展覽地點</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.3rem; font-weight: 500;">靜宜大學宜園餐廳樓上iDO培力基地</p></div>
                         <div class="address-line"><p class="info-box-label" style="color: #8b7355; font-weight: 600;">🏫 展覽地址</p><p class="info-box-big" style="color: #5a4a3a; font-size: 1.1rem; font-weight: 500;">433303臺中市沙鹿區臺灣大道七段200號(宜園餐廳3樓)</p></div>
                         <div class="action-buttons">
@@ -297,14 +297,14 @@
 
         function updateCountdownAndStatus() {
             const now = new Date();
-            const startDate = new Date(2026, 4, 12, 9, 0, 0);
-            const endDate = new Date(2026, 4, 14, 16, 0, 0);
+            const startDate = new Date(2026, 5, 12, 10, 0, 0);
+            const endDate = new Date(2026, 5, 14, 16, 0, 0);
             const countdownDiv = document.getElementById('countdownDisplay');
             if (!countdownDiv) return;
             if (now >= startDate && now <= endDate) {
                 let dayNum = 1;
-                if (now >= new Date(2026, 4, 13, 0, 0, 0)) dayNum = 2;
-                if (now >= new Date(2026, 4, 14, 0, 0, 0)) dayNum = 3;
+                if (now >= new Date(2026, 5, 13, 0, 0, 0)) dayNum = 2;
+                if (now >= new Date(2026, 5, 14, 0, 0, 0)) dayNum = 3;
                 const chineseDay = dayNum === 1 ? "一" : (dayNum === 2 ? "二" : "三");
                 countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天 ✨</span></div>`;
                 return;
@@ -312,7 +312,7 @@
                 countdownDiv.innerHTML = `<div class="countdown-box" style="background:#8b7355; color:white;"><span style="font-weight:bold;">📌 展覽已圓滿落幕，感謝支持 📌</span></div>`;
                 return;
             }
-            const targetDate = new Date(2026, 4, 12);
+            const targetDate = new Date(2026, 5, 12);
             const diff = targetDate - now;
             if (diff <= 0) {
                 countdownDiv.innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽即將開始！</span>';
