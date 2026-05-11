@@ -295,34 +295,34 @@
         { group: 2, title: "靜物微縮劇場！讓「思無邪」的婚戀穿越藩籬", images: ["2a.jpg", "2b.jpg", "2c.jpg"] },
     ];
 
-        function updateCountdownAndStatus() {
-            const now = new Date();
-            const startDate = new Date(2026, 4, 12, 10, 0, 0);
-            const endDate = new Date(2026, 4, 14, 16, 0, 0);
-            const countdownDiv = document.getElementById('countdownDisplay');
-            if (!countdownDiv) return;
-            if (now >= startDate && now <= endDate) {
-                let dayNum = 1;
-                if (now >= new Date(2026, 4, 13, 0, 0, 0)) dayNum = 2;
-                if (now >= new Date(2026, 4, 14, 0, 0, 0)) dayNum = 3;
-                const chineseDay = dayNum === 1 ? "一" : (dayNum === 2 ? "二" : "三");
-                countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天 ✨</span></div>`;
-                return;
-            } else if (now > endDate) {
-                countdownDiv.innerHTML = `<div class="countdown-box" style="background:#8b7355; color:white;"><span style="font-weight:bold;">📌 展覽已圓滿落幕，感謝支持 📌</span></div>`;
-                return;
-            }
-            const targetDate = new Date(2026, 4, 12);
-            const diff = targetDate - now;
-            if (diff <= 0) {
-                countdownDiv.innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽即將開始！</span>';
-                return;
-            }
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % 86400000) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % 3600000) / (1000 * 60));
-            countdownDiv.innerHTML = `<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`;
-        }
+    function updateCountdownAndStatus() {
+    const now = new Date();
+    const startDate = new Date(2026, 4, 12, 10, 0, 0);
+    const endDate = new Date(2026, 4, 14, 16, 0, 0);
+    const countdownDiv = document.getElementById('countdownDisplay');
+    if (!countdownDiv) return;
+    if (now >= startDate && now <= endDate) {
+        let dayNum = 1;
+        if (now >= new Date(2026, 4, 13, 0, 0, 0)) dayNum = 2;
+        if (now >= new Date(2026, 4, 14, 0, 0, 0)) dayNum = 3;
+        const chineseDay = dayNum === 1 ? "一" : (dayNum === 2 ? "二" : "三");
+        countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天 ✨</span></div>`;
+        return;
+    } else if (now > endDate) {
+        countdownDiv.innerHTML = `<div class="countdown-box" style="background:#8b7355; color:white;"><span style="font-weight:bold;">📌 展覽已圓滿落幕，感謝支持 📌</span></div>`;
+        return;
+    }
+    const targetDate = new Date(2026, 4, 12, 10, 0, 0);  // ← 這裡加上 10, 0, 0
+    const diff = targetDate - now;
+    if (diff <= 0) {
+        countdownDiv.innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽即將開始！</span>';
+        return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % 86400000) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % 3600000) / (1000 * 60));
+    countdownDiv.innerHTML = `<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`;
+}
         
         // 【修正】團隊合照區：點擊圖片使用燈箱，確保在手機上彈出居中顯示
         function initTeamMarquee() { 
