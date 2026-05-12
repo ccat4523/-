@@ -168,6 +168,10 @@
         @media (max-width: 768px) { 
             .lightbox-close { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 32px; }
         }
+        /* 展覽當天照片跑馬燈專用樣式 */
+        .event-marquee-item { flex-shrink: 0; width: 320px; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .event-marquee-item:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); }
+        .event-marquee-img { width: 100%; height: 220px; object-fit: cover; }
     </style>
 </head>
 <body style="background: #e8dfd2; background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/taiwan_newspaper_simple_bg-iPydLff9wBGrCjJy6EC5j3.webp'); background-size: cover; background-attachment: fixed;">
@@ -239,6 +243,20 @@
         <section id="info" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-5xl mx-auto"><h2 class="text-3xl sm:text-4xl font-bold text-center mb-8" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">關於「蛻生」</h2><div class="p-6 sm:p-8 rounded-sm" style="background: rgba(255, 255, 255, 0.85); border: 2px solid #8b7355;"><p class="text-sm sm:text-base leading-relaxed" style="font-family: 'Noto Sans TC', sans-serif; color: #6b5d4f;"><span style="font-size: 1.2rem; font-weight: 600; color: #5a4a3a;">蛻，從積澱深處，綻放新生。</span></p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">與昆蟲不同，哺乳類無法經歷自然意義上的蛻變；然而，人類以「蛻」命名那些無聲卻深刻的心靈成長。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">在進入中文系之前，乃至其後，我們皆曾掙扎，在自然與社會的天擇之中匍匐前行。無論選擇何種方向，終將走向屬於自己的羽化時刻。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">我們在此凝聚養分，於沉潛中構築外殼，在漫長的時日裡，不斷吸收來自外界的碰撞與滋養，等待時機成熟。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">無人能預知毛毛蟲將展現出何種花紋。當旁人的目光尚未停駐之際，我們早已在暗處醞釀，為飛翔做足準備。</p><p class="text-sm sm:text-base leading-relaxed mt-4" style="font-family: 'Noto Serif TC', sans-serif; color: #6b5d4f;">為了證明而蛻，為了嚮往而生。</p></div></div></section>
         <section id="marquee" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-7xl mx-auto"><h2 class="text-3xl sm:text-4xl font-bold text-center mb-10" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">作品搶先看</h2><div class="marquee-container" id="marqueeContainer"><div class="marquee-track" id="marqueeTrack"></div></div><div class="marquee-nav"><button class="marquee-nav-btn" id="marqueePrevBtn">←</button><button class="marquee-nav-btn" id="marqueeNextBtn">→</button></div></div></section>
         <section id="works" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);"><div class="max-w-5xl mx-auto"><h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">展覽組別</h2><div id="works-grid"></div></div></section>
+        
+        <!-- 新增：展覽當天照片區塊 -->
+        <section id="event-photos" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">📸 展覽當天照片</h2>
+                <div class="marquee-container" id="eventMarqueeContainer">
+                    <div class="marquee-track" id="eventMarqueeTrack"></div>
+                </div>
+                <div class="marquee-nav">
+                    <button class="marquee-nav-btn" id="eventMarqueePrevBtn">←</button>
+                    <button class="marquee-nav-btn" id="eventMarqueeNextBtn">→</button>
+                </div>
+            </div>
+        </section>
     </div>
     
     <div id="work-detail-container" style="display:none;"></div>
@@ -248,6 +266,9 @@
 <script>
     const imgBase = 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/';
     const teamPhotos = ["111.jpg", "333.jpg", "444.jpg", "222.jpg"];
+    
+    // 展覽當天照片（8張）
+    const eventPhotos = ["26051201.jpg", "26051202.jpg", "26051203.jpg", "26051204.jpg", "26051205.jpg", "26051206.jpg", "26051207.jpg", "26051208.jpg"];
     
     // 輔助函數：處理描述文字的段落縮排（每個段落開頭加兩個全形空格）
     function formatDesc(desc) {
@@ -298,7 +319,7 @@
     function updateCountdownAndStatus() {
     const now = new Date();
     const startDate = new Date(2026, 4, 12, 10, 0, 0);
-    const endDate = new Date(2026, 4, 14, 17, 0, 0);  // 最後一天改為下午5點結束
+    const endDate = new Date(2026, 4, 14, 17, 0, 0);
     const countdownDiv = document.getElementById('countdownDisplay');
     if (!countdownDiv) return;
     
@@ -310,7 +331,6 @@
         if (now >= new Date(2026, 4, 13, 0, 0, 0)) dayNum = 2;
         if (now >= new Date(2026, 4, 14, 0, 0, 0)) dayNum = 3;
         const chineseDay = dayNum === 1 ? "一" : (dayNum === 2 ? "二" : "三");
-        // 最後一天顯示特別的結束時間提醒
         if (isLastDay) {
             countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天（最後一天至 16:00） ✨</span></div>`;
         } else {
@@ -373,6 +393,29 @@
                     // 如果卡片尚未渲染，等待一下再試
                     setTimeout(() => scrollToWork(gid), 100);
                 }
+            } 
+        }
+        
+        // 展覽當天照片跑馬燈初始化
+        function initEventMarquee() { 
+            const track = document.getElementById('eventMarqueeTrack'); 
+            if(track && eventPhotos.length > 0) { 
+                track.innerHTML = eventPhotos.map(photo => `
+                    <div class="event-marquee-item" onclick="showLightbox('${imgBase}${photo}')">
+                        <img class="event-marquee-img" src="${imgBase}${photo}" alt="展覽當天照片" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                `).join(''); 
+            } else if (track) {
+                track.innerHTML = '<div class="text-center text-gray-500 w-full py-10">展覽當天照片即將上線，敬請期待！</div>';
+            }
+        }
+        function setupEventMarqueeScroll() { 
+            const c = document.getElementById('eventMarqueeContainer'); 
+            const p = document.getElementById('eventMarqueePrevBtn'); 
+            const n = document.getElementById('eventMarqueeNextBtn'); 
+            if(c && p && n) { 
+                p.onclick = () => c.scrollBy({ left: -340, behavior: 'smooth' }); 
+                n.onclick = () => c.scrollBy({ left: 340, behavior: 'smooth' }); 
             } 
         }
         
@@ -536,6 +579,8 @@
             setupTeamMarqueeScroll(); 
             initMarquee(); 
             setupMarqueeScroll(); 
+            initEventMarquee(); 
+            setupEventMarqueeScroll(); 
             const menuBtn=document.getElementById('menuBtn'); 
             const mobileMenu=document.getElementById('mobileMenu'); 
             if(menuBtn) menuBtn.onclick=()=>mobileMenu.classList.toggle('hidden'); 
