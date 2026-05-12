@@ -172,6 +172,30 @@
         .event-marquee-item { flex-shrink: 0; width: 320px; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
         .event-marquee-item:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); }
         .event-marquee-img { width: 100%; height: 220px; object-fit: cover; }
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .marquee-item { width: 220px; }
+            .marquee-img { height: 180px; }
+            .team-marquee-item { width: 240px; }
+            .team-marquee-img { height: 160px; }
+            .event-marquee-item { width: 240px; }
+            .event-marquee-img { height: 180px; }
+            .marquee-nav-btn { width: 36px; height: 36px; font-size: 0.8rem; }
+            .countdown-number { font-size: 1rem; }
+            .countdown-box { padding: 4px 12px; gap: 8px; }
+            .work-card h3 { font-size: 0.9rem; }
+            .guide-btn { padding: 6px 14px; font-size: 0.8rem; }
+        }
+        @media (max-width: 480px) {
+            .marquee-item { width: 180px; }
+            .marquee-img { height: 150px; }
+            .team-marquee-item { width: 200px; }
+            .team-marquee-img { height: 140px; }
+            .event-marquee-item { width: 200px; }
+            .event-marquee-img { height: 150px; }
+            .marquee-title { font-size: 0.7rem; padding: 6px; }
+            .countdown-number { font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body style="background: #e8dfd2; background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663604108019/WWoiuccXVRycCjqYzzpk6j/taiwan_newspaper_simple_bg-iPydLff9wBGrCjJy6EC5j3.webp'); background-size: cover; background-attachment: fixed;">
@@ -187,6 +211,7 @@
                     <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('home')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">主頁</a>
                     <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('info')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽資訊</a>
                     <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('works')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">展覽組別</a>
+                    <a href="javascript:void(0)" onclick="closeWorkDetailAndScrollTo('event-photos')" class="nav-link transition-colors font-medium" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;">📸 當天照片</a>
                     <div class="flex items-center gap-2">
                         <button onclick="shareToFB()" class="share-icon-btn" style="background: transparent; padding: 6px;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#1877F2"/><path d="M14.5 9.5H13V7.5C13 7.1 13.4 7 13.5 7H14.5V4H13C10.8 4 10 5.3 10 7.5V9.5H8V12.5H10V20H13V12.5H14.5L14.5 9.5Z" fill="white"/></svg>
@@ -205,7 +230,7 @@
                 </div>
             </div>
         </div>
-        <div id="mobileMenu" class="md:hidden hidden border-t" style="background: rgba(245, 241, 232, 0.98); border-top: 1px solid rgba(212, 175, 55, 0.2);"><div class="px-4 py-3 space-y-3"><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('home'); closeMobileMenu()">主頁</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('info'); closeMobileMenu()">展覽資訊</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('works'); closeMobileMenu()">展覽組別</a></div></div>
+        <div id="mobileMenu" class="md:hidden hidden border-t" style="background: rgba(245, 241, 232, 0.98); border-top: 1px solid rgba(212, 175, 55, 0.2);"><div class="px-4 py-3 space-y-3"><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('home'); closeMobileMenu()">主頁</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('info'); closeMobileMenu()">展覽資訊</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('works'); closeMobileMenu()">展覽組別</a><a href="javascript:void(0)" class="block py-2 transition-colors" style="font-family: 'Noto Sans TC', sans-serif; color: #1a3a3a;" onclick="closeWorkDetailAndScrollTo('event-photos'); closeMobileMenu()">📸 當天照片</a></div></div>
     </nav>
 
     <button id="backToTop" class="back-to-top" aria-label="回到頂部"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg></button>
@@ -257,6 +282,52 @@
                 </div>
             </div>
         </section>
+
+        <!-- 新增：媒體報導區塊 -->
+        <section id="news-section" class="py-16 px-4" style="background: linear-gradient(180deg, rgba(232, 223, 210, 0.6) 0%, rgba(232, 223, 210, 0.8) 100%);">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10" style="font-family: 'Noto Serif TC', serif; color: #5a4a3a;">📰 媒體報導</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+                    <a href="https://udn.com/news/story/6928/9498127" target="_blank" rel="noopener noreferrer" class="block text-center group">
+                        <div class="bg-white rounded-xl shadow-md p-4 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-[#8b7355]/20">
+                            <div class="text-4xl mb-2">📰</div>
+                            <div class="text-sm font-bold" style="color: #5a4a3a;">聯合新聞網</div>
+                        </div>
+                    </a>
+                    <a href="https://www.chinatimes.com/campus/20260512003922-262301?chdtv" target="_blank" rel="noopener noreferrer" class="block text-center group">
+                        <div class="bg-white rounded-xl shadow-md p-4 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-[#8b7355]/20">
+                            <div class="text-4xl mb-2">📰</div>
+                            <div class="text-sm font-bold" style="color: #5a4a3a;">中時新聞網</div>
+                        </div>
+                    </a>
+                    <a href="https://www.nvns.net/news_view.php?new_sn=128046&new_csn=1467" target="_blank" rel="noopener noreferrer" class="block text-center group">
+                        <div class="bg-white rounded-xl shadow-md p-4 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-[#8b7355]/20">
+                            <div class="text-4xl mb-2">📰</div>
+                            <div class="text-sm font-bold" style="color: #5a4a3a;">視傳媒新聞</div>
+                        </div>
+                    </a>
+                    <a href="https://www.cdns.com.tw/articles/1400013" target="_blank" rel="noopener noreferrer" class="block text-center group">
+                        <div class="bg-white rounded-xl shadow-md p-4 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-[#8b7355]/20">
+                            <div class="text-4xl mb-2">📰</div>
+                            <div class="text-sm font-bold" style="color: #5a4a3a;">中華日報</div>
+                        </div>
+                    </a>
+                    <a href="https://today.line.me/tw/v3/article/wJmWlew" target="_blank" rel="noopener noreferrer" class="block text-center group">
+                        <div class="bg-white rounded-xl shadow-md p-4 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-[#8b7355]/20">
+                            <div class="text-4xl mb-2">📱</div>
+                            <div class="text-sm font-bold" style="color: #5a4a3a;">LINE TODAY</div>
+                        </div>
+                    </a>
+                    <a href="https://pse.is/9392tm" target="_blank" rel="noopener noreferrer" class="block text-center group">
+                        <div class="bg-white rounded-xl shadow-md p-4 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-[#8b7355]/20">
+                            <div class="text-4xl mb-2">📰</div>
+                            <div class="text-sm font-bold" style="color: #5a4a3a;">Yahoo新聞</div>
+                        </div>
+                    </a>
+                </div>
+                <p class="text-center text-gray-500 text-sm mt-6">點擊按鈕，閱讀相關新聞報導</p>
+            </div>
+        </section>
     </div>
     
     <div id="work-detail-container" style="display:none;"></div>
@@ -267,24 +338,21 @@
     const imgBase = 'https://github.com/ccat4523/pucl08rebirth/raw/main/images/';
     const teamPhotos = ["111.jpg", "333.jpg", "444.jpg", "222.jpg"];
     
-    // 展覽當天照片（8張）
-    const eventPhotos = ["26051201.jpg", "26051202.jpg", "26051203.jpg", "26051204.jpg", "26051205.jpg", "26051206.jpg", "26051207.jpg", "26051208.jpg"];
+    // 展覽當天照片（已移除 26051205.jpg）
+    const eventPhotos = ["26051201.jpg", "26051202.jpg", "26051203.jpg", "26051204.jpg", "26051206.jpg", "26051207.jpg", "26051208.jpg"];
     
     // 輔助函數：處理描述文字的段落縮排（每個段落開頭加兩個全形空格）
     function formatDesc(desc) {
         if (!desc) return '';
-        // 將文字按換行符號分割成段落
         const paragraphs = desc.split(/\r?\n/);
-        // 每個段落開頭加上「　　」（兩個全形空格），然後用 <br> 連接
         return paragraphs.map(p => {
             if (p.trim() === '') return '';
             return '　　' + p;
         }).filter(p => p !== '').join('<br>');
     }
     
-    // ========== 完整17組作品資料（依新順序排列，已分類）==========
+    // ========== 完整17組作品資料 ==========
     const worksData = [
-        // 文藝出版（第1-11組）
         { id:17, no:1, title:"李昂《殺夫》漫畫改編", author:"顏家彤", desc:"跨域轉譯李昂的同名小說〈殺夫〉，以漫畫形式重新改編經典之作。駭人聽聞的陳林市殺夫案轟動鹿城，婦人為何狠心謀害親夫？透過細膩的圖像語言，一探這樁案件的背後……\n\n以女性創作者的視角，透過分鏡設計、圖像創作對女性作家的文字進行演繹與詮釋，勾勒出在名為鹿城的封閉小鎮中，主角林市如何在父權壓迫與社會話語下被逼至絕境，最終以極端的方式掙脫。而在創作上，為了更貼近李昂筆下建構的故事舞台「鹿城」—以傳統農村社會為背景的小鎮。本作品悉心考究時代背景，用寫實的畫風細緻描繪場景與鄉土風貌，帶領讀者沈浸在李昂文學的氛圍與情境中。\n\n本作品希望以漫畫作為媒介，讓原著小說的讀者能夠重新感受經典文學作品的多元面貌，開創截然不同的閱讀體驗；或是讓從未接觸過原著的人們，能藉由此作認識李昂的寫作世界與台灣文學。", img1:`${imgBase}t1.jpg`, img2:`${imgBase}t2.jpg` },
         { id:9, no:2, title:"咄咄怪事", author:"吳佳芸、林韋儒", desc:"這個作品是一部關於妖怪的短篇小說集，總共收錄14篇，「怪事」旨在呈現一切不符合常理之事，並非單純的怪異之事，我們將透過改編地方妖怪經典傳說結合妖怪本身帶有的神秘色彩，發揮創意及想像填補那些書上沒記錄到的妖怪故事，內容包括變成妖怪在其世界裡冒險，也會有妖怪來到現代世界等各類故事，溫馨、懸疑、奇幻等類別都能夠在〈咄咄怪事〉這部作品中找到。\n\n我們不只是書寫妖怪本身的故事，也書寫圍繞在人與妖怪間展開的奇緣及各種事件，或許人心比妖怪本身更複雜？妖怪未必只會帶來傷害？\n\n除了創作的短篇故事外，也會整理並科普妖怪本身的歷史、故事及原型附加在書籍中，希望在閱讀的體驗中除了可以感受並享受故事的魅力外，也能夠進一步認識這些來自不同地方的特色妖怪傳說，一起享受妖怪世界帶來的各種不同的色彩。", img1:`${imgBase}i1.jpg`, img2:`${imgBase}i2.jpg` },
         { id:16, no:3, title:"軌跡 Traces", author:"詹益富", desc:"「大概連電影都不敢這麼演。」這是本作的開場，也是我對迄今生命最誠實的註解。\n\n《軌跡 Traces》是一部結合文學感性敘事與數學理性邏輯的跨領域自傳體散文集。身為一名中學數學教師，我嘗試將冰冷的幾何術語轉化為富有溫度的生命隱喻。全書以「生命座標」為核心，規劃了五個心境轉折的篇章：從童年沈默的〈圍牆〉、國中覺醒的〈數學公式〉，到剖析人際疏離感的〈大紅圓桌〉——我以「漸近線」解構那些無限貼近卻註定無法相交的遺憾。\n\n這不僅是一場創作，更是一場自我超渡的旅程。我試圖透過書寫證明：那些曾經狠狠脫軌的碎裂、那些除不盡的遺憾，其實都是軌跡的一部分。我希望以此作告訴每位在座標系中迷失的靈魂：深淵過後必是破曉，所有的繞道與卡關，最終都將匯聚成駛向遼闊風景的動人軌跡。", img1:`${imgBase}u1.jpg`, img2:`${imgBase}u2.jpg` },
@@ -296,7 +364,6 @@
         { id:3, no:9, title:"麵跡台中——舊行政區的拉麵日常", author:"康懷方、廖恩嫺", desc:"本書以「拉麵」作為切入點，發展出一場關於味覺經驗與城市觀察的創作實踐。\n\n從日常中反覆出現的飲食選擇出發，透過實地走訪與品嚐，記錄不同店家的風格、湯頭層次與空間氛圍，並整理為具有參考性質的拉麵喜好表，此一系統化的呈現方式，讓讀者不僅能閱讀我們的經驗，也能依據自身偏好進行對照與選擇，使本書成為一種兼具主觀、客觀敘事與實用功能的飲食手冊。\n\n希望給予讀者的不只是「哪一碗拉麵好吃」的印象，而是能夠試圖理解拉麵如何作為文化符號，融入地方生活與城市紋理之中，穿梭於街巷，我們觀察那些看似平凡的店面與人潮，如何累積成一種集體的飲食記憶，並反映出不同時代與族群的生活樣貌。\n\n「開放性」也是本書很重要的核心理念，書中的喜好表與文字記錄並非提供「標準答案」，而是保留多元詮釋的空間，鼓勵讀者在閱讀與實際品嚐之間建立自己的連結。\n\n我們期望透過這樣的創作，使拉麵成為一種媒介，引導人們重新感知城市、重新理解自身，並在味覺與記憶的交織之中，拼湊出屬於個人的生活地圖。", img1:`${imgBase}c1.jpg`, img2:`${imgBase}c2.jpg` },
         { id:6, no:10, title:"四季的觸感——在看不見光的泥土裡，我聽見種子裂開的聲音", author:"陳名楊", desc:"「很多人會好奇，當視力上不太方便時，要怎麼創作花藝作品呢？」我想到了一個方法，就是選擇高品質的人造花材。在兼顧視覺美感的同時，也能讓我反覆地觸摸、感覺它的形狀，並在不斷調整架構的過程中，找到它最理想的樣子。這份透過雙手捏塑出的觸感，讓每一件作品都充滿了當時的情緒與記憶。\n\n我也試著將大學四年的點滴揉進花與文字裡。不管是那些在雪地裡自我療傷的過程、還是在陽光下努力破殼的心情，對我來說，這段生命的旅程都完整地呈現在作品中。使我的作品不再只是裝飾，而是我真實活過的證明。\n\n我更希望透過這次的展覽，讓大家看到我不再是那個躲在陰影裡的小透明，而是一個能用作品跟大家建立連結的人。\n\n誠摯邀請你走進我的四季，看見這份生命韌性的同時，也看看我如何用不同的感官去感受這豐富的世界。", img1:`${imgBase}f1.jpg`, img2:`${imgBase}f2.jpg` },
         { id:8, no:11, title:"尋幽敘事：台灣中部靈異傳說筆記與〈夜路〉大富翁桌遊設計", author:"洪睿妤、廖婕筑、蔡喆修、張証崴", desc:"不論在書籍經典，或是我們生活周遭，都充斥著很多的神話或靈異故事，人們總是饒有興致談論著這類的話題；我們也對這樣的情況樂此不疲，但不知什麼時候開始，這類型的傳說越來越不活躍於我們茶餘飯後的話題，所以我們經過思索，覺得這些有趣的故事應該被更多人發掘且看見，於是我們確定了這次的主題，並完成了屬於我們的《新聊齋》中部篇。\n\n《新聊齋》中部篇是一本蒐集了台灣中部地區的鄉野奇譚、奇聞軼事的短篇故事集，內容以文言文寫作，並附上白話文翻譯，讓大家都能輕易的看懂，和文學沒有距離感。而其中想表達的精神並不是單純以鬼怪嚇人，而是承襲《聊齋誌異》、《閱微草堂筆記》之精神，鬼與怪或靈，他們的所做所為皆有其背後意義，可能為了警惕世人，也可能守護眾生，讓我們明白其實不是所有的鬼怪都是令人懼怕的，而是也值得我們去注意的。\n\n在創作這本《新聊齋》之前，我們實地走訪了中部各縣市，採集當地民眾的說法，也感受當地靈異氛圍，最後將這些所見所聞融入書中，費盡我們心血，完成了此作品。\n\n在完成了《新聊齋》之後，我們讓AI吸收了文本，讓他產生一串大富翁遊戲的指令，並將其代入canva，做出了一個名為〈夜路〉的大富翁遊戲，這個遊戲讓閱讀過文本的讀者可以融入其中，也能讓還沒有閱讀過的人奠定故事基礎，讓自己在讀《新聊齋》的時候更輕鬆。\n\n最後，若大家有興趣，不妨翻翻我們的《新聊齋》，也遊玩我們的〈夜路〉大富翁，一起和這些怪談、靈異、鬼神，甚至是文學友好的相處，讓我們一起將這些故事分享給大家，且流傳下去吧！", img1:`${imgBase}h1.jpg`, img2:`${imgBase}h2.jpg` },
-        // 文創設計（第12-17組）
         { id:12, no:12, title:"嚥下危機", author:"曾宜蓁、顏孝庭、蔡旻蓁", desc:"這是一款以《史記》〈鴻門宴〉為核心改編的RPG情境選擇遊戲。\n\n創作初衷源於對古典文本教學方式的反思——多數人對古文的印象停留在背誦與註解，然而文本本身其實蘊含高度戲劇張力與人性衝突。\n\n〈鴻門宴〉作為楚漢相爭的關鍵轉折，不僅涉及權力角力與謀略布局，更充滿選擇與猶豫。\n\n遊戲主體以「抉擇」為核心機制，讓玩家置身宴席現場，在緊張的歴史情境中作出判斷。透過三種結局分支設計，使玩家感受到不同選擇如何改變歴史走向，甚至顛覆既定結局。\n\n本作品希望打破「古文枯燥乏味」的刻板印象，讓經典文本不再只是閲讀材料，而是可被體驗、參與重構的敘事空間。當玩家在情境中做出選擇，古文便不再遙遠，而成為與當代對話的媒介。", img1:`${imgBase}l1.JPG`, img2:`${imgBase}l2.JPG` },
         { id:7, no:13, title:"後西遊 憤怒篇", author:"葉子揚", desc:"我的畢業專題作品所製作的是一款RPG遊戲，是藉由電腦所運行的單機遊戲，這一款遊戲所主打的是劇情、需要動腦的機關、探索世界外，我還設計與西遊記相關的題目，希望遊玩的玩家可以在遊玩劇情的同時，還可以學習到關於西遊記的知識。\n\n那關於我的創作理念，原先是想創造一款屬於自己的遊戲，然後將這款遊戲分享到大型遊戲平台上，供眾人遊玩，達到寓教於樂的效果，但後面在老師的提醒下，我發現這款遊戲應該可以有更多方面的應用，所以我的理念從原本只有寓教於樂（娛樂+學習），加上了文化轉譯（破除中文系「只讀書」學習知識的刻板印象），再加上應用學習，希望這款遊戲可以在線下的教學現場派上用途，讓學習知識變得更加有趣，不再是百無聊賴的翻書。", img1:`${imgBase}g1.jpg`, img2:`${imgBase}g2.jpg` },
         { id:11, no:14, title:"古文字之「旅」", author:"劉庭妤、楊穎祁", desc:"本創作以臺灣景點為主題，設計一套結合教育與趣味的古文字學習卡牌。內容以甲骨文為核心，輔以金文與小篆之字形演變，並搭配注音、楷書與拼音。選材融入臺灣具代表性的自然與人文景觀，使使用者在辨識古文字的同時，也能連結在地文化意象，提升學習情境與記憶深度。對象涵蓋國小學生以上及國際學習者，兼具語文教育與文化推廣價值。\n\n透過卡牌互動降低甲骨文的理解門檻，使抽象知識轉為具體可操作的學習經驗。同時運用Adobe AI與Photoshop進行字體加工與包裝設計，在維持學術基礎下融入現代視覺美感，展現古文字於當代的創新詮釋。", img1:`${imgBase}k1.jpg`, img2:`${imgBase}k2.jpg` },
@@ -305,7 +372,7 @@
         { id:15, no:17, title:"美麗花園中的倩影與馨香——《紅樓夢》金釵香包文創", author:"林柔榛、楊容嫻、李敏玲", desc:"本創作以「以香為引，如入紅樓之境」為核心概念，從《紅樓夢》人物性格出發，嘗試將文學轉化為可感知的嗅覺與視覺經驗。作品依據人物個性調配專屬香氣，將其情感氣質轉譯為氣味層次，使無形的性格得以被「聞見」；同時，在花卉繪製上亦以人物特質為依據，選擇能呼應其氣質的花卉進行表現，強化整體視覺語言。\n\n此外，結合判詞書法書寫，讓文字、香氣與花卉三者彼此呼應，形成多重感官的敘事方式。觀者不僅能閱讀文本，更能透過嗅覺與視覺的引導，逐步走入人物內在世界。期望藉由此種跨媒材的轉譯，使經典文學不再侷限於紙上，而是轉化為一種可被體驗與感受的當代文化形式。", img1:`${imgBase}o1.jpg`, img2:`${imgBase}o2.jpg` }
     ];
  
-    // 作品搶先看資料（只保留有圖片的項目，沒有圖片的不顯示）
+    // 作品搶先看資料
     const marqueeData = [
         { group: 17, title: "李昂《殺夫》漫畫改編", images: ["17a.jpg", "17b.jpg", "17c.jpg"] },
         { group: 5, title: "走進張愛玲——我們心中的紅與白", images: ["5a.png"] },
@@ -317,279 +384,265 @@
     ];
 
     function updateCountdownAndStatus() {
-    const now = new Date();
-    const startDate = new Date(2026, 4, 12, 10, 0, 0);
-    const endDate = new Date(2026, 4, 14, 17, 0, 0);
-    const countdownDiv = document.getElementById('countdownDisplay');
-    if (!countdownDiv) return;
-    
-    // 特別處理：最後一天（5/14）顯示為 16:00 結束
-    const isLastDay = now >= new Date(2026, 4, 14, 0, 0, 0) && now < new Date(2026, 4, 15, 0, 0, 0);
-    
-    if (now >= startDate && now <= endDate) {
-        let dayNum = 1;
-        if (now >= new Date(2026, 4, 13, 0, 0, 0)) dayNum = 2;
-        if (now >= new Date(2026, 4, 14, 0, 0, 0)) dayNum = 3;
-        const chineseDay = dayNum === 1 ? "一" : (dayNum === 2 ? "二" : "三");
-        if (isLastDay) {
-            countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天（最後一天至 16:00） ✨</span></div>`;
-        } else {
-            countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天 ✨</span></div>`;
-        }
-        return;
-    } else if (now > endDate) {
-        countdownDiv.innerHTML = `<div class="countdown-box" style="background:#8b7355; color:white;"><span style="font-weight:bold;">📌 展覽已圓滿落幕，感謝支持 📌</span></div>`;
-        return;
-    }
-    const targetDate = new Date(2026, 4, 12, 10, 0, 0);
-    const diff = targetDate - now;
-    if (diff <= 0) {
-        countdownDiv.innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽即將開始！</span>';
-        return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % 86400000) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % 3600000) / (1000 * 60));
-    countdownDiv.innerHTML = `<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`;
-}
+        const now = new Date();
+        const startDate = new Date(2026, 4, 12, 10, 0, 0);
+        const endDate = new Date(2026, 4, 14, 17, 0, 0);
+        const countdownDiv = document.getElementById('countdownDisplay');
+        if (!countdownDiv) return;
         
-        // 【修正】團隊合照區：點擊圖片使用燈箱，確保在手機上彈出居中顯示
-        function initTeamMarquee() { 
-            const track = document.getElementById('teamMarqueeTrack'); 
-            if(track) track.innerHTML = teamPhotos.map(photo => `<div class="team-marquee-item"><img class="team-marquee-img" src="${imgBase}${photo}" alt="大合照" loading="lazy" onerror="this.style.display='none'" onclick="showLightbox('${imgBase}${photo}')"></div>`).join(''); 
-        }
-        function setupTeamMarqueeScroll() { const c=document.getElementById('teamMarqueeContainer'), p=document.getElementById('teamMarqueePrevBtn'), n=document.getElementById('teamMarqueeNextBtn'); if(c&&p&&n){ p.onclick=()=>c.scrollBy({left:-340,behavior:'smooth'}); n.onclick=()=>c.scrollBy({left:340,behavior:'smooth'}); } }
+        const isLastDay = now >= new Date(2026, 4, 14, 0, 0, 0) && now < new Date(2026, 4, 15, 0, 0, 0);
         
-        // 【修正】作品搶先看跑馬燈：只顯示有圖片的項目，沒有的就不顯示
-        function initMarquee() { 
-            const track = document.getElementById('marqueeTrack'); 
-            if(!track) return; 
-            let items=[]; 
-            marqueeData.forEach(g=>{ 
-                if(g.images && g.images.length) {
-                    // 過濾掉無效的圖片（空字串或 null）
-                    const validImages = g.images.filter(img => img && img.trim() !== '');
-                    if(validImages.length === 0) return;
-                    validImages.forEach(img=>{ 
-                        items.push({title:g.title, imgUrl:`${imgBase}${img}`, groupId:g.group}); 
-                    }); 
-                }
-            }); 
-            if(items.length===0) track.innerHTML='<div class="text-center text-gray-500 w-full py-10">即將上線，敬請期待！</div>'; 
-            else track.innerHTML=items.map(item=>`<div class="marquee-item" onclick="scrollToWork(${item.groupId})"><img class="marquee-img" src="${item.imgUrl}" alt="${item.title}" loading="lazy" onerror="this.style.display='none'"><div class="marquee-title">${item.title}</div></div>`).join(''); 
-        }
-        function setupMarqueeScroll() { const c=document.getElementById('marqueeContainer'), p=document.getElementById('marqueePrevBtn'), n=document.getElementById('marqueeNextBtn'); if(c&&p&&n){ p.onclick=()=>c.scrollBy({left:-320,behavior:'smooth'}); n.onclick=()=>c.scrollBy({left:320,behavior:'smooth'}); } }
-        function scrollToWork(gid) { 
-            closeWorkDetail(); // 先關閉可能開啟的詳情頁
-            const grid = document.getElementById('works-grid'); 
-            if(grid){ 
-                // 根據 id 尋找作品卡片
-                const targetCard = document.querySelector(`.work-card[data-work-id="${gid}"]`);
-                if(targetCard){ 
-                    targetCard.scrollIntoView({behavior:'smooth',block:'center'}); 
-                    targetCard.style.boxShadow='0 0 0 3px #d4af37'; 
-                    setTimeout(()=>targetCard.style.boxShadow='',1500); 
-                } else {
-                    // 如果卡片尚未渲染，等待一下再試
-                    setTimeout(() => scrollToWork(gid), 100);
-                }
-            } 
-        }
-        
-        // 展覽當天照片跑馬燈初始化
-        function initEventMarquee() { 
-            const track = document.getElementById('eventMarqueeTrack'); 
-            if(track && eventPhotos.length > 0) { 
-                track.innerHTML = eventPhotos.map(photo => `
-                    <div class="event-marquee-item" onclick="showLightbox('${imgBase}${photo}')">
-                        <img class="event-marquee-img" src="${imgBase}${photo}" alt="展覽當天照片" loading="lazy" onerror="this.style.display='none'">
-                    </div>
-                `).join(''); 
-            } else if (track) {
-                track.innerHTML = '<div class="text-center text-gray-500 w-full py-10">展覽當天照片即將上線，敬請期待！</div>';
+        if (now >= startDate && now <= endDate) {
+            let dayNum = 1;
+            if (now >= new Date(2026, 4, 13, 0, 0, 0)) dayNum = 2;
+            if (now >= new Date(2026, 4, 14, 0, 0, 0)) dayNum = 3;
+            const chineseDay = dayNum === 1 ? "一" : (dayNum === 2 ? "二" : "三");
+            if (isLastDay) {
+                countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天（最後一天至 16:00） ✨</span></div>`;
+            } else {
+                countdownDiv.innerHTML = `<div class="countdown-box" style="background:#d4af37; color:#5a4a3a;"><span style="font-weight:bold;">✨ 展覽第${chineseDay}天 ✨</span></div>`;
             }
+            return;
+        } else if (now > endDate) {
+            countdownDiv.innerHTML = `<div class="countdown-box" style="background:#8b7355; color:white;"><span style="font-weight:bold;">📌 展覽已圓滿落幕，感謝支持 📌</span></div>`;
+            return;
         }
-        function setupEventMarqueeScroll() { 
-            const c = document.getElementById('eventMarqueeContainer'); 
-            const p = document.getElementById('eventMarqueePrevBtn'); 
-            const n = document.getElementById('eventMarqueeNextBtn'); 
-            if(c && p && n) { 
-                p.onclick = () => c.scrollBy({ left: -340, behavior: 'smooth' }); 
-                n.onclick = () => c.scrollBy({ left: 340, behavior: 'smooth' }); 
-            } 
+        const targetDate = new Date(2026, 4, 12, 10, 0, 0);
+        const diff = targetDate - now;
+        if (diff <= 0) {
+            countdownDiv.innerHTML = '<span style="color:#d4af37; background:rgba(255,255,255,0.8); padding:8px 20px; border-radius:50px;">展覽即將開始！</span>';
+            return;
         }
-        
-        // 【已修改】將展覽組別分為「文藝出版」和「文創設計」兩個區塊，並加入圖片容錯處理
-        function renderWorks() { 
-            const container = document.getElementById('works-grid'); 
-            if(!container) return;
-            
-            // 將作品分成兩類
-            const publishingWorks = worksData.filter(w => w.no <= 11);  // 文藝出版：第1-11組
-            const designWorks = worksData.filter(w => w.no >= 12);      // 文創設計：第12-17組
-            
-            let html = '';
-            
-            // 文藝出版區塊
-            html += `<div class="mb-12"><div class="text-center mb-6"><span class="inline-block px-6 py-2 rounded-full text-lg font-bold" style="background: #8b7355; color: white; font-family: 'Noto Serif TC', serif;">📖 文藝出版</span></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">`;
-            publishingWorks.forEach(w => {
-                html += `
-                    <div class="work-card" data-work-id="${w.id}">
-                        <div class="work-card-img-container w-full h-48 overflow-hidden">
-                            ${w.img1 ? `<img src="${w.img1}" alt="${w.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full flex items-center justify-center\'><span>📷 圖片載入失敗</span></div>'">` : `<div class="image-placeholder w-full h-full flex items-center justify-center"><span>📷 圖片待補</span></div>`}
-                        </div>
-                        <div class="p-4">
-                            <h3 class="work-title text-lg font-bold text-gray-800 mb-1">${escapeHtml(w.title)}</h3>
-                            <p class="text-sm text-gray-500 mb-2">第 ${w.no} 組</p>
-                            <p class="text-sm text-gray-500">${escapeHtml(w.author)}</p>
-                            <button class="mt-3 transition view-detail-btn" data-work-id="${w.id}">閱讀更多 →</button>
-                        </div>
-                    </div>
-                `;
-            });
-            html += `</div></div>`;
-            
-            // 文創設計區塊
-            html += `<div><div class="text-center mb-6"><span class="inline-block px-6 py-2 rounded-full text-lg font-bold" style="background: #8b7355; color: white; font-family: 'Noto Serif TC', serif;">🎨 文創設計</span></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">`;
-            designWorks.forEach(w => {
-                html += `
-                    <div class="work-card" data-work-id="${w.id}">
-                        <div class="work-card-img-container w-full h-48 overflow-hidden">
-                            ${w.img1 ? `<img src="${w.img1}" alt="${w.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full flex items-center justify-center\'><span>📷 圖片載入失敗</span></div>'">` : `<div class="image-placeholder w-full h-full flex items-center justify-center"><span>📷 圖片待補</span></div>`}
-                        </div>
-                        <div class="p-4">
-                            <h3 class="work-title text-lg font-bold text-gray-800 mb-1">${escapeHtml(w.title)}</h3>
-                            <p class="text-sm text-gray-500 mb-2">第 ${w.no} 組</p>
-                            <p class="text-sm text-gray-500">${escapeHtml(w.author)}</p>
-                            <button class="mt-3 transition view-detail-btn" data-work-id="${w.id}">閱讀更多 →</button>
-                        </div>
-                    </div>
-                `;
-            });
-            html += `</div></div>`;
-            
-            container.innerHTML = html;
-            
-            // 綁定按鈕點擊事件
-            container.querySelectorAll('.view-detail-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const workId = parseInt(btn.getAttribute('data-work-id'));
-                    const work = worksData.find(w => w.id === workId);
-                    if(work) showWorkDetail(work);
-                });
-            });
-        }
-        
-        function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
-        
-        // 作品詳情頁顯示（已修正，不會誤抓合照，並加入段落縮排）
-        function showWorkDetail(work) { 
-            const mainContent = document.getElementById('main-content'); 
-            const detailContainer = document.getElementById('work-detail-container'); 
-            mainContent.style.display = 'none'; 
-            detailContainer.style.display = 'block'; 
-            detailContainer.classList.add('fade-in'); 
-            detailContainer.innerHTML = `
-                <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
-                    <div class="max-w-3xl mx-auto p-6 sm:p-8 rounded-sm" style="background:rgba(255,255,255,0.95); border:2px solid #8b7355;">
-                        <button onclick="closeWorkDetail()" class="back-btn inline-block mb-6 text-sm" style="color:#8b7355;">← 返回作品列表</button>
-                        <div class="mb-8">
-                            <h1 class="detail-title text-2xl sm:text-3xl font-bold mb-2" style="color:#5a4a3a;">${escapeHtml(work.title)}</h1>
-                            <p class="text-base sm:text-lg" style="color:#6b5d4f;">創作者：${escapeHtml(work.author)}</p>
-                        </div>
-                        <div class="mb-8 flex flex-col items-center gap-4">
-                            ${work.img1 ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden border-2 border-[#8b7355]"><img src="${work.img1}" class="w-full h-auto" alt="作品圖片1" onerror="this.style.display='none'"></div>` : ''}
-                            ${work.img2 ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden border-2 border-[#8b7355]"><img src="${work.img2}" class="w-full h-auto" alt="作品圖片2" onerror="this.style.display='none'"></div>` : ''}
-                            ${work.video ? `<div class="w-full max-w-2xl"><div class="aspect-video"><iframe class="w-full h-full" src="${work.video}" frameborder="0" allowfullscreen onerror="this.style.display='none'"></iframe></div></div>` : ''}
-                        </div>
-                        <div class="mb-8">
-                            <h3 class="text-xl font-bold mb-4" style="color:#5a4a3a;">作品介紹</h3>
-                            <div class="leading-relaxed" style="color:#5a4a3a; line-height:1.8;">${formatDesc(work.desc)}</div>
-                        </div>
-                        <div class="pt-8 border-t-2 flex flex-wrap justify-between items-start gap-4" style="border-color:#8b7355;">
-                            <div>
-                                <h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3>
-                                <div class="flex gap-3 flex-wrap">
-                                    <button onclick="shareWorkToFB('${encodeURIComponent(work.title)}')" class="share-icon-btn" style="background:#1877f2;color:white;padding:6px 12px;">FB</button>
-                                    <button onclick="shareWorkToLINE('${encodeURIComponent(work.title)}')" class="share-icon-btn" style="background:#00b900;color:white;padding:6px 12px;">LINE</button>
-                                    <button onclick="navigator.clipboard.writeText(location.href.split('?')[0]); alert('連結已複製！')" class="share-icon-btn" style="background:#8b7355;color:white;padding:6px 12px;">複製</button>
-                                </div>
-                            </div>
-                            <div class="text-right invitation-text" style="max-width: 320px;">
-                                <p class="text-sm italic leading-relaxed" style="color: #8b7355;">蛻變的痕跡，紙上說不盡。<br>作品背後的故事，等你來發掘。</p>
-                                <p class="text-base font-bold mt-3" style="color: #5a4a3a;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `; 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function closeWorkDetail() { 
-            document.getElementById('main-content').style.display = 'block'; 
-            document.getElementById('work-detail-container').style.display = 'none'; 
-            // 重新整理作品列表以確保事件綁定正確
-            renderWorks();
-        }
-        
-        let guideSwiper=null, currentScale=1, currentImageElement=null;
-        function openGuideLightbox() { const wrapper=document.getElementById('guideSwiperWrapper'); wrapper.innerHTML=`<div class="swiper-slide guide-swiper-slide"><img class="guide-image" src="${imgBase}11007.jpg" alt="圖文導覽1" onerror="this.src='https://placehold.co/800x600?text=11007+圖片載入中'"></div><div class="swiper-slide guide-swiper-slide"><img class="guide-image" src="${imgBase}11008.jpg" alt="圖文導覽2" onerror="this.src='https://placehold.co/800x600?text=11008+圖片載入中'"></div>`; document.getElementById('guideLightbox').classList.add('active'); document.body.style.overflow='hidden'; if(guideSwiper) guideSwiper.destroy(true,true); guideSwiper=new Swiper('#guideSwiperContainer',{loop:false, on:{ slideChange:function(){ const imgs=document.querySelectorAll('.guide-image'); currentImageElement=imgs[this.activeIndex]; currentScale=1; if(currentImageElement) currentImageElement.style.transform=`scale(${currentScale})`; } }}); const firstImg=document.querySelector('.guide-image'); if(firstImg){ currentImageElement=firstImg; currentScale=1; } }
-        function closeGuideLightbox() { document.getElementById('guideLightbox').classList.remove('active'); document.body.style.overflow=''; if(guideSwiper) guideSwiper.destroy(true,true); guideSwiper=null; }
-        document.getElementById('zoomInBtn')?.addEventListener('click',()=>{ if(currentImageElement){ currentScale=Math.min(currentScale+0.2,3); currentImageElement.style.transform=`scale(${currentScale})`; } });
-        document.getElementById('zoomOutBtn')?.addEventListener('click',()=>{ if(currentImageElement){ currentScale=Math.max(currentScale-0.2,0.5); currentImageElement.style.transform=`scale(${currentScale})`; } });
-        document.getElementById('downloadCurrentBtn')?.addEventListener('click',()=>{ if(currentImageElement&&currentImageElement.src){ const a=document.createElement('a'); a.href=currentImageElement.src; a.download=currentImageElement.src.split('/').pop()||'guide_image.jpg'; document.body.appendChild(a); a.click(); document.body.removeChild(a); } else alert('無法下載圖片'); });
-        function shareWorkToFB(t){ window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href.split('?')[0])}&quote=${t}`,'_blank'); }
-        function shareWorkToLINE(t){ window.open(`https://line.me/R/msg/text/?${encodeURIComponent(t+' '+location.href.split('?')[0])}`,'_blank'); }
-        
-        // 【修正】統一的燈箱顯示函數，支援手機與電腦，圖片在畫面中央彈出
-        function showLightbox(src){ 
-            const lb = document.getElementById('lightbox'); 
-            const img = document.getElementById('lightboxImg'); 
-            img.src = src; 
-            lb.classList.add('active'); 
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox(){ 
-            const lb = document.getElementById('lightbox'); 
-            lb.classList.remove('active'); 
-            document.body.style.overflow = ''; 
-        }
-        
-        function getPageUrl(){ return location.href.split('?')[0]; }
-        function copyPageLink(){ navigator.clipboard.writeText(getPageUrl()).then(()=>alert('連結已複製！')).catch(()=>prompt('請手動複製連結',getPageUrl())); }
-        function shareToFB(){ window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}`,'_blank'); }
-        function shareToLINE(){ window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業成果展 '+getPageUrl())}`,'_blank'); }
-        function closeWorkDetailAndScrollTo(sectionId) { 
-            if(document.getElementById('work-detail-container').style.display === 'block') {
-                closeWorkDetail();
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % 86400000) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % 3600000) / (1000 * 60));
+        countdownDiv.innerHTML = `<div class="countdown-box"><div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">天</div></div><div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">時</div></div><div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">分</div></div><span style="color:#d4af37;">後開展</span></div>`;
+    }
+    
+    function initTeamMarquee() { 
+        const track = document.getElementById('teamMarqueeTrack'); 
+        if(track) track.innerHTML = teamPhotos.map(photo => `<div class="team-marquee-item"><img class="team-marquee-img" src="${imgBase}${photo}" alt="大合照" loading="lazy" onerror="this.style.display='none'" onclick="showLightbox('${imgBase}${photo}')"></div>`).join(''); 
+    }
+    function setupTeamMarqueeScroll() { const c=document.getElementById('teamMarqueeContainer'), p=document.getElementById('teamMarqueePrevBtn'), n=document.getElementById('teamMarqueeNextBtn'); if(c&&p&&n){ p.onclick=()=>c.scrollBy({left:-340,behavior:'smooth'}); n.onclick=()=>c.scrollBy({left:340,behavior:'smooth'}); } }
+    
+    function initMarquee() { 
+        const track = document.getElementById('marqueeTrack'); 
+        if(!track) return; 
+        let items=[]; 
+        marqueeData.forEach(g=>{ 
+            if(g.images && g.images.length) {
+                const validImages = g.images.filter(img => img && img.trim() !== '');
+                if(validImages.length === 0) return;
+                validImages.forEach(img=>{ 
+                    items.push({title:g.title, imgUrl:`${imgBase}${img}`, groupId:g.group}); 
+                }); 
             }
-            const s=document.getElementById(sectionId); 
-            if(s) s.scrollIntoView({behavior:'smooth'}); 
+        }); 
+        if(items.length===0) track.innerHTML='<div class="text-center text-gray-500 w-full py-10">即將上線，敬請期待！</div>'; 
+        else track.innerHTML=items.map(item=>`<div class="marquee-item" onclick="scrollToWork(${item.groupId})"><img class="marquee-img" src="${item.imgUrl}" alt="${item.title}" loading="lazy" onerror="this.style.display='none'"><div class="marquee-title">${item.title}</div></div>`).join(''); 
+    }
+    function setupMarqueeScroll() { const c=document.getElementById('marqueeContainer'), p=document.getElementById('marqueePrevBtn'), n=document.getElementById('marqueeNextBtn'); if(c&&p&&n){ p.onclick=()=>c.scrollBy({left:-320,behavior:'smooth'}); n.onclick=()=>c.scrollBy({left:320,behavior:'smooth'}); } }
+    
+    function scrollToWork(gid) { 
+        closeWorkDetail();
+        const grid = document.getElementById('works-grid'); 
+        if(grid){ 
+            const targetCard = document.querySelector(`.work-card[data-work-id="${gid}"]`);
+            if(targetCard){ 
+                targetCard.scrollIntoView({behavior:'smooth',block:'center'}); 
+                targetCard.style.boxShadow='0 0 0 3px #d4af37'; 
+                setTimeout(()=>targetCard.style.boxShadow='',1500); 
+            } else {
+                setTimeout(() => scrollToWork(gid), 100);
+            }
+        } 
+    }
+    
+    function initEventMarquee() { 
+        const track = document.getElementById('eventMarqueeTrack'); 
+        if(track && eventPhotos.length > 0) { 
+            track.innerHTML = eventPhotos.map(photo => `
+                <div class="event-marquee-item" onclick="showLightbox('${imgBase}${photo}')">
+                    <img class="event-marquee-img" src="${imgBase}${photo}" alt="展覽當天照片" loading="lazy" onerror="this.style.display='none'">
+                </div>
+            `).join(''); 
+        } else if (track) {
+            track.innerHTML = '<div class="text-center text-gray-500 w-full py-10">展覽當天照片即將上線，敬請期待！</div>';
         }
-        function closeMobileMenu(){ document.getElementById('mobileMenu').classList.add('hidden'); }
+    }
+    function setupEventMarqueeScroll() { 
+        const c = document.getElementById('eventMarqueeContainer'); 
+        const p = document.getElementById('eventMarqueePrevBtn'); 
+        const n = document.getElementById('eventMarqueeNextBtn'); 
+        if(c && p && n) { 
+            p.onclick = () => c.scrollBy({ left: -340, behavior: 'smooth' }); 
+            n.onclick = () => c.scrollBy({ left: 340, behavior: 'smooth' }); 
+        } 
+    }
+    
+    function renderWorks() { 
+        const container = document.getElementById('works-grid'); 
+        if(!container) return;
         
-        window.addEventListener('load',()=>{ 
-            setTimeout(()=>{ const ld=document.getElementById('loadingOverlay'); ld.style.opacity='0'; setTimeout(()=>ld.style.display='none',500); },800); 
-            updateCountdownAndStatus(); 
-            setInterval(updateCountdownAndStatus, 60000); 
-            renderWorks(); 
-            initTeamMarquee(); 
-            setupTeamMarqueeScroll(); 
-            initMarquee(); 
-            setupMarqueeScroll(); 
-            initEventMarquee(); 
-            setupEventMarqueeScroll(); 
-            const menuBtn=document.getElementById('menuBtn'); 
-            const mobileMenu=document.getElementById('mobileMenu'); 
-            if(menuBtn) menuBtn.onclick=()=>mobileMenu.classList.toggle('hidden'); 
+        const publishingWorks = worksData.filter(w => w.no <= 11);
+        const designWorks = worksData.filter(w => w.no >= 12);
+        
+        let html = '';
+        
+        html += `<div class="mb-12"><div class="text-center mb-6"><span class="inline-block px-6 py-2 rounded-full text-lg font-bold" style="background: #8b7355; color: white; font-family: 'Noto Serif TC', serif;">📖 文藝出版</span></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">`;
+        publishingWorks.forEach(w => {
+            html += `
+                <div class="work-card" data-work-id="${w.id}">
+                    <div class="work-card-img-container w-full h-48 overflow-hidden">
+                        ${w.img1 ? `<img src="${w.img1}" alt="${w.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full flex items-center justify-center\'><span>📷 圖片載入失敗</span></div>'">` : `<div class="image-placeholder w-full h-full flex items-center justify-center"><span>📷 圖片待補</span></div>`}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="work-title text-lg font-bold text-gray-800 mb-1">${escapeHtml(w.title)}</h3>
+                        <p class="text-sm text-gray-500 mb-2">第 ${w.no} 組</p>
+                        <p class="text-sm text-gray-500">${escapeHtml(w.author)}</p>
+                        <button class="mt-3 transition view-detail-btn" data-work-id="${w.id}">閱讀更多 →</button>
+                    </div>
+                </div>
+            `;
         });
-        let lastScrollY=window.scrollY; const navbar=document.getElementById('navbar'), backTop=document.getElementById('backToTop'); 
-        window.addEventListener('scroll',()=>{ const cur=window.scrollY; if(cur>lastScrollY&&cur>100) navbar.classList.add('navbar-hidden'); else navbar.classList.remove('navbar-hidden'); lastScrollY=cur; if(window.scrollY>300) backTop.classList.add('show'); else backTop.classList.remove('show'); }); 
-        backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); 
-        const gc=document.getElementById('glowCursor'); 
-        document.addEventListener('mousemove',(e)=>{ if(window.innerWidth>768) gc.style.transform=`translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`; });
-    </script>
+        html += `</div></div>`;
+        
+        html += `<div><div class="text-center mb-6"><span class="inline-block px-6 py-2 rounded-full text-lg font-bold" style="background: #8b7355; color: white; font-family: 'Noto Serif TC', serif;">🎨 文創設計</span></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">`;
+        designWorks.forEach(w => {
+            html += `
+                <div class="work-card" data-work-id="${w.id}">
+                    <div class="work-card-img-container w-full h-48 overflow-hidden">
+                        ${w.img1 ? `<img src="${w.img1}" alt="${w.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full flex items-center justify-center\'><span>📷 圖片載入失敗</span></div>'">` : `<div class="image-placeholder w-full h-full flex items-center justify-center"><span>📷 圖片待補</span></div>`}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="work-title text-lg font-bold text-gray-800 mb-1">${escapeHtml(w.title)}</h3>
+                        <p class="text-sm text-gray-500 mb-2">第 ${w.no} 組</p>
+                        <p class="text-sm text-gray-500">${escapeHtml(w.author)}</p>
+                        <button class="mt-3 transition view-detail-btn" data-work-id="${w.id}">閱讀更多 →</button>
+                    </div>
+                </div>
+            `;
+        });
+        html += `</div></div>`;
+        
+        container.innerHTML = html;
+        
+        container.querySelectorAll('.view-detail-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const workId = parseInt(btn.getAttribute('data-work-id'));
+                const work = worksData.find(w => w.id === workId);
+                if(work) showWorkDetail(work);
+            });
+        });
+    }
+    
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
+    
+    function showWorkDetail(work) { 
+        const mainContent = document.getElementById('main-content'); 
+        const detailContainer = document.getElementById('work-detail-container'); 
+        mainContent.style.display = 'none'; 
+        detailContainer.style.display = 'block'; 
+        detailContainer.classList.add('fade-in'); 
+        detailContainer.innerHTML = `
+            <section class="py-16 px-4" style="min-height:calc(100vh - 200px);">
+                <div class="max-w-3xl mx-auto p-6 sm:p-8 rounded-sm" style="background:rgba(255,255,255,0.95); border:2px solid #8b7355;">
+                    <button onclick="closeWorkDetail()" class="back-btn inline-block mb-6 text-sm" style="color:#8b7355;">← 返回作品列表</button>
+                    <div class="mb-8">
+                        <h1 class="detail-title text-2xl sm:text-3xl font-bold mb-2" style="color:#5a4a3a;">${escapeHtml(work.title)}</h1>
+                        <p class="text-base sm:text-lg" style="color:#6b5d4f;">創作者：${escapeHtml(work.author)}</p>
+                    </div>
+                    <div class="mb-8 flex flex-col items-center gap-4">
+                        ${work.img1 ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden border-2 border-[#8b7355]"><img src="${work.img1}" class="w-full h-auto" alt="作品圖片1" onerror="this.style.display='none'"></div>` : ''}
+                        ${work.img2 ? `<div class="w-full max-w-2xl rounded-sm overflow-hidden border-2 border-[#8b7355]"><img src="${work.img2}" class="w-full h-auto" alt="作品圖片2" onerror="this.style.display='none'"></div>` : ''}
+                        ${work.video ? `<div class="w-full max-w-2xl"><div class="aspect-video"><iframe class="w-full h-full" src="${work.video}" frameborder="0" allowfullscreen onerror="this.style.display='none'"></iframe></div></div>` : ''}
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4" style="color:#5a4a3a;">作品介紹</h3>
+                        <div class="leading-relaxed" style="color:#5a4a3a; line-height:1.8;">${formatDesc(work.desc)}</div>
+                    </div>
+                    <div class="pt-8 border-t-2 flex flex-wrap justify-between items-start gap-4" style="border-color:#8b7355;">
+                        <div>
+                            <h3 class="text-lg font-bold mb-4" style="color:#5a4a3a;">分享此作品</h3>
+                            <div class="flex gap-3 flex-wrap">
+                                <button onclick="shareWorkToFB('${encodeURIComponent(work.title)}')" class="share-icon-btn" style="background:#1877f2;color:white;padding:6px 12px;">FB</button>
+                                <button onclick="shareWorkToLINE('${encodeURIComponent(work.title)}')" class="share-icon-btn" style="background:#00b900;color:white;padding:6px 12px;">LINE</button>
+                                <button onclick="navigator.clipboard.writeText(location.href.split('?')[0]); alert('連結已複製！')" class="share-icon-btn" style="background:#8b7355;color:white;padding:6px 12px;">複製</button>
+                            </div>
+                        </div>
+                        <div class="text-right invitation-text" style="max-width: 320px;">
+                            <p class="text-sm italic leading-relaxed" style="color: #8b7355;">蛻變的痕跡，紙上說不盡。<br>作品背後的故事，等你來發掘。</p>
+                            <p class="text-base font-bold mt-3" style="color: #5a4a3a;">誠摯邀請您蒞臨畢業展覽，一探究竟。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `; 
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function closeWorkDetail() { 
+        document.getElementById('main-content').style.display = 'block'; 
+        document.getElementById('work-detail-container').style.display = 'none'; 
+        renderWorks();
+    }
+    
+    let guideSwiper=null, currentScale=1, currentImageElement=null;
+    function openGuideLightbox() { const wrapper=document.getElementById('guideSwiperWrapper'); wrapper.innerHTML=`<div class="swiper-slide guide-swiper-slide"><img class="guide-image" src="${imgBase}11007.jpg" alt="圖文導覽1" onerror="this.src='https://placehold.co/800x600?text=11007+圖片載入中'"></div><div class="swiper-slide guide-swiper-slide"><img class="guide-image" src="${imgBase}11008.jpg" alt="圖文導覽2" onerror="this.src='https://placehold.co/800x600?text=11008+圖片載入中'"></div>`; document.getElementById('guideLightbox').classList.add('active'); document.body.style.overflow='hidden'; if(guideSwiper) guideSwiper.destroy(true,true); guideSwiper=new Swiper('#guideSwiperContainer',{loop:false, on:{ slideChange:function(){ const imgs=document.querySelectorAll('.guide-image'); currentImageElement=imgs[this.activeIndex]; currentScale=1; if(currentImageElement) currentImageElement.style.transform=`scale(${currentScale})`; } }}); const firstImg=document.querySelector('.guide-image'); if(firstImg){ currentImageElement=firstImg; currentScale=1; } }
+    function closeGuideLightbox() { document.getElementById('guideLightbox').classList.remove('active'); document.body.style.overflow=''; if(guideSwiper) guideSwiper.destroy(true,true); guideSwiper=null; }
+    document.getElementById('zoomInBtn')?.addEventListener('click',()=>{ if(currentImageElement){ currentScale=Math.min(currentScale+0.2,3); currentImageElement.style.transform=`scale(${currentScale})`; } });
+    document.getElementById('zoomOutBtn')?.addEventListener('click',()=>{ if(currentImageElement){ currentScale=Math.max(currentScale-0.2,0.5); currentImageElement.style.transform=`scale(${currentScale})`; } });
+    document.getElementById('downloadCurrentBtn')?.addEventListener('click',()=>{ if(currentImageElement&&currentImageElement.src){ const a=document.createElement('a'); a.href=currentImageElement.src; a.download=currentImageElement.src.split('/').pop()||'guide_image.jpg'; document.body.appendChild(a); a.click(); document.body.removeChild(a); } else alert('無法下載圖片'); });
+    function shareWorkToFB(t){ window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href.split('?')[0])}&quote=${t}`,'_blank'); }
+    function shareWorkToLINE(t){ window.open(`https://line.me/R/msg/text/?${encodeURIComponent(t+' '+location.href.split('?')[0])}`,'_blank'); }
+    
+    function showLightbox(src){ 
+        const lb = document.getElementById('lightbox'); 
+        const img = document.getElementById('lightboxImg'); 
+        img.src = src; 
+        lb.classList.add('active'); 
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){ 
+        const lb = document.getElementById('lightbox'); 
+        lb.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+    }
+    
+    function getPageUrl(){ return location.href.split('?')[0]; }
+    function copyPageLink(){ navigator.clipboard.writeText(getPageUrl()).then(()=>alert('連結已複製！')).catch(()=>prompt('請手動複製連結',getPageUrl())); }
+    function shareToFB(){ window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getPageUrl())}`,'_blank'); }
+    function shareToLINE(){ window.open(`https://line.me/R/msg/text/?${encodeURIComponent('蛻生——靜宜大學中國文學系第八屆畢業成果展 '+getPageUrl())}`,'_blank'); }
+    function closeWorkDetailAndScrollTo(sectionId) { 
+        if(document.getElementById('work-detail-container').style.display === 'block') {
+            closeWorkDetail();
+        }
+        const s=document.getElementById(sectionId); 
+        if(s) s.scrollIntoView({behavior:'smooth'}); 
+    }
+    function closeMobileMenu(){ document.getElementById('mobileMenu').classList.add('hidden'); }
+    
+    window.addEventListener('load',()=>{ 
+        setTimeout(()=>{ const ld=document.getElementById('loadingOverlay'); ld.style.opacity='0'; setTimeout(()=>ld.style.display='none',500); },800); 
+        updateCountdownAndStatus(); 
+        setInterval(updateCountdownAndStatus, 60000); 
+        renderWorks(); 
+        initTeamMarquee(); 
+        setupTeamMarqueeScroll(); 
+        initMarquee(); 
+        setupMarqueeScroll(); 
+        initEventMarquee(); 
+        setupEventMarqueeScroll(); 
+        const menuBtn=document.getElementById('menuBtn'); 
+        const mobileMenu=document.getElementById('mobileMenu'); 
+        if(menuBtn) menuBtn.onclick=()=>mobileMenu.classList.toggle('hidden'); 
+    });
+    let lastScrollY=window.scrollY; const navbar=document.getElementById('navbar'), backTop=document.getElementById('backToTop'); 
+    window.addEventListener('scroll',()=>{ const cur=window.scrollY; if(cur>lastScrollY&&cur>100) navbar.classList.add('navbar-hidden'); else navbar.classList.remove('navbar-hidden'); lastScrollY=cur; if(window.scrollY>300) backTop.classList.add('show'); else backTop.classList.remove('show'); }); 
+    backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); 
+    const gc=document.getElementById('glowCursor'); 
+    document.addEventListener('mousemove',(e)=>{ if(window.innerWidth>768) gc.style.transform=`translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`; });
+</script>
 </body>
 </html>
